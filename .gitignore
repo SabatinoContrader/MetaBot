@@ -1,0 +1,14 @@
+# Created by .ignore support plugin (hsz.mobi)
+### Example user template template
+### Example user template
+apache-tomcat-8.5.24/
+bin/
+target/
+.project
+.settings/
+.classpath
+# IntelliJ project files
+.idea
+*.iml
+out
+gen

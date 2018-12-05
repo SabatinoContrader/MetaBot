@@ -1,0 +1,120 @@
+body {
+	margin: 0;
+	padding: 0px;
+	font: 10px normal Verdana, Arial, Helvetica, sans-serif;
+	background: #1d1d1d;
+	color: #fff;
+}
+
+#books {
+	padding: 0px 150px 0px 150px;
+}
+
+#books ul {
+	margin: 0px 0;
+	background: url(background.gif) repeat-y;
+	border: 1px solid #111;
+}
+#books ul li {
+	margin: 0;
+	padding: 0px;
+	color: #ccff77;
+	font-size: 1.7em;
+	font-weight: bold;
+	border-top: 1px solid #000;
+	border-bottom: 1px solid #353535;
+	border-right: 1px solid #333;
+	border-left: 1px solid #151515;
+	background: #222;
+}
+
+#books ul li h2 {
+	font-size: 0.9em;
+	padding: 0px 0;
+	margin-bottom: 10px;
+	border-bottom: 1px dashed #333;
+	color: #fff;
+}
+
+#books ul li p {
+	color: #ccc;
+	font-size: 0.7em;
+	font-weight: normal;
+	line-height: 1.6em;
+}
+
+#books ul li form {
+	display: inline;
+}
+
+h1 {
+	font: 5em normal Georgia, 'Times New Roman', Times, serif;
+	text-align:center;
+	padding-bottom: 10px;
+}
+h1 span { color: #cbff78; }
+h1 small{
+	font: 0.2em normal Verdana, Arial, Helvetica, sans-serif;
+	text-transform:uppercase;
+	letter-spacing: 1.5em;
+	display: block;
+	color: #666;
+}
+
+/* Menu styling */
+
+#links {
+   border-top:	solid #ffffff 1px;
+   border-bottom: solid #ffffff 1px;
+   text-align: center;
+   margin-left: 100px;
+   margin-right: 100px;
+   margin-bottom: 40px;
+   font-size: 2.0em;
+}
+
+#links ul {
+   margin: 0px;
+   padding: 0px;
+   font-size: 110%;
+   color: #ffffff;
+   line-height: 30px;
+}
+
+#links li {
+   list-style-type:	none;
+   display: inline;
+   white-space: nowrap;
+}
+
+#links li a { 
+   padding: 7px 10px;
+   color: #ffffff;
+   border: none;
+}
+
+#links li a:link {
+   color: #ffffff;
+   text-decoration: none; 
+}
+
+#links li a:visited {
+   color: #ffffff;
+   text-decoration: none; 
+}
+
+#links li a:hover {
+   color:	#000000;
+   background-color: #cbff78;  
+   text-decoration: none; 
+}
+
+#footer {
+margin-left:0px;
+margin-top: 50px;
+border-top: 1px solid;
+text-align: center;
+background:#111111 none repeat scroll 0 0;
+float:left;
+width:100%;
+}
