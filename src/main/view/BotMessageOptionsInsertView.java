@@ -22,18 +22,21 @@ public class BotMessageOptionsInsertView implements View {
 
 	@Override
 	public void showOptions() {
-		int botMessageOptionId;
+		Integer botMessageOptionId;
 		String botMessageOption;
-		int botMessageFk;
-        
-        System.out.println("Inserisci i dati BotMessageOptions:");
-        System.out.println("bot_message_option_id:");
-        botMessageOptionId = Integer.parseInt(getInput());
-        System.out.println("bot_message_option:");
-        botMessageOption = getInput();
-        System.out.println("bot_message_fk:");
-        botMessageFk = Integer.parseInt(getInput());
-        botMessageOptionsController.insertBotMessageOptions(new BotMessageOptions(botMessageOptionId, botMessageOption, botMessageFk ));
+		Integer botMessageFk;
+
+		System.out.println("Inserisci i dati BotMessageOptions:");
+		System.out.println("bot_message_option_id:");
+		botMessageOptionId = Integer.parseInt(getInput());
+		System.out.println("bot_message_option:");
+		botMessageOption = getInput();
+		System.out.println("bot_message_fk:");
+		botMessageFk = Integer.parseInt(getInput());
+		if (botMessageOptionId != null && !botMessageOption.equals("") && botMessageFk != null) {
+			botMessageOptionsController
+					.insertBotMessageOptions(new BotMessageOptions(botMessageOptionId, botMessageOption, botMessageFk));
+		}
 	}
 
 	@Override
@@ -47,7 +50,7 @@ public class BotMessageOptionsInsertView implements View {
 		request = new Request();
 		request.put("mode", "menu");
 		request.put("choice", 0);
-	    MainDispatcher.getInstance().callAction("BotMessageOptions", "doControl", request);
+		MainDispatcher.getInstance().callAction("BotMessageOptions", "doControl", request);
 	}
 
 }
