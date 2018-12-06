@@ -23,19 +23,22 @@ public class UsersInsertView implements View {
 
 	@Override
 	public void showOptions() {
+		Integer usersId;
 		String username;
 		String password;
 		Integer userTypeFk;
 
 		System.out.println("Inserisci i dati users:");
+		System.out.println("id:");
+		usersId = Integer.parseInt(getInput());
 		System.out.println("username:");
 		username = getInput();
 		System.out.println("password:");
 		password = getInput();
 		System.out.println("user_type_fk:");
 		userTypeFk = Integer.parseInt(getInput());
-		if (!username.equals("") && !password.equals("") && userTypeFk != null) {
-			usersController.insertUsers(new Users(username, password, userTypeFk));
+		if (usersId!= null &&!username.equals("") && !password.equals("") && userTypeFk != null) {
+			usersController.insertUsers(new Users(usersId,username, password, userTypeFk));
 		}
 	}
 

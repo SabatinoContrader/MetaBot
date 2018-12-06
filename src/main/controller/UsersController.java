@@ -28,8 +28,8 @@ public class UsersController implements Controller {
         return this.usersService.updateUsers(users);
     }
     
-    public boolean deleteUsers (Users users) {
-    	return this.usersService.deleteUsers(users);
+    public boolean deleteUsers (Integer usersId) {
+    	return this.usersService.deleteUsers(usersId);
     }
 	    
 	@Override

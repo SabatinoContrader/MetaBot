@@ -26,8 +26,8 @@ public class UsersService {
         return this.usersDAO.updateUsers(users);
     }
     
-    public boolean deleteUsers (Users users) {
-        return this.usersDAO.deleteUsers(users);
+    public boolean deleteUsers (Integer usersId) {
+        return this.usersDAO.deleteUsers(usersId);
     }
 }
 
