@@ -6,7 +6,7 @@ import sun.applet.Main;
 
 import java.util.Scanner;
 
-public class HomeView implements View {
+public class HomeChatMasterView implements View {
 
 	private int choice;
 
@@ -20,12 +20,10 @@ public class HomeView implements View {
 		System.out.println("");
 		System.out.println("-------MENU-------");
 		System.out.println("Scegli quali entità vuoi visualizzare:");
-		System.out.println("1) CRUD UserTypes");
-		System.out.println("2) CRUD Users");
-		System.out.println("3) CRUD BotMssageOptions");
-		System.out.println("4) CRUD BotMessages");
-		System.out.println("5) CRUD ChatBots");
-		System.out.println("6) Logout");
+		System.out.println("1) CRUD BotMssageOptions");
+		System.out.println("2) CRUD BotMessages");
+		System.out.println("3) CRUD ChatBots");
+		System.out.println("4) Logout");
 		try {
 			this.choice = Integer.parseInt(getInput());
 		} catch(Exception e) {
@@ -39,21 +37,14 @@ public class HomeView implements View {
 		request.put("choice", choice);
 		switch (choice) {
 		case 1:
-			MainDispatcher.getInstance().callAction("UserTypes", "doControl", request);
-			
-		case 2:
-			MainDispatcher.getInstance().callAction("Users", "doControl", request);
-			break;
-
-		case 3:
 			MainDispatcher.getInstance().callAction("BotMessageOptions", "doControl", request);
 			break;
 
-		case 4:
+		case 2:
 			MainDispatcher.getInstance().callAction("BotMessages", "doControl", request);
 			break;
 
-		case 5:
+		case 3:
 			MainDispatcher.getInstance().callAction("ChatBots", "doControl", request);
 			break;
 

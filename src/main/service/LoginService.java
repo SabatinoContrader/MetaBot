@@ -10,7 +10,7 @@ public class LoginService {
         this.loginDAO = new LoginDAO();
     }
 
-    public boolean login (String username, String password) {
+    public String login (String username, String password) {
         return this.loginDAO.login(username, password);
     }
 }

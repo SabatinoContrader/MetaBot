@@ -1,0 +1,57 @@
+package main.view;
+
+import main.MainDispatcher;
+import main.controller.Request;
+import main.model.ChatBots;
+import main.controller.ChatBotsController;
+
+import java.util.List;
+import java.util.Scanner;
+
+public class ChatBotsView implements View {
+
+	private ChatBotsController chatBotsController;
+	private Request request;
+	private int choice;
+
+	public ChatBotsView() {
+		this.chatBotsController = new ChatBotsController();
+	}
+
+	@Override
+	public void showResults(Request request) {
+	}
+	
+	@Override
+	public void showOptions() {
+		System.out.println("");
+		System.out.println("");
+		System.out.println("-------MENU UserTypes-------");
+		System.out.println("Scegli l'operazione che vuoi fare:");
+		System.out.println("1) Visualizza ChatBots");
+		System.out.println("2) Inserire ChatBots");
+		System.out.println("3) Modificare ChatBots");
+		System.out.println("4) Cancellare ChatBots");
+		System.out.println("5) Logout");
+		try {
+			this.choice = Integer.parseInt(getInput());
+		} catch(Exception e) {
+			this.choice = 0;
+		}
+		request = new Request();
+		request.put("choice", choice);
+		request.put("mode", "");
+	}
+
+	@Override
+	public String getInput() {
+		Scanner scanner = new Scanner(System.in);
+		return scanner.nextLine();
+	}
+
+	@Override
+	public void submit() {
+		    MainDispatcher.getInstance().callAction("ChatBots", "doControl", this.request);
+	}
+
+}

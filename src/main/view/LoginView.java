@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class LoginView implements View {
 
-    private String nomeUtente;
+    private String username;
     private String password;
 
     public void showResults (Request request) {
@@ -18,16 +18,16 @@ public class LoginView implements View {
     public void showOptions () {
         System.out.println("-----LOGIN----");
         System.out.println("Nome utente:");
-        nomeUtente = getInput();
+        username = getInput();
         System.out.println("Password:");
         password = getInput();
     }
 
     public void submit() {
         Request request = new Request();
-        request.put("nomeUtente", nomeUtente);
+        request.put("username", username);
         request.put("password", password);
-        MainDispatcher.getInstance().callAction("Home", "doControl", request);
+        MainDispatcher.getInstance().callAction("Login", "doControl", request);
     }
 
 

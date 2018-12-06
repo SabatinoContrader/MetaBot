@@ -34,6 +34,7 @@ public class MainDispatcher {
 
     public void callView(String view, Request request) {
         View oggettoView = (View) ReflectionUtils.instantiateClass("main.view." + view + "View");
+        for (int i = 0; i < 4; ++i) System.out.println();
         oggettoView.showResults(request);
         oggettoView.showOptions();
         oggettoView.submit();
