@@ -24,15 +24,17 @@ public class UserTypesInsertView implements View {
 
 	@Override
 	public void showOptions() {
-		int idUserType;
+		Integer idUserType;
 		String typeUser;
-        
-        System.out.println("Inserisci i dati user_types:");
-        System.out.println("user_type_id:");
-        idUserType = Integer.parseInt(getInput());
-        System.out.println("user_type:");
-        typeUser = getInput();
-        usertypesController.insertUserTypes(new UserTypes(idUserType, typeUser));
+
+		System.out.println("Inserisci i dati user_types:");
+		System.out.println("user_type_id:");
+		idUserType = Integer.parseInt(getInput());
+		System.out.println("user_type:");
+		typeUser = getInput();
+		if (idUserType != null && !typeUser.equals("")) {
+			usertypesController.insertUserTypes(new UserTypes(idUserType, typeUser));
+		}
 	}
 
 	@Override
@@ -46,7 +48,7 @@ public class UserTypesInsertView implements View {
 		request = new Request();
 		request.put("mode", "menu");
 		request.put("choice", 0);
-	    MainDispatcher.getInstance().callAction("UserTypes", "doControl", request);
+		MainDispatcher.getInstance().callAction("UserTypes", "doControl", request);
 	}
 
 }

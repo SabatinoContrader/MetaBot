@@ -13,7 +13,7 @@ public class UserTypesUpdateView implements View {
 
 	private UserTypesController usertypesController;
 	private Request request;
-	
+
 	public UserTypesUpdateView() {
 		this.usertypesController = new UserTypesController();
 	}
@@ -25,18 +25,20 @@ public class UserTypesUpdateView implements View {
 	@Override
 	public void showOptions() {
 		List<UserTypes> usertypes;
-		int idUserType;
+		Integer idUserType;
 		String typeUser;
+
 		usertypes = usertypesController.getAllUserType();
-		System.out.println("----- Scegli Id per modificare -----");
-		System.out.println();
+		System.out.println("----- Scegli Id per modificare ----- \n");
+
 		usertypes.forEach(us_type -> System.out.println(us_type.toString()));
-		System.out.println();
-        System.out.println("user_type_id:");
-        idUserType = Integer.parseInt(getInput());
-        System.out.println("user_type:");
-        typeUser = getInput();
-        usertypesController.updateUserTypes(new UserTypes(idUserType, typeUser));			
+		System.out.println("\n user_type_id:");
+		idUserType = Integer.parseInt(getInput());
+		System.out.println("user_type:");
+		typeUser = getInput();
+		if (idUserType != null && !typeUser.equals("")) {
+			usertypesController.updateUserTypes(new UserTypes(idUserType, typeUser));
+		}
 	}
 
 	@Override
@@ -50,7 +52,7 @@ public class UserTypesUpdateView implements View {
 		request = new Request();
 		request.put("mode", "menu");
 		request.put("choice", 0);
-	    MainDispatcher.getInstance().callAction("UserTypes", "doControl", request);
+		MainDispatcher.getInstance().callAction("UserTypes", "doControl", request);
 	}
 
 }

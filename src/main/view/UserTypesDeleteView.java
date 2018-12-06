@@ -13,7 +13,7 @@ public class UserTypesDeleteView implements View {
 
 	private UserTypesController usertypesController;
 	private Request request;
-	
+
 	public UserTypesDeleteView() {
 		this.usertypesController = new UserTypesController();
 	}
@@ -25,16 +25,15 @@ public class UserTypesDeleteView implements View {
 	@Override
 	public void showOptions() {
 		List<UserTypes> usertypes;
-		int idUserType;
-		
+		Integer idUserType;
+
 		usertypes = usertypesController.getAllUserType();
-		System.out.println("----- Scegli Id per cancellare -----");
-		System.out.println();
+		System.out.println("----- Scegli Id per cancellare -----\n");
 		usertypes.forEach(us_type -> System.out.println(us_type.toString()));
-		System.out.println();
-        System.out.println("user_type_id:");
-        idUserType = Integer.parseInt(getInput());
-        usertypesController.deleteUserTypes(new UserTypes(idUserType, ""));			
+		System.out.println("user_type_id: \n");
+		idUserType = Integer.parseInt(getInput());
+		if (idUserType != null)
+			usertypesController.deleteUserTypes(new UserTypes(idUserType, ""));
 	}
 
 	@Override
@@ -48,7 +47,7 @@ public class UserTypesDeleteView implements View {
 		request = new Request();
 		request.put("mode", "menu");
 		request.put("choice", 0);
-	    MainDispatcher.getInstance().callAction("UserTypes", "doControl", request);
+		MainDispatcher.getInstance().callAction("UserTypes", "doControl", request);
 	}
 
 }
