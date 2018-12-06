@@ -1,8 +1,9 @@
-package main.view;
+package main.view.users;
 
 import main.MainDispatcher;
 import main.controller.Request;
 import main.model.Users;
+import main.view.View;
 import main.controller.UsersController;
 
 import java.util.List;

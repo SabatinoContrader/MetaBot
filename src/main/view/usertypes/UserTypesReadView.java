@@ -1,20 +1,21 @@
-package main.view;
+package main.view.usertypes;
 
 import main.MainDispatcher;
 import main.controller.Request;
-import main.model.ChatBots;
-import main.controller.ChatBotsController;
+import main.model.UserTypes;
+import main.view.View;
+import main.controller.UserTypesController;
 
 import java.util.List;
 import java.util.Scanner;
 
-public class ChatBotsReadView implements View {
+public class UserTypesReadView implements View {
 
-	private ChatBotsController chatBotsController;
+	private UserTypesController usertypesController;
 	private Request request;
 	
-	public ChatBotsReadView() {
-		this.chatBotsController = new ChatBotsController();
+	public UserTypesReadView() {
+		this.usertypesController = new UserTypesController();
 	}
 
 	@Override
@@ -23,10 +24,10 @@ public class ChatBotsReadView implements View {
 
 	@Override
 	public void showOptions() {
-		List<ChatBots> chatBots = chatBotsController.getAllChatBots();
+		List<UserTypes> usertypes = usertypesController.getAllUserType();
 		System.out.println("----- Gli user_types nel tuo database sono -----");
 		System.out.println();
-		chatBots.forEach(us_type -> System.out.println(us_type.toString()));
+		usertypes.forEach(us_type -> System.out.println(us_type.toString()));
 		System.out.println();
 		
 	}
@@ -42,7 +43,7 @@ public class ChatBotsReadView implements View {
 		request = new Request();
 		request.put("mode", "menu");
 		request.put("choice", 0);
-	    MainDispatcher.getInstance().callAction("ChatBots", "doControl", request);
+	    MainDispatcher.getInstance().callAction("UserTypes", "doControl", request);
 	}
 
 }

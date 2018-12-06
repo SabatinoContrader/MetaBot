@@ -1,21 +1,19 @@
-package main.view;
+package main.view.chatbots;
 
 import main.MainDispatcher;
 import main.controller.Request;
 import main.model.ChatBots;
+import main.view.View;
 import main.controller.ChatBotsController;
 
-import java.util.List;
 import java.util.Scanner;
 
-import org.springframework.util.StringUtils;
-
-public class ChatBotsUpdateView implements View {
+public class ChatBotsInsertView implements View {
 
 	private ChatBotsController chatBotsController;
 	private Request request;
 
-	public ChatBotsUpdateView() {
+	public ChatBotsInsertView() {
 		this.chatBotsController = new ChatBotsController();
 	}
 
@@ -25,22 +23,19 @@ public class ChatBotsUpdateView implements View {
 
 	@Override
 	public void showOptions() {
-		List<ChatBots> chatBots;
 		Integer chatbotId;
 		String initialMessage;
+		String userFk;
 
-		chatBots = chatBotsController.getAllChatBots();
-		System.out.println("----- Scegli Id per modificare -----");
-		System.out.println();
-		chatBots.forEach(us_type -> System.out.println(us_type.toString()));
-		System.out.println();
-		System.out.println("chatbot_id:");
+		System.out.println("Inserisci i dati user_types:");
+		System.out.println("user_type_id:");
 		chatbotId = Integer.parseInt(getInput());
-		System.out.println("initial_message:");
+		System.out.println("user_type:");
 		initialMessage = getInput();
-
-		if (chatbotId != null && !initialMessage.equals("")) {
-			chatBotsController.updateChatBots(new ChatBots(chatbotId, initialMessage, ""));
+		System.out.println("user_type:");
+		userFk = getInput();
+		if (chatbotId != null && !initialMessage.equals("") && !userFk.equals("")) {
+			chatBotsController.insertChatBots(new ChatBots(chatbotId, initialMessage, userFk));
 		}
 	}
 

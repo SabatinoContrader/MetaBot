@@ -8,6 +8,7 @@ import main.service.ChatBotsService;
 
 public class ChatBotsController implements Controller {
 
+	private static String sub_package = "chatbots.";
 	private ChatBotsService chatBotsService;
 	private Request request;
 	
@@ -42,16 +43,16 @@ public class ChatBotsController implements Controller {
         }else {
         switch (choice) {
 		case 1:
-			MainDispatcher.getInstance().callView("ChatBotsRead", null);
+			MainDispatcher.getInstance().callView(sub_package + "ChatBotsRead", null);
 			break;
 		case 2:
-			MainDispatcher.getInstance().callView("ChatBotsInsert", null);
+			MainDispatcher.getInstance().callView(sub_package + "ChatBotsInsert", null);
 			break;
 		case 3:
-			MainDispatcher.getInstance().callView("ChatBotsUpdate", null);
+			MainDispatcher.getInstance().callView(sub_package + "ChatBotsUpdate", null);
 			break;
 		case 4:
-			MainDispatcher.getInstance().callView("ChatBotsDelete", null);
+			MainDispatcher.getInstance().callView(sub_package + "ChatBotsDelete", null);
 			break;
 		default:
         	MainDispatcher.getInstance().callView("Login", null);

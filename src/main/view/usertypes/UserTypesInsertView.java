@@ -1,20 +1,21 @@
-package main.view;
+package main.view.usertypes;
 
 import main.MainDispatcher;
 import main.controller.Request;
 import main.model.UserTypes;
+import main.view.View;
 import main.dao.UserTypesDAO;
 import main.controller.UserTypesController;
 
 import java.util.List;
 import java.util.Scanner;
 
-public class UserTypesDeleteView implements View {
+public class UserTypesInsertView implements View {
 
 	private UserTypesController usertypesController;
 	private Request request;
 
-	public UserTypesDeleteView() {
+	public UserTypesInsertView() {
 		this.usertypesController = new UserTypesController();
 	}
 
@@ -24,16 +25,17 @@ public class UserTypesDeleteView implements View {
 
 	@Override
 	public void showOptions() {
-		List<UserTypes> usertypes;
 		Integer idUserType;
+		String typeUser;
 
-		usertypes = usertypesController.getAllUserType();
-		System.out.println("----- Scegli Id per cancellare -----\n");
-		usertypes.forEach(us_type -> System.out.println(us_type.toString()));
-		System.out.println("user_type_id: \n");
+		System.out.println("Inserisci i dati user_types:");
+		System.out.println("user_type_id:");
 		idUserType = Integer.parseInt(getInput());
-		if (idUserType != null)
-			usertypesController.deleteUserTypes(new UserTypes(idUserType, ""));
+		System.out.println("user_type:");
+		typeUser = getInput();
+		if (idUserType != null && !typeUser.equals("")) {
+			usertypesController.insertUserTypes(new UserTypes(idUserType, typeUser));
+		}
 	}
 
 	@Override

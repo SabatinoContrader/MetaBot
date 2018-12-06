@@ -8,6 +8,7 @@ import main.service.UserTypesService;
 
 public class UserTypesController implements Controller {
 
+	private static String sub_package = "usertypes.";
 	private UserTypesService userTypesService;
 	private Request request;
 	
@@ -42,16 +43,16 @@ public class UserTypesController implements Controller {
         }else {
         switch (choice) {
 		case 1:
-			MainDispatcher.getInstance().callView("UserTypesRead", null);
+			MainDispatcher.getInstance().callView(sub_package + "UserTypesRead", null);
 			break;
 		case 2:
-			MainDispatcher.getInstance().callView("UserTypesInsert", null);
+			MainDispatcher.getInstance().callView(sub_package + "UserTypesInsert", null);
 			break;
 		case 3:
-			MainDispatcher.getInstance().callView("UserTypesUpdate", null);
+			MainDispatcher.getInstance().callView(sub_package + "UserTypesUpdate", null);
 			break;
 		case 4:
-			MainDispatcher.getInstance().callView("UserTypesDelete", null);
+			MainDispatcher.getInstance().callView(sub_package + "UserTypesDelete", null);
 			break;
 		default:
         	MainDispatcher.getInstance().callView("Login", null);

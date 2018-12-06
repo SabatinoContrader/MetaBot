@@ -1,18 +1,20 @@
-package main.view;
+package main.view.users;
 
 import main.MainDispatcher;
 import main.controller.Request;
 import main.model.Users;
+import main.view.View;
 import main.controller.UsersController;
 
+import java.util.List;
 import java.util.Scanner;
 
-public class UsersInsertView implements View {
+public class UsersUpdateView implements View {
 
 	private UsersController usersController;
 	private Request request;
 
-	public UsersInsertView() {
+	public UsersUpdateView() {
 		this.usersController = new UsersController();
 	}
 
@@ -22,19 +24,20 @@ public class UsersInsertView implements View {
 
 	@Override
 	public void showOptions() {
+		List<Users> users;
 		String username;
 		String password;
-		Integer userTypeFk;
-
-		System.out.println("Inserisci i dati users:");
+		users = usersController.getAllUsers();
+		System.out.println("----- Scegli Id per modificare -----");
+		System.out.println();
+		users.forEach(us_type -> System.out.println(us_type.toString()));
+		System.out.println();
 		System.out.println("username:");
 		username = getInput();
 		System.out.println("password:");
 		password = getInput();
-		System.out.println("user_type_fk:");
-		userTypeFk = Integer.parseInt(getInput());
-		if (!username.equals("") && !password.equals("") && userTypeFk != null) {
-			usersController.insertUsers(new Users(username, password, userTypeFk));
+		if (!username.equals("") && !password.equals("")) {
+			usersController.updateUsers(new Users(username, password, 0));
 		}
 	}
 

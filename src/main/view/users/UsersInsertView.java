@@ -1,19 +1,19 @@
-package main.view;
+package main.view.users;
 
 import main.MainDispatcher;
 import main.controller.Request;
 import main.model.Users;
+import main.view.View;
 import main.controller.UsersController;
 
-import java.util.List;
 import java.util.Scanner;
 
-public class UsersDeleteView implements View {
+public class UsersInsertView implements View {
 
 	private UsersController usersController;
 	private Request request;
 
-	public UsersDeleteView() {
+	public UsersInsertView() {
 		this.usersController = new UsersController();
 	}
 
@@ -23,19 +23,19 @@ public class UsersDeleteView implements View {
 
 	@Override
 	public void showOptions() {
-		List<Users> users;
 		String username;
+		String password;
+		Integer userTypeFk;
 
-		users = usersController.getAllUsers();
-		System.out.println("----- Scegli Id per cancellare -----");
-		System.out.println();
-		users.forEach(us_type -> System.out.println(us_type.toString()));
-		System.out.println();
+		System.out.println("Inserisci i dati users:");
 		System.out.println("username:");
 		username = getInput();
-
-		if (username != null) {
-			usersController.deleteUsers(new Users(username, "", 0));
+		System.out.println("password:");
+		password = getInput();
+		System.out.println("user_type_fk:");
+		userTypeFk = Integer.parseInt(getInput());
+		if (!username.equals("") && !password.equals("") && userTypeFk != null) {
+			usersController.insertUsers(new Users(username, password, userTypeFk));
 		}
 	}
 

@@ -1,19 +1,20 @@
-package main.view;
+package main.view.botmessages;
 
 import main.MainDispatcher;
 import main.controller.Request;
 import main.model.BotMessages;
+import main.view.View;
 import main.controller.BotMessagesController;
 
 import java.util.List;
 import java.util.Scanner;
 
-public class BotMessagesDeleteView implements View {
+public class BotMessagesUpdateView implements View {
 
 	private BotMessagesController botMessagesController;
 	private Request request;
 
-	public BotMessagesDeleteView() {
+	public BotMessagesUpdateView() {
 		this.botMessagesController = new BotMessagesController();
 	}
 
@@ -24,17 +25,21 @@ public class BotMessagesDeleteView implements View {
 	@Override
 	public void showOptions() {
 		List<BotMessages> botMessages;
+
 		Integer botMessageId;
+		String botMessage;
 
 		botMessages = botMessagesController.getAllBotMessages();
-		System.out.println("----- Scegli Id per cancellare -----");
+		System.out.println("----- Scegli Id per modificare -----");
 		System.out.println();
 		botMessages.forEach(us_type -> System.out.println(us_type.toString()));
 		System.out.println();
 		System.out.println("bot_message_id:");
 		botMessageId = Integer.parseInt(getInput());
-		if (botMessageId != null) {
-			botMessagesController.deleteBotMessages(new BotMessages(botMessageId, "", 0));
+		System.out.println("bot_message:");
+		botMessage = getInput();
+		if (botMessageId != null && !botMessage.equals("")) {
+			botMessagesController.updateBotMessages(new BotMessages(botMessageId, botMessage, 0));
 		}
 	}
 

@@ -1,20 +1,23 @@
-package main.view;
+package main.view.chatbots;
 
 import main.MainDispatcher;
 import main.controller.Request;
 import main.model.ChatBots;
+import main.view.View;
 import main.controller.ChatBotsController;
 
 import java.util.List;
 import java.util.Scanner;
 
-public class ChatBotsDeleteView implements View {
+import org.springframework.util.StringUtils;
 
-	private ChatBotsController chatBotsControllerController;
+public class ChatBotsUpdateView implements View {
+
+	private ChatBotsController chatBotsController;
 	private Request request;
 
-	public ChatBotsDeleteView() {
-		this.chatBotsControllerController = new ChatBotsController();
+	public ChatBotsUpdateView() {
+		this.chatBotsController = new ChatBotsController();
 	}
 
 	@Override
@@ -25,16 +28,20 @@ public class ChatBotsDeleteView implements View {
 	public void showOptions() {
 		List<ChatBots> chatBots;
 		Integer chatbotId;
+		String initialMessage;
 
-		chatBots = chatBotsControllerController.getAllChatBots();
-		System.out.println("----- Scegli Id per cancellare -----");
+		chatBots = chatBotsController.getAllChatBots();
+		System.out.println("----- Scegli Id per modificare -----");
 		System.out.println();
 		chatBots.forEach(us_type -> System.out.println(us_type.toString()));
 		System.out.println();
 		System.out.println("chatbot_id:");
 		chatbotId = Integer.parseInt(getInput());
-		if (chatbotId != null) {
-			chatBotsControllerController.deleteChatBots(new ChatBots(chatbotId, "", ""));
+		System.out.println("initial_message:");
+		initialMessage = getInput();
+
+		if (chatbotId != null && !initialMessage.equals("")) {
+			chatBotsController.updateChatBots(new ChatBots(chatbotId, initialMessage, ""));
 		}
 	}
 

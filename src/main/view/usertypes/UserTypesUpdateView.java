@@ -1,20 +1,21 @@
-package main.view;
+package main.view.usertypes;
 
 import main.MainDispatcher;
 import main.controller.Request;
 import main.model.UserTypes;
+import main.view.View;
 import main.dao.UserTypesDAO;
 import main.controller.UserTypesController;
 
 import java.util.List;
 import java.util.Scanner;
 
-public class UserTypesInsertView implements View {
+public class UserTypesUpdateView implements View {
 
 	private UserTypesController usertypesController;
 	private Request request;
 
-	public UserTypesInsertView() {
+	public UserTypesUpdateView() {
 		this.usertypesController = new UserTypesController();
 	}
 
@@ -24,16 +25,20 @@ public class UserTypesInsertView implements View {
 
 	@Override
 	public void showOptions() {
+		List<UserTypes> usertypes;
 		Integer idUserType;
 		String typeUser;
 
-		System.out.println("Inserisci i dati user_types:");
-		System.out.println("user_type_id:");
+		usertypes = usertypesController.getAllUserType();
+		System.out.println("----- Scegli Id per modificare ----- \n");
+
+		usertypes.forEach(us_type -> System.out.println(us_type.toString()));
+		System.out.println("\n user_type_id:");
 		idUserType = Integer.parseInt(getInput());
 		System.out.println("user_type:");
 		typeUser = getInput();
 		if (idUserType != null && !typeUser.equals("")) {
-			usertypesController.insertUserTypes(new UserTypes(idUserType, typeUser));
+			usertypesController.updateUserTypes(new UserTypes(idUserType, typeUser));
 		}
 	}
 

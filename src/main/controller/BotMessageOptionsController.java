@@ -8,6 +8,7 @@ import main.service.BotMessageOptionsService;
 
 public class BotMessageOptionsController implements Controller {
 
+	private static String sub_package = "botmessageoptions.";
 	private BotMessageOptionsService botMessageOptionsService;
 	private Request request;
 	
@@ -41,16 +42,16 @@ public class BotMessageOptionsController implements Controller {
         }else {
         switch (choice) {
 		case 1:
-			MainDispatcher.getInstance().callView("BotMessageOptionsRead", null);
+			MainDispatcher.getInstance().callView(sub_package + "BotMessageOptionsRead", null);
 			break;
 		case 2:
-			MainDispatcher.getInstance().callView("BotMessageOptionsInsert", null);
+			MainDispatcher.getInstance().callView(sub_package + "BotMessageOptionsInsert", null);
 			break;
 		case 3:
-			MainDispatcher.getInstance().callView("BotMessageOptionsUpdate", null);
+			MainDispatcher.getInstance().callView(sub_package + "BotMessageOptionsUpdate", null);
 			break;
 		case 4:
-			MainDispatcher.getInstance().callView("BotMessageOptionsDelete", null);
+			MainDispatcher.getInstance().callView(sub_package + "BotMessageOptionsDelete", null);
 			break;
 		default:
         	MainDispatcher.getInstance().callView("Login", null);

@@ -1,19 +1,21 @@
-package main.view;
+package main.view.usertypes;
 
 import main.MainDispatcher;
 import main.controller.Request;
 import main.model.UserTypes;
+import main.view.View;
+import main.dao.UserTypesDAO;
 import main.controller.UserTypesController;
 
 import java.util.List;
 import java.util.Scanner;
 
-public class UserTypesReadView implements View {
+public class UserTypesDeleteView implements View {
 
 	private UserTypesController usertypesController;
 	private Request request;
-	
-	public UserTypesReadView() {
+
+	public UserTypesDeleteView() {
 		this.usertypesController = new UserTypesController();
 	}
 
@@ -23,12 +25,16 @@ public class UserTypesReadView implements View {
 
 	@Override
 	public void showOptions() {
-		List<UserTypes> usertypes = usertypesController.getAllUserType();
-		System.out.println("----- Gli user_types nel tuo database sono -----");
-		System.out.println();
+		List<UserTypes> usertypes;
+		Integer idUserType;
+
+		usertypes = usertypesController.getAllUserType();
+		System.out.println("----- Scegli Id per cancellare -----\n");
 		usertypes.forEach(us_type -> System.out.println(us_type.toString()));
-		System.out.println();
-		
+		System.out.println("user_type_id: \n");
+		idUserType = Integer.parseInt(getInput());
+		if (idUserType != null)
+			usertypesController.deleteUserTypes(new UserTypes(idUserType, ""));
 	}
 
 	@Override
@@ -42,7 +48,7 @@ public class UserTypesReadView implements View {
 		request = new Request();
 		request.put("mode", "menu");
 		request.put("choice", 0);
-	    MainDispatcher.getInstance().callAction("UserTypes", "doControl", request);
+		MainDispatcher.getInstance().callAction("UserTypes", "doControl", request);
 	}
 
 }
