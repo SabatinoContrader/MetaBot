@@ -12,7 +12,7 @@ public class UsersDeleteView implements View {
 
 	private UsersController usersController;
 	private Request request;
-	
+
 	public UsersDeleteView() {
 		this.usersController = new UsersController();
 	}
@@ -25,15 +25,18 @@ public class UsersDeleteView implements View {
 	public void showOptions() {
 		List<Users> users;
 		String username;
-		
+
 		users = usersController.getAllUsers();
 		System.out.println("----- Scegli Id per cancellare -----");
 		System.out.println();
 		users.forEach(us_type -> System.out.println(us_type.toString()));
 		System.out.println();
-        System.out.println("username:");
-        username = getInput();
-        usersController.deleteUsers(new Users(username, "", 0));			
+		System.out.println("username:");
+		username = getInput();
+
+		if (username != null) {
+			usersController.deleteUsers(new Users(username, "", 0));
+		}
 	}
 
 	@Override
@@ -47,7 +50,7 @@ public class UsersDeleteView implements View {
 		request = new Request();
 		request.put("mode", "menu");
 		request.put("choice", 0);
-	    MainDispatcher.getInstance().callAction("Users", "doControl", request);
+		MainDispatcher.getInstance().callAction("Users", "doControl", request);
 	}
 
 }

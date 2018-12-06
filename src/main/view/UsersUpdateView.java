@@ -12,7 +12,7 @@ public class UsersUpdateView implements View {
 
 	private UsersController usersController;
 	private Request request;
-	
+
 	public UsersUpdateView() {
 		this.usersController = new UsersController();
 	}
@@ -31,11 +31,13 @@ public class UsersUpdateView implements View {
 		System.out.println();
 		users.forEach(us_type -> System.out.println(us_type.toString()));
 		System.out.println();
-        System.out.println("username:");
-        username = getInput();
-        System.out.println("password:");
-        password = getInput();
-        usersController.updateUsers(new Users(username, password, 0));	
+		System.out.println("username:");
+		username = getInput();
+		System.out.println("password:");
+		password = getInput();
+		if (!username.equals("") && !password.equals("")) {
+			usersController.updateUsers(new Users(username, password, 0));
+		}
 	}
 
 	@Override
@@ -49,7 +51,7 @@ public class UsersUpdateView implements View {
 		request = new Request();
 		request.put("mode", "menu");
 		request.put("choice", 0);
-	    MainDispatcher.getInstance().callAction("Users", "doControl", request);
+		MainDispatcher.getInstance().callAction("Users", "doControl", request);
 	}
 
 }
