@@ -10,6 +10,7 @@ public class BotMessageOptionsController implements Controller {
 
 	private BotMessageOptionsService botMessageOptionsService;
 	private Request request;
+	private String teste;
 	
 	public BotMessageOptionsController() {
         this.botMessageOptionsService = new BotMessageOptionsService();
