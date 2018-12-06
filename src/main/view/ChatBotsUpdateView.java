@@ -8,11 +8,13 @@ import main.controller.ChatBotsController;
 import java.util.List;
 import java.util.Scanner;
 
+import org.springframework.util.StringUtils;
+
 public class ChatBotsUpdateView implements View {
 
 	private ChatBotsController chatBotsController;
 	private Request request;
-	
+
 	public ChatBotsUpdateView() {
 		this.chatBotsController = new ChatBotsController();
 	}
@@ -24,19 +26,22 @@ public class ChatBotsUpdateView implements View {
 	@Override
 	public void showOptions() {
 		List<ChatBots> chatBots;
-		int chatbotId;
+		Integer chatbotId;
 		String initialMessage;
-		
+
 		chatBots = chatBotsController.getAllChatBots();
 		System.out.println("----- Scegli Id per modificare -----");
 		System.out.println();
 		chatBots.forEach(us_type -> System.out.println(us_type.toString()));
 		System.out.println();
-        System.out.println("chatbot_id:");
-        chatbotId = Integer.parseInt(getInput());
-        System.out.println("initial_message:");
-        initialMessage = getInput();
-        chatBotsController.updateChatBots(new ChatBots(chatbotId, initialMessage,"" ) );			
+		System.out.println("chatbot_id:");
+		chatbotId = Integer.parseInt(getInput());
+		System.out.println("initial_message:");
+		initialMessage = getInput();
+
+		if (chatbotId != null && !initialMessage.equals("")) {
+			chatBotsController.updateChatBots(new ChatBots(chatbotId, initialMessage, ""));
+		}
 	}
 
 	@Override
@@ -50,7 +55,7 @@ public class ChatBotsUpdateView implements View {
 		request = new Request();
 		request.put("mode", "menu");
 		request.put("choice", 0);
-	    MainDispatcher.getInstance().callAction("ChatBots", "doControl", request);
+		MainDispatcher.getInstance().callAction("ChatBots", "doControl", request);
 	}
 
 }

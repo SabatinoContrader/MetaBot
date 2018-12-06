@@ -22,18 +22,20 @@ public class ChatBotsInsertView implements View {
 
 	@Override
 	public void showOptions() {
-		int chatbotId;
+		Integer chatbotId;
 		String initialMessage;
 		String userFk;
-        
-        System.out.println("Inserisci i dati user_types:");
-        System.out.println("user_type_id:");
-        chatbotId = Integer.parseInt(getInput());
-        System.out.println("user_type:");
-        initialMessage = getInput();
-        System.out.println("user_type:");
-        userFk = getInput();
-        chatBotsController.insertChatBots(new ChatBots(chatbotId, initialMessage, userFk));
+
+		System.out.println("Inserisci i dati user_types:");
+		System.out.println("user_type_id:");
+		chatbotId = Integer.parseInt(getInput());
+		System.out.println("user_type:");
+		initialMessage = getInput();
+		System.out.println("user_type:");
+		userFk = getInput();
+		if (chatbotId != null && !initialMessage.equals("") && !userFk.equals("")) {
+			chatBotsController.insertChatBots(new ChatBots(chatbotId, initialMessage, userFk));
+		}
 	}
 
 	@Override
@@ -47,7 +49,7 @@ public class ChatBotsInsertView implements View {
 		request = new Request();
 		request.put("mode", "menu");
 		request.put("choice", 0);
-	    MainDispatcher.getInstance().callAction("ChatBots", "doControl", request);
+		MainDispatcher.getInstance().callAction("ChatBots", "doControl", request);
 	}
 
 }
