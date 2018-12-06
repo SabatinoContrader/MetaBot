@@ -12,7 +12,7 @@ public class BotMessagesUpdateView implements View {
 
 	private BotMessagesController botMessagesController;
 	private Request request;
-	
+
 	public BotMessagesUpdateView() {
 		this.botMessagesController = new BotMessagesController();
 	}
@@ -24,19 +24,22 @@ public class BotMessagesUpdateView implements View {
 	@Override
 	public void showOptions() {
 		List<BotMessages> botMessages;
-		int botMessageId;
+
+		Integer botMessageId;
 		String botMessage;
-		
+
 		botMessages = botMessagesController.getAllBotMessages();
 		System.out.println("----- Scegli Id per modificare -----");
 		System.out.println();
 		botMessages.forEach(us_type -> System.out.println(us_type.toString()));
 		System.out.println();
-        System.out.println("bot_message_id:");
-        botMessageId = Integer.parseInt(getInput());
-        System.out.println("bot_message:");
-        botMessage = getInput();
-        botMessagesController.updateBotMessages(new BotMessages(botMessageId, botMessage, 0));			
+		System.out.println("bot_message_id:");
+		botMessageId = Integer.parseInt(getInput());
+		System.out.println("bot_message:");
+		botMessage = getInput();
+		if (botMessageId != null && !botMessage.equals("")) {
+			botMessagesController.updateBotMessages(new BotMessages(botMessageId, botMessage, 0));
+		}
 	}
 
 	@Override
@@ -50,7 +53,7 @@ public class BotMessagesUpdateView implements View {
 		request = new Request();
 		request.put("mode", "menu");
 		request.put("choice", 0);
-	    MainDispatcher.getInstance().callAction("BotMessages", "doControl", request);
+		MainDispatcher.getInstance().callAction("BotMessages", "doControl", request);
 	}
 
 }

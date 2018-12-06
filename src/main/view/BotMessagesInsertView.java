@@ -22,18 +22,20 @@ public class BotMessagesInsertView implements View {
 
 	@Override
 	public void showOptions() {
-		int botMessageId;
+		Integer botMessageId;
 		String botMessage;
-		int chatbotFk;
-        
-        System.out.println("Inserisci i dati BotMessages:");
-        System.out.println("bot_message_id	:");
-        botMessageId = Integer.parseInt(getInput());
-        System.out.println("bot_message:");
-        botMessage = getInput();
-        System.out.println("chatbot_fk:");
-        chatbotFk = Integer.parseInt(getInput());
-        botMessagesController.insertBotMessages(new BotMessages(botMessageId, botMessage, chatbotFk));
+		Integer chatbotFk;
+
+		System.out.println("Inserisci i dati BotMessages:");
+		System.out.println("bot_message_id	:");
+		botMessageId = Integer.parseInt(getInput());
+		System.out.println("bot_message:");
+		botMessage = getInput();
+		System.out.println("chatbot_fk:");
+		chatbotFk = Integer.parseInt(getInput());
+		if (botMessageId != null && !botMessage.equals("") && chatbotFk != null) {
+			botMessagesController.insertBotMessages(new BotMessages(botMessageId, botMessage, chatbotFk));
+		}
 	}
 
 	@Override
@@ -47,7 +49,7 @@ public class BotMessagesInsertView implements View {
 		request = new Request();
 		request.put("mode", "menu");
 		request.put("choice", 0);
-	    MainDispatcher.getInstance().callAction("BotMessages", "doControl", request);
+		MainDispatcher.getInstance().callAction("BotMessages", "doControl", request);
 	}
 
 }
