@@ -24,22 +24,22 @@ public class BotMessagesUpdateView implements View {
 
 	@Override
 	public void showOptions() {
-		List<BotMessages> botMessages;
-
+		List<BotMessages> botmessages = botMessagesController.getAllBotMessages();
+		
 		Integer botMessageId;
 		String botMessage;
-
-		botMessages = botMessagesController.getAllBotMessages();
-		System.out.println("----- Scegli Id per modificare -----");
-		System.out.println();
-		botMessages.forEach(us_type -> System.out.println(us_type.toString()));
-		System.out.println();
-		System.out.println("bot_message_id:");
+		
+		System.out.println("\n----- Seleziona l'elemento da modificare dalla lista elencata -----\n");
+		botmessages.forEach(us_type -> System.out.println(us_type.toString()));
+		
+		System.out.println("Seleziona l'ID dell'elemento da modificare:");
 		botMessageId = Integer.parseInt(getInput());
-		System.out.println("bot_message:");
+		
+		System.out.println("Digita il nuovo messaggio:");
 		botMessage = getInput();
+		
 		if (botMessageId != null && !botMessage.equals("")) {
-			botMessagesController.updateBotMessages(new BotMessages(botMessageId, botMessage, 0));
+			botMessagesController.updateBotMessages(new BotMessages(botMessageId, botMessage));
 		}
 	}
 

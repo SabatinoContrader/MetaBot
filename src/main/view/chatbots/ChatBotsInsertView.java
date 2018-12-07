@@ -27,15 +27,13 @@ public class ChatBotsInsertView implements View {
 		String initialMessage;
 		String userFk;
 
-		System.out.println("Inserisci i dati user_types:");
-		System.out.println("user_type_id:");
+		System.out.println("\n Inserisci i campi della ChatBot");
+		System.out.println("\nDigita l'ID :");
 		chatbotId = Integer.parseInt(getInput());
-		System.out.println("user_type:");
+		System.out.println("\nDigita il messaggio di benvenuto: ");
 		initialMessage = getInput();
-		System.out.println("user_type:");
-		userFk = getInput();
-		if (chatbotId != null && !initialMessage.equals("") && !userFk.equals("")) {
-			chatBotsController.insertChatBots(new ChatBots(chatbotId, initialMessage, userFk));
+		if (chatbotId != null && !initialMessage.equals("")) {
+			chatBotsController.insertChatBots(new ChatBots(chatbotId, initialMessage));
 		}
 	}
 

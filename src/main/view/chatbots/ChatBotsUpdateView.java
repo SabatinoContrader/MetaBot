@@ -31,17 +31,16 @@ public class ChatBotsUpdateView implements View {
 		String initialMessage;
 
 		chatBots = chatBotsController.getAllChatBots();
-		System.out.println("----- Scegli Id per modificare -----");
-		System.out.println();
+		System.out.println("\n----- Seleziona l'elemento da modificare dalla lista elencata -----\n");
 		chatBots.forEach(us_type -> System.out.println(us_type.toString()));
-		System.out.println();
-		System.out.println("chatbot_id:");
+		
+		System.out.println("Seleziona l'ID della ChatBot da modificare:");
 		chatbotId = Integer.parseInt(getInput());
-		System.out.println("initial_message:");
+		System.out.println("Nuovo messaggio di benvenuto:");
 		initialMessage = getInput();
 
 		if (chatbotId != null && !initialMessage.equals("")) {
-			chatBotsController.updateChatBots(new ChatBots(chatbotId, initialMessage, ""));
+			chatBotsController.updateChatBots(new ChatBots(chatbotId, initialMessage));
 		}
 	}
 

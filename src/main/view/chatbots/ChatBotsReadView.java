@@ -24,12 +24,8 @@ public class ChatBotsReadView implements View {
 
 	@Override
 	public void showOptions() {
-		List<ChatBots> chatBots = chatBotsController.getAllChatBots();
-		System.out.println("----- Gli user_types nel tuo database sono -----");
-		System.out.println();
-		chatBots.forEach(us_type -> System.out.println(us_type.toString()));
-		System.out.println();
-		
+		List<ChatBots> chatbots = chatBotsController.getAllChatBots();
+		chatbots.forEach(chatbot -> System.out.println(chatbot.toString()));	
 	}
 
 	@Override

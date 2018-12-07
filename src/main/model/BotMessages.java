@@ -4,12 +4,10 @@ public class BotMessages {
 	
 	private int botMessageId;
 	private String botMessage;
-	private int chatbotFk;
-
-	public BotMessages(int botMessageId, String botMessage, int chatbotFk) {
+	
+	public BotMessages(int botMessageId, String botMessage) {
 		this.botMessageId = botMessageId;
 		this.botMessage = botMessage;
-		this.chatbotFk = chatbotFk;
 	}
 
 	public int getBotMessageId() {
@@ -28,17 +26,8 @@ public class BotMessages {
 		this.botMessage = botMessage;
 	}
 
-	public int getChatbotFk() {
-		return chatbotFk;
-	}
-
-	public void setChatbotFk(int chatbotFk) {
-		this.chatbotFk = chatbotFk;
-	}
-
 	@Override
 	public String toString() {
-		return "BotMessages [botMessageId=" + botMessageId + ", botMessage=" + botMessage + ", chatbotFk=" + chatbotFk
-				+ "]";
+		return "BotMessages [botMessageId=" + botMessageId + ", botMessage=" + botMessage + "]";
 	}
 }

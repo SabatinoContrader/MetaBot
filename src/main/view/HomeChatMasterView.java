@@ -14,11 +14,9 @@ public class HomeChatMasterView implements View {
 	}
 
 	public void showOptions() {
-		System.out.println("Benvenuto in ContraderFramework");
-		System.out.println("");
-		System.out.println("");
+		System.out.println("\nBenvenuto in MetaBot\n\n");
 		System.out.println("-------MENU-------");
-		System.out.println("Scegli quali entità vuoi visualizzare:");
+		System.out.println("Seleziona il sotto menu:");
 		System.out.println("1) CRUD BotMssageOptions");
 		System.out.println("2) CRUD BotMessages");
 		System.out.println("3) CRUD ChatBots");

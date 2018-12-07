@@ -28,14 +28,12 @@ public class ChatBotsDeleteView implements View {
 		Integer chatbotId;
 
 		chatBots = chatBotsControllerController.getAllChatBots();
-		System.out.println("----- Scegli Id per cancellare -----");
-		System.out.println();
+		System.out.println("\n----- Seleziona l'elemento da cancellare dalla lista elencata-----\n");
 		chatBots.forEach(us_type -> System.out.println(us_type.toString()));
-		System.out.println();
-		System.out.println("chatbot_id:");
+		System.out.println("\nDigita l'ID:");
 		chatbotId = Integer.parseInt(getInput());
 		if (chatbotId != null) {
-			chatBotsControllerController.deleteChatBots(new ChatBots(chatbotId, "", ""));
+			chatBotsControllerController.deleteChatBots(new ChatBots(chatbotId, ""));
 		}
 	}
 

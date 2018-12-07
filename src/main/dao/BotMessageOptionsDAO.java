@@ -11,7 +11,6 @@ import java.util.List;
 import main.ConnectionSingleton;
 import main.controller.GestoreEccezioni;
 import main.model.BotMessageOptions;
-import main.model.UserTypes;
 
 public class BotMessageOptionsDAO {
 	private final String QUERY_ALL = "select * from bot_message_options";

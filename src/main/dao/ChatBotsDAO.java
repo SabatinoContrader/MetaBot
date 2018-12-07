@@ -11,13 +11,12 @@ import java.util.List;
 import main.ConnectionSingleton;
 import main.controller.GestoreEccezioni;
 import main.model.ChatBots;
-import main.model.UserTypes;
 
 public class ChatBotsDAO {
-	private final String QUERY_ALL = "select * from chatbots";
-	private final String QUERY_INSERT = "insert into chatbots (chatbot_id, initial_message, user_fk) values (?,?,?)";
-	private final String QUERY_UPDATE = "UPDATE chatbots SET initial_message = (?) WHERE chatbot_id = (?)"; 
-	private final String QUERY_DELETE = "DELETE FROM chatbots WHERE chatbot_id = (?)"; 
+	private final String QUERY_ALL 		= "SELECT * from chatbots";
+	private final String QUERY_INSERT 	= "INSERT INTO chatbots (chatbot_id, initial_message) values (?,?)";
+	private final String QUERY_UPDATE	= "UPDATE chatbots SET initial_message = (?) WHERE chatbot_id = (?)"; 
+	private final String QUERY_DELETE 	= "DELETE FROM chatbots WHERE chatbot_id = (?)"; 
 
 	public List<ChatBots> getAllChatBots () {
         List<ChatBots> chatBots = new ArrayList<>();
@@ -28,10 +27,7 @@ public class ChatBotsDAO {
            while (resultSet.next()) {
                Integer chatbotId = resultSet.getInt("chatbot_id");
         	   String initialMessage = resultSet.getString("initial_message");
-        	   String userFk = resultSet.getString("user_fk");
-
-               
-        	   chatBots.add(new ChatBots(chatbotId, initialMessage,userFk ));
+        	   chatBots.add(new ChatBots(chatbotId, initialMessage));
            }
         }
         catch (SQLException e) {
@@ -46,9 +42,6 @@ public class ChatBotsDAO {
             PreparedStatement preparedStatement = connection.prepareStatement(QUERY_INSERT);
             preparedStatement.setInt(1, chatBots.getChatbotId());
             preparedStatement.setString(2, chatBots.getInitialMessage());
-            preparedStatement.setString(3, chatBots.getUserFk());
-
-
             return preparedStatement.execute();
         }
         catch (SQLException e) {

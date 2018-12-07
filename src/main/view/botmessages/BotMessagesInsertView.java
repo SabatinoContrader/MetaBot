@@ -27,15 +27,13 @@ public class BotMessagesInsertView implements View {
 		String botMessage;
 		Integer chatbotFk;
 
-		System.out.println("Inserisci i dati BotMessages:");
-		System.out.println("bot_message_id	:");
+		System.out.println("\n Inserisci i campi del BotMessage");
+		System.out.println("\nDigita l'ID :");
 		botMessageId = Integer.parseInt(getInput());
-		System.out.println("bot_message:");
+		System.out.println("\nDigita il testo del messaggio:");
 		botMessage = getInput();
-		System.out.println("chatbot_fk:");
-		chatbotFk = Integer.parseInt(getInput());
-		if (botMessageId != null && !botMessage.equals("") && chatbotFk != null) {
-			botMessagesController.insertBotMessages(new BotMessages(botMessageId, botMessage, chatbotFk));
+		if (botMessageId != null && !botMessage.equals("")) {
+			botMessagesController.insertBotMessages(new BotMessages(botMessageId, botMessage));
 		}
 	}
 

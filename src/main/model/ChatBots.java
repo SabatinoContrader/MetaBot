@@ -4,12 +4,10 @@ public class ChatBots {
 
 	private int chatbotId;
 	private String initialMessage;
-	private String userFk;
 
-	public ChatBots(int chatbotId, String initialMessage, String userFk) {
+	public ChatBots(int chatbotId, String initialMessage) {
 		this.chatbotId = chatbotId;
 		this.initialMessage = initialMessage;
-		this.userFk = userFk;
 	}
 
 	public int getChatbotId() {
@@ -28,17 +26,8 @@ public class ChatBots {
 		this.initialMessage = initialMessage;
 	}
 
-	public String getUserFk() {
-		return userFk;
-	}
-
-	public void setUserFk(String userFk) {
-		this.userFk = userFk;
-	}
-
-	@Override
 	public String toString() {
-		return "ChatBots [chatbotId=" + chatbotId + ", initialMessage=" + initialMessage + ", userFk=" + userFk + "]";
+		return "ChatBots [chatbotId=" + chatbotId + ", initialMessage=" + initialMessage + "]";
 	}
 	
 }

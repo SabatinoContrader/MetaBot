@@ -14,11 +14,9 @@ public class HomeView implements View {
 	}
 
 	public void showOptions() {
-		System.out.println("Benvenuto in ContraderFramework");
-		System.out.println("");
-		System.out.println("");
+		System.out.println("\nBenvenuto in MetaBot\n\n");
 		System.out.println("-------MENU-------");
-		System.out.println("Scegli quali entità vuoi visualizzare:");
+		System.out.println("Seleziona il sotto menu:");
 		System.out.println("1) CRUD UserTypes");
 		System.out.println("2) CRUD Users");
 		System.out.println("3) CRUD BotMssageOptions");

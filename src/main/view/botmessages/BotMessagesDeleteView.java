@@ -28,14 +28,12 @@ public class BotMessagesDeleteView implements View {
 		Integer botMessageId;
 
 		botMessages = botMessagesController.getAllBotMessages();
-		System.out.println("----- Scegli Id per cancellare -----");
-		System.out.println();
+		System.out.println("\n----- Seleziona l'elemento da cancellare dalla lista elencata-----\n");
 		botMessages.forEach(us_type -> System.out.println(us_type.toString()));
-		System.out.println();
-		System.out.println("bot_message_id:");
+		System.out.println("\nDigita l'ID:");
 		botMessageId = Integer.parseInt(getInput());
 		if (botMessageId != null) {
-			botMessagesController.deleteBotMessages(new BotMessages(botMessageId, "", 0));
+			botMessagesController.deleteBotMessages(new BotMessages(botMessageId, ""));
 		}
 	}
 
