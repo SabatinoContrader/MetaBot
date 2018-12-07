@@ -10,9 +10,13 @@ import main.service.SubNodesService;
 public class NodesController implements Controller {
 
 	// indica il sub package per le view corrispondenti al model Nodes
-	private static final String SUB_PACKAGE = "nodes.";
+	private static String SUB_PACKAGE = "nodes.";
 	private NodesService nodesService;
 	private Request request;
+
+	public NodesController() {
+		this.nodesService = new NodesService();
+	}
 
 	public List<Nodes> getAllNodes() {
 		return this.nodesService.getAllNodes();
@@ -32,30 +36,30 @@ public class NodesController implements Controller {
 
 	@Override
 	public void doControl(Request request) {
-        String mode = (String) request.get("mode");
-        int choice = (int) request.get("choice");
-   
-        
-        if(mode == "menu"){
-        		MainDispatcher.getInstance().callView("Nodes", null);
-        }else {
-        switch (choice) {
-		case 1:
-			MainDispatcher.getInstance().callView(SUB_PACKAGE + "NodesRead", null);
-			break;
-		case 2:
-			MainDispatcher.getInstance().callView(SUB_PACKAGE + "NodesInsert", null);
-			break;
-		case 3:
-			MainDispatcher.getInstance().callView(SUB_PACKAGE + "NodesUpdate", null);
-			break;
-		case 4:
-			MainDispatcher.getInstance().callView(SUB_PACKAGE + "NodesDelete", null);
-			break;
-		default:
-        	MainDispatcher.getInstance().callView("Login", null);
-			break;
-        }}
-    }
+		String mode = (String) request.get("mode");
+		int choice = (int) request.get("choice");
+
+		if (mode == "menu") {
+			MainDispatcher.getInstance().callView("Nodes", null);
+		} else {
+			switch (choice) {
+			case 1:
+				MainDispatcher.getInstance().callView(SUB_PACKAGE + "NodesRead", null);
+				break;
+			case 2:
+				MainDispatcher.getInstance().callView(SUB_PACKAGE + "NodesInsert", null);
+				break;
+			case 3:
+				MainDispatcher.getInstance().callView(SUB_PACKAGE + "NodesUpdate", null);
+				break;
+			case 4:
+				MainDispatcher.getInstance().callView(SUB_PACKAGE + "NodesDelete", null);
+				break;
+			default:
+				MainDispatcher.getInstance().callView("Login", null);
+				break;
+			}
+		}
+	}
 
 }

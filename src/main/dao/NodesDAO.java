@@ -23,8 +23,10 @@ public class NodesDAO {
 
 	// ritorna tutti i nodi presenti
 	public List<Nodes> getAllNodes() {
+		
 		List<Nodes> nodes = new ArrayList<>();
 		Connection connection = ConnectionSingleton.getInstance();
+		
 		try {
 			Statement statement = connection.createStatement();
 			ResultSet resultSet = statement.executeQuery(QUERY_ALL);
