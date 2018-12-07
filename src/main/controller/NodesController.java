@@ -2,7 +2,7 @@ package main.controller;
 
 import main.service.SubNodesService;
 
-public class Nodes implements Controller {
+public class NodesController implements Controller {
 	
 	// indica il sub package per le view corrispondenti al model Nodes
 	private static final String SUB_PACKAGE= "nodes.";
