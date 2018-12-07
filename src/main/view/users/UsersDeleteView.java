@@ -25,7 +25,7 @@ public class UsersDeleteView implements View {
 	@Override
 	public void showOptions() {
 		List<Users> users;
-		String username;
+		String usersId;
 
 		users = usersController.getAllUsers();
 		System.out.println("----- Scegli username da cancellare -----");
@@ -33,10 +33,11 @@ public class UsersDeleteView implements View {
 		users.forEach(user -> System.out.println(user.toString()));
 		System.out.println();
 		System.out.println("id username:");
-		username = getInput();
+		System.out.println("username:");
+		usersId = getInput();
 
-		if (username != null) {
-			usersController.deleteUsers(new Users(username, "", 0));
+		if (usersId != null) {
+			usersController.deleteUsers(Integer.parseInt(usersId));
 		}
 	}
 

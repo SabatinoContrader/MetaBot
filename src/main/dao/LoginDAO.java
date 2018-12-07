@@ -12,7 +12,7 @@ import java.sql.Statement;
 
 public class LoginDAO {
 
-	private final String QUERY_LOGIN = "select u.username, ut.user_type from users u inner join user_types ut where u.username = (?) and password = (?) and u.user_type_fk = ut.user_type_id";
+	private final String QUERY_LOGIN = "select u.username, ut.user_type from users u inner join user_types ut where u.username = (?) and password = (?) and u.user_types_id_fk = ut.user_type_id";
 
 	public String login(String username, String password) {
 
