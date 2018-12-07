@@ -46,14 +46,6 @@ public class Users {
 		this.password = password;
 	}
 
-	public Integer getuserTypeFk() {
-		return userTypeFk;
-	}
-
-	public void setuserTypeFk(Integer userTypeFk) {
-		this.userTypeFk = userTypeFk;
-	}
-
 	@Override
 	public String toString() {
 		return "Users [usersId=" + usersId + ", username=" + username + ", password=" + password + ", userTypeFk="
