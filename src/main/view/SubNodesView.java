@@ -23,12 +23,12 @@ public class SubNodesView implements View {
 	public void showOptions() {
 		System.out.println("");
 		System.out.println("");
-		System.out.println("-------MENU SubNodes Controller-------");
-		System.out.println("Scegli l'operazione che vuoi fare:");
-		System.out.println("1) Visualizza SubNodes Controller");
-		System.out.println("2) Inserisci SubNodes Controller");
-		System.out.println("3) Modifica SubNodes Controller");
-		System.out.println("4) Cancella SubNodes Controller");
+		System.out.println("-------MENU-------");
+		System.out.println("Scegli l'operazione da effettuare:");
+		System.out.println("1) Visualizza SubNodes");
+		System.out.println("2) Inserisci SubNodes");
+		System.out.println("3) Modifica SubNodes");
+		System.out.println("4) Cancella SubNodes");
 		System.out.println("5) Logout");
 		try {
 			this.choice = Integer.parseInt(getInput());

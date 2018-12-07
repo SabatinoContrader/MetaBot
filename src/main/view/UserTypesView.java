@@ -24,12 +24,12 @@ public class UserTypesView implements View {
 	public void showOptions() {
 		System.out.println("");
 		System.out.println("");
-		System.out.println("-------MENU UserTypes-------");
+		System.out.println("\n-------MENU UserTypes-------\n");
 		System.out.println("Scegli l'operazione che vuoi fare:");
 		System.out.println("1) Visualizza UserTypes");
-		System.out.println("2) Inserire UserTypes");
-		System.out.println("3) Modificare UserTypes");
-		System.out.println("4) Cancellare UserTypes");
+		System.out.println("2) Inserisci UserTypes");
+		System.out.println("3) Modifica UserTypes");
+		System.out.println("4) Cancella UserTypes");
 		System.out.println("5) Logout");
 		try {
 			this.choice = Integer.parseInt(getInput());

@@ -27,12 +27,12 @@ public class UsersView implements View {
 	public void showOptions() {
 		System.out.println("");
 		System.out.println("");
-		System.out.println("-------MENU User-------");
-		System.out.println("Scegli l'operazione che vuoi fare:");
+		System.out.println("\n-------MENU Users-------\n");
+		System.out.println("Scegli l'operazione da effettuare:");
 		System.out.println("1) Visualizza User");
-		System.out.println("2) Inserire User");
-		System.out.println("3) Modificare User");
-		System.out.println("4) Cancellare User");
+		System.out.println("2) Inserisci User");
+		System.out.println("3) Modifica User");
+		System.out.println("4) Cancella User");
 		System.out.println("5) Logout");
 		try {
 			this.choice = Integer.parseInt(getInput());

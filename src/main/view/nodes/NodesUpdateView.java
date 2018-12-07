@@ -31,7 +31,7 @@ public class NodesUpdateView implements View {
 		Integer sequence;
 
 		nodes = nodesController.getAllNodes();
-		System.out.println("----- Scegli Id per modificare -----");
+		System.out.println("\n----- Seleziona l'opzione da modificare dalla lista elencata-----\n");
 		System.out.println();
 		nodes.forEach(node -> System.out.println(node.toString()));
 		System.out.println();

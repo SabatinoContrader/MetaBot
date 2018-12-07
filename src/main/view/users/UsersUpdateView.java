@@ -28,13 +28,13 @@ public class UsersUpdateView implements View {
 		Integer usersId;
 		String password;
 		users = usersController.getAllUsers();
-		System.out.println("----- Scegli Id per modificare -----");
+		System.out.println("\n----- Seleziona l'opzione da modificare dalla lista elencata-----\n");
 		System.out.println();
 		users.forEach(us_type -> System.out.println(us_type.toString()));
 		System.out.println();
-		System.out.println("username:");
+		System.out.println("Digita l'username:");
 		usersId = Integer.parseInt(getInput());
-		System.out.println("password:");
+		System.out.println("Digita la password:");
 		password = getInput();
 		if (usersId != null && !password.equals("")) {
 			usersController.updateUsers(new Users(usersId, "", password, 0));

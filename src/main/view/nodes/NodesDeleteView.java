@@ -25,7 +25,7 @@ public class NodesDeleteView implements View {
 		Integer idNodes;
 
 		nodes = nodesController.getAllNodes();
-		System.out.println("----- Scegli Id per cancellare -----\n");
+		System.out.println("\n----- Seleziona l'elemento da cancellare dalla lista elencata-----\n");
 		nodes.forEach(us_type -> System.out.println(us_type.toString()));
 		System.out.println("id_nodes: \n");
 		idNodes = Integer.parseInt(getInput());

@@ -28,10 +28,10 @@ public class UserTypesInsertView implements View {
 		Integer idUserType;
 		String typeUser;
 
-		System.out.println("Inserisci i dati user_types:");
-		System.out.println("user_type_id:");
+		System.out.println("\nInserisci i campi degli UserTypes: ");
+		System.out.println("Digita l'ID user_type: ");
 		idUserType = Integer.parseInt(getInput());
-		System.out.println("user_type:");
+		System.out.println("Digita user_type: ");
 		typeUser = getInput();
 		if (idUserType != null && !typeUser.equals("")) {
 			usertypesController.insertUserTypes(new UserTypes(idUserType, typeUser));

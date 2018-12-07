@@ -31,18 +31,17 @@ public class SubNodesInsertView implements View {
 		 Integer sequence;
 		 Integer idNodeFk;
 		 
-		    System.out.println("Inserisci i dati Sub_Nodes:");
+			System.out.println("\n Inserisci i campi della Subnodes");
 		    
-			System.out.println("sub_nodes_id:");
+			System.out.println("\nDigita l'ID Subnodes:");
 			idSubNodes = Integer.parseInt(getInput());
 			
-			System.out.println("Bot_Message_Option_Fk:");
+			System.out.println("\nDigita il messaggio: ");
 			botMessageOptionFk = Integer.parseInt(getInput());
 			
-			System.out.println("sequence:");
+			System.out.println("\nDigita la Sequenza");
 			sequence = Integer.parseInt(getInput());
-			
-			System.out.println("Id_Nodes_Fk:");
+			System.out.println("\nDigita l'ID Nodes");
 			idNodeFk = Integer.parseInt(getInput());
 			
 			if (idSubNodes!= null &&  botMessageOptionFk!= null && sequence!= null  && idNodeFk!= null   ){

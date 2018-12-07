@@ -28,14 +28,14 @@ public class UsersInsertView implements View {
 		String password;
 		Integer userTypeFk;
 
-		System.out.println("Inserisci i dati users:");
-		System.out.println("id:");
+		System.out.println("\nInserisci i campi degli Users:");
+		System.out.println("Digita l'ID: ");
 		usersId = Integer.parseInt(getInput());
-		System.out.println("username:");
+		System.out.println("Digita l'username: ");
 		username = getInput();
-		System.out.println("password:");
+		System.out.println("Digita la password:");
 		password = getInput();
-		System.out.println("user_type_fk:");
+		System.out.println("Digita la FK user_type: ");
 		userTypeFk = Integer.parseInt(getInput());
 		if (usersId!= null &&!username.equals("") && !password.equals("") && userTypeFk != null) {
 			usersController.insertUsers(new Users(usersId,username, password, userTypeFk));

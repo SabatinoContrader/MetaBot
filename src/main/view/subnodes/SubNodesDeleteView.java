@@ -27,7 +27,7 @@ public class SubNodesDeleteView implements View {
 		List<SubNodes> subNodes;
 		Integer idSubNodes;
         subNodes = subNodesController.getAllSubNodes();
-		System.out.println("----- Scegli Id per cancellare -----\n");
+		System.out.println("\n----- Seleziona l'elemento da cancellare dalla lista elencata-----\n");
 		subNodes.forEach(us_type -> System.out.println(us_type.toString()));
 		System.out.println("id_sub_nodes: \n");
 		idSubNodes = Integer.parseInt(getInput());

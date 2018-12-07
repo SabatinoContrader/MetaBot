@@ -17,10 +17,10 @@ public class BotMessagesView implements View {
 	public void showOptions() {
 		System.out.println("\n----- MENU BotMessages -----\n");
 		System.out.println("Scegli l'operazione da effettuare:");
-		System.out.println("1) Visualizza tutti i BotMessages");
-		System.out.println("2) Inserisci un BotMessage");
-		System.out.println("3) Modifica un BotMessage");
-		System.out.println("4) Cancella un BotMessage");
+		System.out.println("1) Visualizza BotMessages");
+		System.out.println("2) Inserisci BotMessage");
+		System.out.println("3) Modifica BotMessage");
+		System.out.println("4) Cancella BotMessage");
 		System.out.println("5) Logout");
 		try {
 			this.choice = Integer.parseInt(getInput());

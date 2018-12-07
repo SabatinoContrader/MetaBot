@@ -30,12 +30,12 @@ public class UserTypesUpdateView implements View {
 		String typeUser;
 
 		usertypes = usertypesController.getAllUserType();
-		System.out.println("----- Scegli Id per modificare ----- \n");
+		System.out.println("\n----- Seleziona l'opzione da modificare dalla lista elencata-----\n");
 
 		usertypes.forEach(us_type -> System.out.println(us_type.toString()));
-		System.out.println("\n user_type_id:");
+		System.out.println("Dgita l'ID user_type: ");
 		idUserType = Integer.parseInt(getInput());
-		System.out.println("user_type:");
+		System.out.println("Digita l'user_type: ");
 		typeUser = getInput();
 		if (idUserType != null && !typeUser.equals("")) {
 			usertypesController.updateUserTypes(new UserTypes(idUserType, typeUser));

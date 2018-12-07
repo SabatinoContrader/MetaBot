@@ -25,7 +25,6 @@ public class UserTypesReadView implements View {
 	@Override
 	public void showOptions() {
 		List<UserTypes> usertypes = usertypesController.getAllUserType();
-		System.out.println("----- Gli user_types nel tuo database sono -----");
 		System.out.println();
 		usertypes.forEach(us_type -> System.out.println(us_type.toString()));
 		System.out.println();

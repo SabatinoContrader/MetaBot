@@ -16,14 +16,13 @@ public class HomeView implements View {
 	public void showOptions() {
 		System.out.println("\nBenvenuto in MetaBot\n\n");
 		System.out.println("-------MENU-------");
-		System.out.println("Seleziona il sotto menu:");
-		System.out.println("1) CRUD UserTypes");
-		System.out.println("2) CRUD Users");
-		System.out.println("3) CRUD BotMssageOptions");
-		System.out.println("4) CRUD BotMessages");
-		System.out.println("5) CRUD ChatBots");
-		System.out.println("6) CRUD Nodes");
-		System.out.println("7) CRUD SubNodes");
+		System.out.println("1) Gestione UserTypes");
+		System.out.println("2) Gestione Users");
+		System.out.println("3) Gestione BotMssageOptions");
+		System.out.println("4) Gestione BotMessages");
+		System.out.println("5) Gestione ChatBots");
+		System.out.println("6) Gestione Nodes");
+		System.out.println("7) Gestione SubNodes");
 		System.out.println("8) Logout");
 		try {
 			this.choice = Integer.parseInt(getInput());

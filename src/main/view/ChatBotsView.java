@@ -26,10 +26,10 @@ public class ChatBotsView implements View {
 	public void showOptions() {
 		System.out.println("\n----- MENU Chatbots-----\n");
 		System.out.println("Scegli l'operazione da effettuare:");
-		System.out.println("1) Visualizza tutte le ChatBots");
-		System.out.println("2) Inserisci una ChatBot");
-		System.out.println("3) Modifica una ChatBot");
-		System.out.println("4) Cancella una ChatBot");
+		System.out.println("1) Visualizza ChatBots");
+		System.out.println("2) Inserisci ChatBot");
+		System.out.println("3) Modifica ChatBot");
+		System.out.println("4) Cancella ChatBot");
 		System.out.println("5) Logout");
 		try {
 			this.choice = Integer.parseInt(getInput());

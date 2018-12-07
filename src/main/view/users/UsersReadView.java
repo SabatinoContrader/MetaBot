@@ -25,7 +25,6 @@ public class UsersReadView implements View {
 	@Override
 	public void showOptions() {
 		List<Users> users = usersController.getAllUsers();
-		System.out.println("----- Gli users nel tuo database sono -----");
 		System.out.println();
 		users.forEach(user -> System.out.println(user.toString()));
 		System.out.println();

@@ -29,7 +29,7 @@ public class UserTypesDeleteView implements View {
 		Integer idUserType;
 
 		usertypes = usertypesController.getAllUserType();
-		System.out.println("----- Scegli Id per cancellare -----\n");
+		System.out.println("\n----- Seleziona l'elemento da cancellare dalla lista elencata-----\n");
 		usertypes.forEach(us_type -> System.out.println(us_type.toString()));
 		System.out.println("user_type_id: \n");
 		idUserType = Integer.parseInt(getInput());
