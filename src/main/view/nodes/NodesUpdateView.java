@@ -26,6 +26,7 @@ public class NodesUpdateView implements View {
 
 	@Override
 	public void showOptions() {
+
 		List<Nodes> nodes;
 		Integer nodesId;
 		Integer sequence;
@@ -40,7 +41,7 @@ public class NodesUpdateView implements View {
 		System.out.println("sequence:");
 		sequence = Integer.parseInt(getInput());
 
-		if (nodesId != null && sequence!= null) {
+		if (nodesId != null && sequence != null) {
 			nodesController.updateNodes(nodesId, sequence);
 		}
 	}
