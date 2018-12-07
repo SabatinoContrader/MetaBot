@@ -14,7 +14,7 @@ public class SubNodesService {
     }
 
     public List<SubNodes> getAllSubNodes () {
-        return this.subNodesDAO.getAllNodes();
+        return this.subNodesDAO.getAllSubNodes();
     }
     
     public boolean insertSubNodes (SubNodes subNodes) {
