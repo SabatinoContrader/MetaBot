@@ -25,10 +25,7 @@ public class BotMessageOptionsReadView implements View {
 	@Override
 	public void showOptions() {
 		List<BotMessageOptions> botMessageOptions = botMessageOptionsController.getAllBotMessageOptions();
-		System.out.println("----- Gli botMessageOptions nel tuo database sono -----");
-		System.out.println();
-		botMessageOptions.forEach(us_type -> System.out.println(us_type.toString()));
-		System.out.println();
+		botMessageOptions.forEach(botMessageOption -> System.out.println(botMessageOption.toString()));
 		
 	}
 

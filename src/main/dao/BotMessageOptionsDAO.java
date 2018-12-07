@@ -14,7 +14,7 @@ import main.model.BotMessageOptions;
 
 public class BotMessageOptionsDAO {
 	private final String QUERY_ALL = "select * from bot_message_options";
-	private final String QUERY_INSERT = "insert into bot_message_options (bot_message_option_id, bot_message_option, bot_message_fk) values (?,?,?)";
+	private final String QUERY_INSERT = "insert into bot_message_options (bot_message_option_id, bot_message_option values (?,?)";
 	private final String QUERY_UPDATE = "UPDATE bot_message_options SET bot_message_option = (?) WHERE bot_message_option_id = (?)"; 
 	private final String QUERY_DELETE = "DELETE FROM bot_message_options WHERE bot_message_option_id = (?)"; 
 	
@@ -27,9 +27,9 @@ public class BotMessageOptionsDAO {
            while (resultSet.next()) {
                Integer botMessageOptionId = resultSet.getInt("bot_message_option_id");
         	   String botMessageOption = resultSet.getString("bot_message_option");
-        	   Integer botMessageFk = resultSet.getInt("bot_message_fk");
+       
 
-        	   botMessageOptions.add(new BotMessageOptions(botMessageOptionId, botMessageOption, botMessageFk));
+        	   botMessageOptions.add(new BotMessageOptions(botMessageOptionId, botMessageOption));
            }
         }
         catch (SQLException e) {
@@ -44,7 +44,6 @@ public class BotMessageOptionsDAO {
             PreparedStatement preparedStatement = connection.prepareStatement(QUERY_INSERT);
             preparedStatement.setInt(1, botMessageOptions.getBotMessageOptionId());
             preparedStatement.setString(2, botMessageOptions.getBotMessageOption());
-            preparedStatement.setInt(3, botMessageOptions.getBotMessageFk());
             
             return preparedStatement.execute();
         }

@@ -5,9 +5,9 @@ public class Users {
 	private Integer usersId;
 	private String username;
 	private String password;
-	private int userTypeFk;
+	private Integer userTypeFk;
 
-	public Users(Integer usersId, String username, String password, int userTypeFk) {
+	public Users(Integer usersId, String username, String password, Integer userTypeFk) {
 		this.usersId = usersId;
 		this.username = username;
 		this.password = password;
@@ -44,14 +44,6 @@ public class Users {
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-	public int getuserTypeFk() {
-		return userTypeFk;
-	}
-
-	public void setuserTypeFk(int userTypeFk) {
-		this.userTypeFk = userTypeFk;
 	}
 
 	@Override

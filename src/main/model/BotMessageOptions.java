@@ -4,12 +4,10 @@ public class BotMessageOptions {
 
 	private int botMessageOptionId;
 	private String botMessageOption;
-	private int botMessageFk;
 
-	public BotMessageOptions(int botMessageOptionId, String botMessageOption, int botMessageFk) {
+	public BotMessageOptions(int botMessageOptionId, String botMessageOption) {
 		this.botMessageOptionId = botMessageOptionId;
 		this.botMessageOption = botMessageOption;
-		this.botMessageFk = botMessageFk;
 	}
 
 	public int getBotMessageOptionId() {
@@ -28,18 +26,10 @@ public class BotMessageOptions {
 		this.botMessageOption = botMessageOption;
 	}
 
-	public int getBotMessageFk() {
-		return botMessageFk;
-	}
-
-	public void setBotMessageFk(int botMessageFk) {
-		this.botMessageFk = botMessageFk;
-	}
-
 	@Override
 	public String toString() {
 		return "BotMessageOptions [botMessageOptionId=" + botMessageOptionId + ", botMessageOption=" + botMessageOption
-				+ ", botMessageFk=" + botMessageFk + "]";
+				+ "]";
 	}
 		
 }

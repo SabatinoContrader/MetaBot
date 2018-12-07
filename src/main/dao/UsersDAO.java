@@ -46,7 +46,7 @@ public class UsersDAO {
 			preparedStatement.setInt(1, users.getUsersId());
 			preparedStatement.setString(2, users.getUsername());
 			preparedStatement.setString(3, users.getPassword());
-			preparedStatement.setInt(4, users.getuserTypeFk());
+			preparedStatement.setInt(4, users.getUserTypeFk());
 
 			return preparedStatement.execute();
 		} catch (SQLException e) {
