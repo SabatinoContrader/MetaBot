@@ -20,7 +20,9 @@ public class HomeChatMasterView implements View {
 		System.out.println("1) CRUD BotMssageOptions");
 		System.out.println("2) CRUD BotMessages");
 		System.out.println("3) CRUD ChatBots");
-		System.out.println("4) Logout");
+		System.out.println("4) CRUD Nodes");
+		System.out.println("5) CRUD SubNodes");
+		System.out.println("6) Logout");
 		try {
 			this.choice = Integer.parseInt(getInput());
 		} catch(Exception e) {
@@ -45,6 +47,14 @@ public class HomeChatMasterView implements View {
 			MainDispatcher.getInstance().callAction("ChatBots", "doControl", request);
 			break;
 
+		case 4:
+			MainDispatcher.getInstance().callAction("Nodes", "doControl", request);
+			break;
+			
+		case 5:
+			MainDispatcher.getInstance().callAction("SubNodes", "doControl", request);
+			break;
+			
 		default:
 			MainDispatcher.getInstance().callAction("Login", "doControl", null);
 			break;

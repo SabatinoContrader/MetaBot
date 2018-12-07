@@ -22,7 +22,9 @@ public class HomeView implements View {
 		System.out.println("3) CRUD BotMssageOptions");
 		System.out.println("4) CRUD BotMessages");
 		System.out.println("5) CRUD ChatBots");
-		System.out.println("6) Logout");
+		System.out.println("6) CRUD Nodes");
+		System.out.println("7) CRUD SubNodes");
+		System.out.println("8) Logout");
 		try {
 			this.choice = Integer.parseInt(getInput());
 		} catch(Exception e) {
@@ -54,6 +56,14 @@ public class HomeView implements View {
 			MainDispatcher.getInstance().callAction("ChatBots", "doControl", request);
 			break;
 
+		case 6:
+			MainDispatcher.getInstance().callAction("Nodes", "doControl", request);
+			break;
+		
+		case 7:
+			MainDispatcher.getInstance().callAction("SubNodes", "doControl", request);
+			break;
+			
 		default:
 			MainDispatcher.getInstance().callAction("Login", "doControl", null);
 			break;
