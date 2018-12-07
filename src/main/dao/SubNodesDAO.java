@@ -64,6 +64,7 @@ public class SubNodesDAO {
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(QUERY_UPDATE);
             preparedStatement.setInt(1, subNodes.getSequence());
+            preparedStatement.setInt(2, subNodes.getIdSubNodes());
             
             return preparedStatement.execute();
         }
