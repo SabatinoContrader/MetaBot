@@ -24,12 +24,12 @@ public class BotMessageOptionsView implements View {
 	public void showOptions() {
 		System.out.println("");
 		System.out.println("");
-		System.out.println("-------MENU UserTypes-------");
-		System.out.println("Scegli l'operazione che vuoi fare:");
-		System.out.println("1) Visualizza BotMessageOptions");
-		System.out.println("2) Inserire BotMessageOptions");
-		System.out.println("3) Modificare BotMessageOptions");
-		System.out.println("4) Cancellare BotMessageOptions");
+		System.out.println("-------MENU BotMessageOptions-------");
+		System.out.println("Scegli l'operazione da effettuare:");
+		System.out.println("1) Visualizza tutti i BotMessageOptions");
+		System.out.println("2) Inserisci un BotMessageOptions");
+		System.out.println("3) Modifica un BotMessageOptions");
+		System.out.println("4) Cancella un BotMessageOptions");
 		System.out.println("5) Logout");
 		try {
 			this.choice = Integer.parseInt(getInput());

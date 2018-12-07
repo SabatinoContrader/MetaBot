@@ -29,17 +29,17 @@ public class BotMessageOptionsUpdateView implements View {
 		String botMessageOption;
 
 		botMessageOptions = botMessageOptionsController.getAllBotMessageOptions();
-		System.out.println("----- Scegli Id per modificare -----");
+		System.out.println("\n----- Seleziona l'opzione da modificare dalla lista elencata-----\n");
 		System.out.println();
-		botMessageOptions.forEach(us_type -> System.out.println(us_type.toString()));
+		botMessageOptions.forEach(botMexOption -> System.out.println(botMexOption.toString()));
 		System.out.println();
-		System.out.println("bot_message_option_id:");
+		System.out.println("Seleziona l'ID dell'elemento da modificare: ");
 		botMessageOptionId = Integer.parseInt(getInput());
-		System.out.println("bot_message_option:");
+		System.out.println("Digita il nuovo messaggio dell'opzione: ");
 		botMessageOption = getInput();
 		if (botMessageOptionId != null && !botMessageOption.equals("")) {
 			botMessageOptionsController
-					.updateBotMessageOptions(new BotMessageOptions(botMessageOptionId, botMessageOption, 0));
+					.updateBotMessageOptions(new BotMessageOptions(botMessageOptionId, botMessageOption));
 		}
 	}
 

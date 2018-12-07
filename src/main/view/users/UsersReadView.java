@@ -27,7 +27,7 @@ public class UsersReadView implements View {
 		List<Users> users = usersController.getAllUsers();
 		System.out.println("----- Gli users nel tuo database sono -----");
 		System.out.println();
-		users.forEach(us_type -> System.out.println(us_type.toString()));
+		users.forEach(user -> System.out.println(user.toString()));
 		System.out.println();
 		
 	}

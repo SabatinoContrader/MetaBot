@@ -28,11 +28,11 @@ public class UsersDeleteView implements View {
 		String username;
 
 		users = usersController.getAllUsers();
-		System.out.println("----- Scegli Id per cancellare -----");
+		System.out.println("----- Scegli username da cancellare -----");
 		System.out.println();
-		users.forEach(us_type -> System.out.println(us_type.toString()));
+		users.forEach(user -> System.out.println(user.toString()));
 		System.out.println();
-		System.out.println("username:");
+		System.out.println("id username:");
 		username = getInput();
 
 		if (username != null) {

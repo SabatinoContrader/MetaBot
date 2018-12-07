@@ -25,18 +25,15 @@ public class BotMessageOptionsInsertView implements View {
 	public void showOptions() {
 		Integer botMessageOptionId;
 		String botMessageOption;
-		Integer botMessageFk;
 
-		System.out.println("Inserisci i dati BotMessageOptions:");
-		System.out.println("bot_message_option_id:");
+		System.out.println("\nInserisci i campi del BotMessageOptions:");
+		System.out.println("\nDigita l'ID:");
 		botMessageOptionId = Integer.parseInt(getInput());
-		System.out.println("bot_message_option:");
+		System.out.println("\nDigita il Messaggio dell'opzione:");
 		botMessageOption = getInput();
-		System.out.println("bot_message_fk:");
-		botMessageFk = Integer.parseInt(getInput());
-		if (botMessageOptionId != null && !botMessageOption.equals("") && botMessageFk != null) {
+		if (botMessageOptionId != null && !botMessageOption.equals("")) {
 			botMessageOptionsController
-					.insertBotMessageOptions(new BotMessageOptions(botMessageOptionId, botMessageOption, botMessageFk));
+					.insertBotMessageOptions(new BotMessageOptions(botMessageOptionId, botMessageOption));
 		}
 	}
 

@@ -24,17 +24,25 @@ public class BotMessageOptionsDeleteView implements View {
 
 	@Override
 	public void showOptions() {
-		List<BotMessageOptions> botMessageOptions;
-		Integer botMessageOptionId;
-		botMessageOptions = botMessageOptionsController.getAllBotMessageOptions();
-		System.out.println("----- Scegli Id per cancellare -----");
+		List<BotMessageOptions> botmessageoptions;
+		Integer idToDelete;
+		botmessageoptions = botMessageOptionsController.getAllBotMessageOptions();
+		System.out.println("\n----- Seleziona l'elemento da cancellare dalla lista elencata-----\n");
+		
+		botmessageoptions.forEach(botmessageoption -> System.out.println(botmessageoption.toString()));
 		System.out.println();
-		botMessageOptions.forEach(us_type -> System.out.println(us_type.toString()));
-		System.out.println();
-		System.out.println("bot_message_option_id:");
-		botMessageOptionId = Integer.parseInt(getInput());
-		if (botMessageOptionId != null) {
-			botMessageOptionsController.deleteBotMessageOptions(new BotMessageOptions(botMessageOptionId, "", 0));
+		
+		System.out.println("\nDigita l'ID:");
+		idToDelete = Integer.parseInt(getInput());
+		
+		while(idToDelete == null) {
+			System.out.println("\nID inserito non è corretto");
+			System.out.println("\nDigita l'ID:");
+			idToDelete = Integer.parseInt(getInput());
+		}
+		
+		if (idToDelete != null) {
+			botMessageOptionsController.deleteBotMessageOptions(new BotMessageOptions(idToDelete, ""));
 		}
 	}
 
