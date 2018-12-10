@@ -27,12 +27,12 @@ public class NodesView implements View {
 	public void showOptions() {
 		System.out.println("");
 		System.out.println("");
-		System.out.println("-------MENU Nodes Controller-------");
-		System.out.println("Scegli l'operazione che vuoi fare:");
-		System.out.println("1) Visualizza Nodes Controller");
-		System.out.println("2) Inserisci Nodes Controller");
-		System.out.println("3) Modifica Nodes Controller");
-		System.out.println("4) Cancella Nodes Controller");
+		System.out.println("-------MENU-------");
+		System.out.println("Scegli l'operazione da effettuare:");
+		System.out.println("1) Visualizza Nodes"); 
+		System.out.println("2) Inserisci Nodes");
+		System.out.println("3) Modifica Nodes");
+		System.out.println("4) Cancella Nodes");
 		System.out.println("5) Logout");
 		try {
 			this.choice = Integer.parseInt(getInput());
