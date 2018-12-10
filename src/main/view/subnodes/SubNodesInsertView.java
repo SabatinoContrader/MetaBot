@@ -10,11 +10,12 @@ import main.controller.SubNodesController;
 import java.util.List;
 import java.util.Scanner;
 
+//Implementazione della View
 public class SubNodesInsertView implements View {
 
 	private SubNodesController subNodesController;
 	private Request request;
-	
+
 	public SubNodesInsertView() {
 		this.subNodesController = new SubNodesController();
 	}
@@ -25,42 +26,45 @@ public class SubNodesInsertView implements View {
 
 	@Override
 	public void showOptions() {
-	
-		 Integer idSubNodes;
-		 Integer botMessageOptionFk;
-		 Integer sequence;
-		 Integer idNodeFk;
-		 
-			System.out.println("\n Inserisci i campi della Subnodes");
-		    
-			System.out.println("\nDigita l'ID Subnodes:");
-			idSubNodes = Integer.parseInt(getInput());
-			
-			System.out.println("\nDigita il messaggio: ");
-			botMessageOptionFk = Integer.parseInt(getInput());
-			
-			System.out.println("\nDigita la Sequenza");
-			sequence = Integer.parseInt(getInput());
-			System.out.println("\nDigita l'ID Nodes");
-			idNodeFk = Integer.parseInt(getInput());
-			
-			if (idSubNodes!= null &&  botMessageOptionFk!= null && sequence!= null  && idNodeFk!= null   ){
-				subNodesController.insertSubNodes(new SubNodes( idSubNodes, botMessageOptionFk,sequence ,idNodeFk  ));
-			}
-		}
 
-		@Override
-		public String getInput() {
-			Scanner scanner = new Scanner(System.in);
-			return scanner.nextLine();
-		}
+		//Campi per eseguire l'insert del SubNodes
+		Integer idSubNodes;
+		Integer botMessageOptionFk;
+		Integer sequence;
+		Integer idNodeFk;
 
-		@Override
-		public void submit() {
-			request = new Request();
-			request.put("mode", "menu");
-			request.put("choice", 0);
-			MainDispatcher.getInstance().callAction("SubNodes", "doControl", request);
-		}
+		System.out.println("\n Inserisci i campi della Subnodes");
 
+		System.out.println("\nDigita l'ID Subnodes:");
+		idSubNodes = Integer.parseInt(getInput());
+
+		System.out.println("\nDigita L'ID botMessageOptionFk: ");
+		botMessageOptionFk = Integer.parseInt(getInput());
+
+		System.out.println("\nDigita il numero della sequenza Sequenza:");
+		sequence = Integer.parseInt(getInput());
+
+		System.out.println("\nDigita l'ID Nodes:");
+		idNodeFk = Integer.parseInt(getInput());
+
+		//Controllo sulla persistenza e chiamata al controller
+		if (idSubNodes != null && botMessageOptionFk != null && sequence != null && idNodeFk != null) {
+			subNodesController.insertSubNodes(new SubNodes(idSubNodes, botMessageOptionFk, sequence, idNodeFk));
+		}
 	}
+
+	@Override
+	public String getInput() {
+		Scanner scanner = new Scanner(System.in);
+		return scanner.nextLine();
+	}
+
+	@Override
+	public void submit() {
+		request = new Request();
+		request.put("mode", "menu");
+		request.put("choice", 0);
+		MainDispatcher.getInstance().callAction("SubNodes", "doControl", request);
+	}
+
+}

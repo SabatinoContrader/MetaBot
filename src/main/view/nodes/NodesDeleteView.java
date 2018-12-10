@@ -15,6 +15,10 @@ public class NodesDeleteView implements View {
 	private NodesController nodesController;
 	private Request request;
 
+	public NodesDeleteView() {
+		this.nodesController = new NodesController();
+	}
+
 	@Override
 	public void showResults(Request request) {
 	}
