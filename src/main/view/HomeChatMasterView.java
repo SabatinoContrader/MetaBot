@@ -16,14 +16,12 @@ public class HomeChatMasterView implements View {
 	public void showOptions() {
 		System.out.println("\nBenvenuto in MetaBot\n\n");
 		System.out.println("-------MENU-------");
-		System.out.println("1) Gestione UserTypes");
-		System.out.println("2) Gestione Users");
-		System.out.println("3) Gestione BotMssageOptions");
-		System.out.println("4) Gestione BotMessages");
-		System.out.println("5) Gestione ChatBots");
-		System.out.println("6) Gestione Nodes");
-		System.out.println("7) Gestione SubNodes");
-		System.out.println("8) Logout");
+		System.out.println("1) Gestione BotMssageOptions");
+		System.out.println("2) Gestione BotMessages");
+		System.out.println("3) Gestione ChatBots");
+		System.out.println("4) Gestione Nodes");
+		System.out.println("5) Gestione SubNodes");
+		System.out.println("6) Logout");
 		try {
 			this.choice = Integer.parseInt(getInput());
 		} catch(Exception e) {
