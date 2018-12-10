@@ -14,7 +14,7 @@ import main.model.BotMessageOptions;
 
 public class BotMessageOptionsDAO {
 	private final String QUERY_ALL = "select * from bot_message_options";
-	private final String QUERY_INSERT = "insert into bot_message_options (bot_message_option_id, bot_message_option values (?,?)";
+	private final String QUERY_INSERT = "insert into bot_message_options (bot_message_option_id, bot_message_option) values (?,?)";
 	private final String QUERY_UPDATE = "UPDATE bot_message_options SET bot_message_option = (?) WHERE bot_message_option_id = (?)"; 
 	private final String QUERY_DELETE = "DELETE FROM bot_message_options WHERE bot_message_option_id = (?)"; 
 	

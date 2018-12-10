@@ -32,7 +32,7 @@ public class UsersUpdateView implements View {
 		System.out.println();
 		users.forEach(us_type -> System.out.println(us_type.toString()));
 		System.out.println();
-		System.out.println("Digita l'username:");
+		System.out.println("Digita l'ID::");
 		usersId = Integer.parseInt(getInput());
 		System.out.println("Digita la password:");
 		password = getInput();
