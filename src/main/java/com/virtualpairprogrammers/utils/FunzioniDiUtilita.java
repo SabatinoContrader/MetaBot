@@ -18,21 +18,18 @@ public class FunzioniDiUtilita {
 	 * @param nodoInizio
 	 * @param nodoFine
 	 */
-	public static void stampaChat(List<NodeToNode> list, Integer nodoInizio, Integer nodoFine) {
-
+	public static List<NodeToNode> stampaChat(List<NodeToNode> list, Integer nodoInizio, Integer nodoFine) {
+		/**
+		 * Creiamo la lista dei nodi da visitare e la lista dei nodi visitati <br>
+		 * NB: la lista "visitati" sarà la lista di ritorno rappresentante l'alberatura
+		 * voluta
+		 */
+		final List<NodeToNode> daVisitareList = new ArrayList<>();
+		final List<NodeToNode> visitati = new ArrayList<>();
 		/**
 		 * Non vogliamo che il nodo iniziale e il nodo finale coincidano
 		 */
-		if (nodoInizio == nodoFine) {
-			throw new RuntimeException("Non è possibile che nodoInizio e nodoFine coincidano");
-		} else {
-			/**
-			 * Creiamo la lista dei nodi da visitare e la lista dei nodi visitati <br>
-			 * NB: la lista "visitati" sarà la lista di ritorno rappresentante l'alberatura
-			 * voluta
-			 */
-			final List<NodeToNode> daVisitareList = new ArrayList<>();
-			final List<NodeToNode> visitati = new ArrayList<>();
+		if ((nodoInizio != nodoFine) || !list.isEmpty()) {
 
 			/**
 			 * Mettiamo i nodi collegati al nodo iniziale nella lista dei nodi da visitare
@@ -40,8 +37,6 @@ public class FunzioniDiUtilita {
 			for (final NodeToNode NodeToNode : list) {
 				if (NodeToNode.getFirstNodeId() == nodoInizio) {
 					daVisitareList.add(NodeToNode);
-					// System.out.println("Nodo iniziale: " + NodeToNode.getFirstNodeId());
-					break;
 				}
 			}
 			/**
@@ -98,11 +93,40 @@ public class FunzioniDiUtilita {
 			/**
 			 * Decommentare per debug
 			 */
-			// for (final NodeToNode NodeToNode : visitati) {
-			// System.out.println("Nodo Padre: " + NodeToNode.getFirstNodeId());
-			// System.out.println("Nodo Figlio: " + NodeToNode.getSecondNodeId());
-			// }
+//			for (final NodeToNode NodeToNode : visitati) {
+//				System.out.println("Nodo Padre: " + NodeToNode.getFirstNodeId());
+//				System.out.println("Nodo Figlio: " + NodeToNode.getSecondNodeId());
+//			}
+		} else {
+			throw new RuntimeException("Non è possibile che nodoInizio e nodoFine coincidano o che la lista sia vuota");
 		}
+		return visitati;
 	}
 
+//	public static void main(String[] args) {
+//		final List<NodeToNode> list = new ArrayList<>();
+//		final NodeToNode NodeToNode1 = new NodeToNode(1, 2, null, null, null);
+//		final NodeToNode NodeToNode2 = new NodeToNode(2, 3, null, null, null);
+//		final NodeToNode NodeToNode3 = new NodeToNode(2, 4, null, null, null);
+//		final NodeToNode NodeToNode4 = new NodeToNode(3, 5, null, null, null);
+//		final NodeToNode NodeToNode5 = new NodeToNode(3, 6, null, null, null);
+//		final NodeToNode NodeToNode6 = new NodeToNode(4, 7, null, null, null);
+//		final NodeToNode NodeToNode7 = new NodeToNode(4, 8, null, null, null);
+//		final NodeToNode NodeToNode8 = new NodeToNode(5, 9, null, null, null);
+//		final NodeToNode NodeToNode9 = new NodeToNode(6, 9, null, null, null);
+//		final NodeToNode NodeToNode10 = new NodeToNode(7, 9, null, null, null);
+//		final NodeToNode NodeToNode11 = new NodeToNode(8, 9, null, null, null);
+//		list.add(NodeToNode6);
+//		list.add(NodeToNode2);
+//		list.add(NodeToNode4);
+//		list.add(NodeToNode5);
+//		list.add(NodeToNode9);
+//		list.add(NodeToNode3);
+//		list.add(NodeToNode1);
+//		list.add(NodeToNode7);
+//		list.add(NodeToNode8);
+//		list.add(NodeToNode10);
+//		list.add(NodeToNode11);
+//		FunzioniDiUtilita.stampaChat(list, 1, 9);
+//	}
 }
