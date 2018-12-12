@@ -5,35 +5,34 @@ import com.virtualpairprogrammers.model.Nodes;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 public class NodesService {
-
-    private NodesDAO nodesDAO;
-
-    public NodesService() {
-        this.nodesDAO = new NodesDAO();
+    private NodesDAO nodeDAO;
+    
+    public NodesService () {
+        this.nodeDAO = new NodesDAO();
     }
-
+    
     public List<Nodes> getAllNodes () {
-        return this.nodesDAO.getAllNodes();
+        return this.nodeDAO.getAllNodes();
     }
     
-    public List<Nodes> getNodes (int id) {
-        return this.nodesDAO.getNodes(id);
+    public List<Nodes> getAllValidNodes () {
+        return this.nodeDAO.getAllValidNodes();
     }
     
-    public boolean insertNodes (Nodes nodes) {
-        return this.nodesDAO.insertNodes(nodes);
-    }
-
-    public boolean updateNodes (HttpServletRequest request) {
-        return this.nodesDAO.updateNodes(request);
+    public boolean insertNode (Nodes node) {
+        return this.nodeDAO.insertNode(node);
     }
     
-    public boolean deleteNodes (Integer nodesId) {
-        return this.nodesDAO.deleteNodes(nodesId);
+    public boolean updateNode (Nodes node) {
+        return this.nodeDAO.updateNode(node);
+    }
+    
+    public boolean softDeleteNode (Nodes node) {
+        return this.nodeDAO.softDeleteNode(node);
+    }
+    
+    public boolean deleteNode (Nodes node) {
+        return this.nodeDAO.deleteNode(node);
     }
 }
-
-

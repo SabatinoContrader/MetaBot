@@ -5,35 +5,34 @@ import com.virtualpairprogrammers.model.Users;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 public class UsersService {
-
-    private UsersDAO usersDAO;
-
-    public UsersService() {
-        this.usersDAO = new UsersDAO();
+    private UsersDAO userDAO;
+    
+    public UsersService () {
+        this.userDAO = new UsersDAO();
     }
-
+    
     public List<Users> getAllUsers () {
-        return this.usersDAO.getAllUsers();
-    }
- 
-    public List<Users> getAllUsers (int id) {
-        return this.usersDAO.getAllUsers(id);
+        return this.userDAO.getAllUsers();
     }
     
-    public boolean insertUsers (Users user) {
-        return this.usersDAO.insertUsers(user);
-    }
-
-    public boolean updateUsers (HttpServletRequest request) {
-        return this.usersDAO.updateUsers(request);
+    public List<Users> getAllValidUsers () {
+        return this.userDAO.getAllValidUsers();
     }
     
-    public boolean deleteUsers (int usersId) {
-        return this.usersDAO.deleteUsers(usersId);
+    public boolean insertUser (Users user) {
+        return this.userDAO.insertUser(user);
+    }
+    
+    public boolean updateUser (Users user) {
+        return this.userDAO.updateUser(user);
+    }
+    
+    public boolean softDeleteUser (Users user) {
+        return this.userDAO.softDeleteUser(user);
+    }
+    
+    public boolean deleteUser (Users user) {
+        return this.userDAO.deleteUser(user);
     }
 }
-
-

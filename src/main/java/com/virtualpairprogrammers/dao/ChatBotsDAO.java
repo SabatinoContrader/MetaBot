@@ -1,127 +1,115 @@
 package com.virtualpairprogrammers.dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
 
 import com.virtualpairprogrammers.utils.ConnectionSingleton;
 import com.virtualpairprogrammers.utils.GestoreEccezioni;
 import com.virtualpairprogrammers.model.ChatBots;
-import com.virtualpairprogrammers.model.UserTypes;
-import com.virtualpairprogrammers.model.Users;
 
 public class ChatBotsDAO {
-	String param="";
-	
-	private final String QUERY_ALL 		= "SELECT * from chatbots inner join users on (users_id_fk = users_id) inner join user_types on (user_types_id_fk = user_types_id)";
-	private final String QUERY_INSERT 	= "INSERT INTO chatbots (chatbots_id, initial_message, users_id_fk) values (?,?,?)";
-	private final String QUERY_DELETE 	= "DELETE FROM chatbots WHERE chatbots_id = (?)"; 
-
-	public List<ChatBots> getAllChatBots () {
-        List<ChatBots> chatBots = new ArrayList<>();
-        Connection connection = ConnectionSingleton.getInstance();
-        try {
-           Statement statement = connection.createStatement();
-           ResultSet resultSet = statement.executeQuery(QUERY_ALL);
-           while (resultSet.next()) {
-               Integer chatbotId = resultSet.getInt("chatbots_id");
-        	   String initialMessage = resultSet.getString("initial_message");
-			   Integer usersId = resultSet.getInt("users_id");
-			   String username= resultSet.getString("username");
-			   String password= resultSet.getString("password");
-			   
-			   Integer userTypesID = resultSet.getInt("user_types_id_fk"); 
-			   String userTypes= resultSet.getString("user_types");
-			   
-			   UserTypes userTypesObj = new UserTypes(userTypesID,userTypes);
-			   Users usersObj = new Users(usersId,username, password,userTypesObj);
-        	   chatBots.add(new ChatBots(chatbotId, initialMessage,usersObj));
-           }
-        }
-        catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return chatBots;
+    private final String QUERY_ALL         = "SELECT * FROM chatbots";
+    private final String QUERT_ALL_VALID   = "SELECT * FROM chatbots WHERE deleted_at IS NULL";
+    private final String QUERTY_ONE        = "SELECT * FROM chatbots WHERE chatbot_ID";
+    private final String QUERY_INSERT      = "INSERT INTO chatbots (owner_FK, enter_node, end_node, bot_name, welcome, created_at, updated_at, deleted_at) VALUES (?,?,?,?,?,?,?,?)";
+    private final String QUERY_UPDATE      = "UPDATE chatbots SET owner_FK= (?), enter_node= (?), end_node=(?), bot_name=(?),welcome=(?),updated_at=(?) WHERE chatbot_ID = (?)";
+    private final String QUERY_SOFT_DELETE = "UPDATE chatbots SET deleted_at=(?) WHERE chatbot_ID = (?)";
+    private final String QUERY_DELETE      = "DELETE FROM chatbots WHERE chatbot_ID = (?)";
+    
+    public  List<ChatBots>getAllChatBots(){
+        return getChatBots(QUERY_ALL);
     }
-	
-	public List<ChatBots> getChatBots (int id) {
-        List<ChatBots> chatBots = new ArrayList<>();
-        Connection connection = ConnectionSingleton.getInstance();
-        try {
-           Statement statement = connection.createStatement();
-           ResultSet resultSet = statement.executeQuery("SELECT * from chatbots inner join users on (users_id_fk = users_id) inner join user_types on (user_types_id_fk = user_types_id)WHERE chatbots_id = "+id);
-           while (resultSet.next()) {
-               Integer chatbotId = resultSet.getInt("chatbots_id");
-        	   String initialMessage = resultSet.getString("initial_message");
-			   Integer usersId = resultSet.getInt("users_id");
-			   String username= resultSet.getString("username");
-			   String password= resultSet.getString("password");
-			   
-			   Integer userTypesID = resultSet.getInt("user_types_id_fk"); 
-			   String userTypes= resultSet.getString("user_types");
-			   
-			   UserTypes userTypesObj = new UserTypes(userTypesID,userTypes);
-			   Users usersObj = new Users(usersId,username, password,userTypesObj);
-        	   chatBots.add(new ChatBots(chatbotId, initialMessage,usersObj));
-           }
-        }
-        catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return chatBots;
-    }
-	
-    public boolean insertChatBots(ChatBots chatBots) {
-        Connection connection = ConnectionSingleton.getInstance();
-        try {
-            PreparedStatement preparedStatement = connection.prepareStatement(QUERY_INSERT);
-            preparedStatement.setInt(1, chatBots.getChatBotsId());
-            preparedStatement.setString(2, chatBots.getInitialMessage());
-            preparedStatement.setInt(3, chatBots.getUsersFK().getUsersId());
-            preparedStatement.execute();
-            return true;
-        }
-        catch (SQLException e) {
-            GestoreEccezioni.getInstance().gestisciEccezione(e);
-            return false;
-        }
-
+    public List<ChatBots>getAllValidChatBots(){
+        return getChatBots(QUERT_ALL_VALID);
     }
     
-    public boolean updateChatBots(HttpServletRequest request) {
+    private List<ChatBots> getChatBots (String select_query) {
+        List<ChatBots> chatbots   = new ArrayList<>();
+        Connection    connection = ConnectionSingleton.getInstance();
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(select_query);
+            while (resultSet.next()) {
+                Integer chatbotID = resultSet.getInt("chatbot_ID");
+                Integer ownerFK   = resultSet.getInt("owner_FK");
+                Integer enterNode = resultSet.getInt("enter_node");
+                Integer endNode   = resultSet.getInt("end_node");
+                String  botName   = resultSet.getString("bot_name");
+                String  welcome   = resultSet.getString("welcome");
+                Date    createdAt = resultSet.getDate("created_at");
+                Date    updatedAt = resultSet.getDate("update_at");
+                Date    deletedAt = resultSet.getDate("deleted_at");
+                chatbots.add(new ChatBots(chatbotID, ownerFK, enterNode, endNode, botName, welcome, createdAt, updatedAt, deletedAt));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return chatbots;
+    }
+    
+    public boolean insertChatBot (ChatBots chatbot) {
         Connection connection = ConnectionSingleton.getInstance();
         try {
-        	param=(String)request.getParameter("campo");        	
-            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE chatbots SET "+param+" = (?) WHERE chatbots_id = (?)");
-            preparedStatement.setString(1, (String)request.getParameter("newData"));
-            preparedStatement.setInt(2, Integer.parseInt(request.getParameter("idChatBots")));
-            preparedStatement.execute();
-            return true;
-        }
-        catch (SQLException e) {
+            PreparedStatement preparedStatement;
+            preparedStatement = connection.prepareStatement(QUERY_INSERT);
+            preparedStatement.setInt(1, chatbot.getOwnerFK());
+            preparedStatement.setInt(2, chatbot.getEndPoint());
+            preparedStatement.setInt(3, chatbot.getEndPoint());
+            preparedStatement.setString(4, chatbot.getName());
+            preparedStatement.setString(5, chatbot.getWelcome());
+            preparedStatement.setDate(6, chatbot.getCreatedAt());
+            preparedStatement.setDate(7, chatbot.getUpdatedAt());
+            preparedStatement.setDate(8, chatbot.getDeletedAt());
+            return preparedStatement.execute();
+        } catch (SQLException e) {
             GestoreEccezioni.getInstance().gestisciEccezione(e);
             return false;
         }
-}
+        
+    }
     
-    public boolean deleteChatBots(int chatBotsId) {
+    public boolean updateChatBot (ChatBots chatbot) {
         Connection connection = ConnectionSingleton.getInstance();
         try {
-        	PreparedStatement preparedStatement = connection.prepareStatement(QUERY_DELETE);
-            preparedStatement.setInt(1, chatBotsId);
-            preparedStatement.execute();
-            return true;
-        }
-        catch (SQLException e) {
+            PreparedStatement preparedStatement = connection.prepareStatement(QUERY_UPDATE);
+            preparedStatement.setInt(1, chatbot.getOwnerFK());
+            preparedStatement.setInt(2, chatbot.getEnterPoint());
+            preparedStatement.setInt(3,chatbot.getEndPoint());
+            preparedStatement.setString(4,chatbot.getName());
+            preparedStatement.setString(5,chatbot.getWelcome());
+            preparedStatement.setDate(6,chatbot.getUpdatedAt());
+            preparedStatement.setInt(7,chatbot.getChatBotID());
+            return preparedStatement.execute();
+        } catch (SQLException e) {
             GestoreEccezioni.getInstance().gestisciEccezione(e);
             return false;
         }
     }
-
+    
+    public boolean softDeleteChatBot(ChatBots chatbot){
+        Connection connection = ConnectionSingleton.getInstance();
+        try{
+            PreparedStatement preparedStatement = connection.prepareStatement(QUERY_SOFT_DELETE);
+            preparedStatement.setDate(1,chatbot.getDeletedAt());
+            preparedStatement.setInt(2,chatbot.getChatBotID());
+            return preparedStatement.execute();
+        }catch (SQLException e){
+            GestoreEccezioni.getInstance().gestisciEccezione(e);
+            return false;
+        }
+    }
+    
+    public boolean deleteChatBot (ChatBots chatbot) {
+        Connection connection = ConnectionSingleton.getInstance();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(QUERY_DELETE);
+            preparedStatement.setInt(1, chatbot.getChatBotID());
+            return preparedStatement.execute();
+        } catch (SQLException e) {
+            GestoreEccezioni.getInstance().gestisciEccezione(e);
+            return false;
+        }
+    }
+    
 }

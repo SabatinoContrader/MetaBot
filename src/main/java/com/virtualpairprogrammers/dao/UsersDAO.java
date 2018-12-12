@@ -1,113 +1,123 @@
 package com.virtualpairprogrammers.dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
 
 import com.virtualpairprogrammers.utils.ConnectionSingleton;
 import com.virtualpairprogrammers.utils.GestoreEccezioni;
 import com.virtualpairprogrammers.model.Users;
-import com.virtualpairprogrammers.model.UserTypes;
+
+//CURRENT TIME PER LE DATE DI CREAZIONE MODIFICA E CANCELLAZIONE
+//java.sql.Date currentDate = new java.sql.Date(Calendar.getInstance().getTime().getTime());
 
 public class UsersDAO {
-	String param="";
-	
-	private final String QUERY_ALL = "select * from users inner join user_types on user_types_id_fk = user_types_id";
-	private final String QUERY_INSERT = "insert into users (users_id,username, password, user_types_id_fk) values (?,?,?,?)";
-	private final String QUERY_DELETE = "DELETE FROM users WHERE users_id = (?)";
-
-	public List<Users> getAllUsers() {
-		List<Users> users = new ArrayList<>();
-		Connection connection = ConnectionSingleton.getInstance();
-		try {
-			Statement statement = connection.createStatement();
-			ResultSet resultSet = statement.executeQuery(QUERY_ALL);
-			while (resultSet.next()) {
-				Integer usersId = resultSet.getInt("users_id");
-				String username = resultSet.getString("username");
-				String password = resultSet.getString("password");
-				Integer userTypesID = resultSet.getInt("user_types_id");
-				String userTypes= resultSet.getString("user_types");
-				UserTypes userTypesObj = new UserTypes(userTypesID,userTypes);
-				users.add(new Users(usersId, username, password, userTypesObj));
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return users;
-	}
-
-	public List<Users> getAllUsers(int id) {
-		List<Users> users = new ArrayList<>();
-		Connection connection = ConnectionSingleton.getInstance();
-		try {
-	           Statement statement = connection.createStatement();
-	           ResultSet resultSet = statement.executeQuery("select * from users inner join user_types on user_types_id_fk = user_types_id WHERE users_id = "+id);
-			while (resultSet.next()) {
-				Integer usersId = resultSet.getInt("users_id");
-				String username = resultSet.getString("username");
-				String password = resultSet.getString("password");
-				Integer userTypesID = resultSet.getInt("user_types_id");
-				String userTypes= resultSet.getString("user_types");
-				UserTypes userTypesObj = new UserTypes(userTypesID,userTypes);
-				users.add(new Users(usersId, username, password, userTypesObj));
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return users;
-	}
-	
-	public boolean insertUsers(Users users) {
-		Connection connection = ConnectionSingleton.getInstance();
-		try {
-			PreparedStatement preparedStatement = connection.prepareStatement(QUERY_INSERT);
-
-			preparedStatement.setInt(1, users.getUsersId());
-			preparedStatement.setString(2, users.getUsername());
-			preparedStatement.setString(3, users.getPassword());
-			preparedStatement.setInt(4, users.getUserTypeFk().getUserTypesId());
-			preparedStatement.execute();
-			return true;
-		} catch (SQLException e) {
-			GestoreEccezioni.getInstance().gestisciEccezione(e);
-			return false;
-		}
-
-	}
-
-	public boolean updateUsers(HttpServletRequest request) {
-		Connection connection = ConnectionSingleton.getInstance();
-		try {
-			param=(String)request.getParameter("campo");
-            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE users SET "+param+" = (?) WHERE users_id = (?)");
-            preparedStatement.setString(1, (String)request.getParameter("newData"));
-            preparedStatement.setInt(2, Integer.parseInt(request.getParameter("idUsers")));
-            preparedStatement.execute();
-            return true;
-		} catch (SQLException e) {
-			GestoreEccezioni.getInstance().gestisciEccezione(e);
-			return false;
-		}
-	}
-
-	public boolean deleteUsers(int usersId) {
-		Connection connection = ConnectionSingleton.getInstance();
-		try {
-			PreparedStatement preparedStatement = connection.prepareStatement(QUERY_DELETE);
-			preparedStatement.setInt(1, usersId);
-			preparedStatement.execute();
-			return true;
-		} catch (SQLException e) {
-			GestoreEccezioni.getInstance().gestisciEccezione(e);
-			return false;
-		}
-	}
-
+    private final String QUERY_ALL         = "SELECT * FROM users";
+    private final String QUERY_ALL_VALID   = "SELECT * FROM users WHERE deleted_at IS NULL";
+    private final String QUERY_ONE         = "SELECT * FROM users WHERE  user_ID = (?)";
+    private final String QUERY_INSERT      = "INSERT INTO users (username, password, first_name, last_name, email, user_type_FK, created_at, updated_at, deleted_at) VALUES (?,?,?,?,?,?,?)";
+    private final String QUERY_UPDATE      = "UPDATE users SET password = (?), email =(?),updated_at =(?) WHERE user_ID = (?)";
+    private final String QUERY_SOFT_DELETE = "UPDATE users SET deleted_at = (?) WHERE user_ID = (?)";
+    private final String QUERY_DELETE      = "DELETE FROM users WHERE user_ID = (?)";
+    
+    public List<Users> getAllUsers () {
+        return getUsers(QUERY_ALL);
+    }
+    public List<Users> getAllValidUsers () {
+        return getUsers(QUERY_ALL_VALID);
+    }
+    
+    /*
+     * QUESTO METODO VIENE INVOCATO DAI METODI QUI SOPRA, ESSENDO GLI STESSI DATI RICHIAMATI DA 2 QUERY
+     * DIVERSE ALLORA HO CREATO 2 METODI CON NOMI DIVERSI CHE RICHIAMANO QUESTO METODO CAMBIANDO LA QUERY DESIDERATA
+     * CON QUESTA METODOLOGIA EVITO DI SCRIVERE 2 VOLTE LO STESSO CODICE IN CUI CAMBIA SOLO LA QUERY DESIDERATA
+     */
+    private List<Users> getUsers (String select_query) {
+        List<Users> users      = new ArrayList<>();
+        Connection connection = ConnectionSingleton.getInstance();
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(select_query);
+            while (resultSet.next()) {
+                Integer userID     = resultSet.getInt("user_ID");
+                String  username   = resultSet.getString("username");
+                String  password   = resultSet.getString("password");
+                String 	first_name = resultSet.getString("first_name");
+                String  last_name  = resultSet.getString("last_name");
+                String  email      = resultSet.getString("email");
+                Integer userTypeFK = resultSet.getInt("user_type_FK");
+                Date    createdAT  = resultSet.getDate("created_at");
+                Date    updatedAT  = resultSet.getDate("updated_at");
+                Date    deletedAT  = resultSet.getDate("deleted_at");
+                
+                users.add(new Users(userID, username, password, first_name, last_name, email, userTypeFK, createdAT, updatedAT, deletedAT));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return users;
+    }
+    
+    public boolean insertUsers (Users user) {
+        Connection connection = ConnectionSingleton.getInstance();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(QUERY_INSERT);
+            
+            preparedStatement.setString(1, user.getUsername());
+            preparedStatement.setString(2, user.getPassword());
+            preparedStatement.setString(3, user.getEmail());
+            preparedStatement.setInt(4, user.getUserTypeFk());
+            preparedStatement.setDate(5, user.getCreatedAt());
+            preparedStatement.setDate(6, user.getUpdatedAt());
+            preparedStatement.setDate(7, user.getDeletedAt());
+            return preparedStatement.execute();
+        } catch (SQLException e) {
+            GestoreEccezioni.getInstance().gestisciEccezione(e);
+            return false;
+        }
+    }
+    
+    public boolean updateUser (Users user) {
+        Connection connection = ConnectionSingleton.getInstance();
+        
+        
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(QUERY_UPDATE);
+            preparedStatement.setString(1, user.getPassword());
+            preparedStatement.setString(2, user.getEmail());
+            preparedStatement.setDate(3, user.getUpdatedAt());
+            preparedStatement.setInt(4, user.getUserID());
+            return preparedStatement.execute();
+        } catch (SQLException e) {
+            GestoreEccezioni.getInstance().gestisciEccezione(e);
+            return false;
+        }
+    }
+    
+    public boolean softDeleteUser (Users user) {
+        Connection connection = ConnectionSingleton.getInstance();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(QUERY_SOFT_DELETE);
+            preparedStatement.setDate(1, user.getDeletedAt());
+            preparedStatement.setInt(2, user.getUserID());
+            return preparedStatement.execute();
+        } catch (SQLException e) {
+            GestoreEccezioni.getInstance().gestisciEccezione(e);
+            return false;
+        }
+    }
+    
+    public boolean deleteUser (Users user) {
+        Connection connection = ConnectionSingleton.getInstance();
+        try {
+            PreparedStatement preparedStatement;
+            preparedStatement = connection.prepareStatement(QUERY_DELETE);
+            preparedStatement.setInt(1, user.getUserID());
+            return preparedStatement.execute();
+        } catch (SQLException e) {
+            GestoreEccezioni.getInstance().gestisciEccezione(e);
+            return false;
+        }
+    }
+    
 }
