@@ -12,7 +12,7 @@ CREATE TABLE `contrader-metabot`.`user_types`
  `created_at`     datetime NOT NULL ,
  `updated_at`     datetime NOT NULL ,
  `deleted_at`     datetime DEFAULT NULL,
-PRIMARY KEY (`user_role_ID`)
+PRIMARY KEY (`user_type_ID`)
 );
 
 
@@ -78,7 +78,7 @@ PRIMARY KEY (`chatbot_ID`)
 
 -- ************************************** `users`
 ALTER TABLE `contrader-metabot`.`users`
-ADD CONSTRAINT `user_to_usertype` FOREIGN KEY (`user_type_FK`) REFERENCES `user_types` (`user_types_ID`);
+ADD CONSTRAINT `user_to_usertype` FOREIGN KEY (`user_type_FK`) REFERENCES `user_types` (`user_type_ID`);
 
 
 -- ************************************** `nodes`

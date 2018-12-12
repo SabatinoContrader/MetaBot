@@ -1,14 +1,11 @@
 package com.virtualpairprogrammers.dao;
 
-import com.virtualpairprogrammers.utils.ConnectionSingleton;
-import com.virtualpairprogrammers.utils.GestoreEccezioni;
-import com.virtualpairprogrammers.model.BotMessageOptions;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
+
+import com.virtualpairprogrammers.utils.ConnectionSingleton;
 
 public class LoginDAO {
 
@@ -20,19 +17,19 @@ public class LoginDAO {
 		String userType = "";
 		String loginUser = "";
 
-		Connection connection = ConnectionSingleton.getInstance();
+		final Connection connection = ConnectionSingleton.getInstance();
 		try {
-			PreparedStatement statement = connection.prepareStatement(QUERY_LOGIN);
+			final PreparedStatement statement = connection.prepareStatement(QUERY_LOGIN);
 			statement.setString(1, username);
 			statement.setString(2, password);
 			statement.execute();
-			ResultSet resultSet = statement.getResultSet();
+			final ResultSet resultSet = statement.getResultSet();
 
 			while (resultSet.next()) {
 				userName = resultSet.getString("username");
 				userType = resultSet.getString("user_types");
 			}
-		} catch (SQLException e) {
+		} catch (final SQLException e) {
 			e.printStackTrace();
 		}
 

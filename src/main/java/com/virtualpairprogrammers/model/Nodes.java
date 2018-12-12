@@ -4,13 +4,11 @@ public class Nodes {
 
 	private Integer nodesId;
 	private ChatBots chatbotsIdFK;
-	private BotMessages botMessagesIdFK;
 	private Integer sequence;
 
-	public Nodes(Integer nodesId, ChatBots chatbotsIdFK, BotMessages botMessagesIdFK, Integer sequence) {
+	public Nodes(Integer nodesId, ChatBots chatbotsIdFK, Integer sequence) {
 		this.nodesId = nodesId;
 		this.chatbotsIdFK = chatbotsIdFK;
-		this.botMessagesIdFK = botMessagesIdFK;
 		this.sequence = sequence;
 	}
 
@@ -30,26 +28,12 @@ public class Nodes {
 		this.chatbotsIdFK = chatbotsIdFK;
 	}
 
-	public BotMessages getBotMessagesIdFK() {
-		return botMessagesIdFK;
-	}
-
-	public void setBotMessagesIdFK(BotMessages botMessagesIdFK) {
-		this.botMessagesIdFK = botMessagesIdFK;
-	}
-
 	public Integer getSequence() {
 		return sequence;
 	}
 
 	public void setSequence(Integer sequence) {
 		this.sequence = sequence;
-	}
-
-	@Override
-	public String toString() {
-		return "Nodes [nodesId=" + nodesId + ", chatbotsIdFK=" + chatbotsIdFK + ", botMessagesIdFK=" + botMessagesIdFK
-				+ ", sequence=" + sequence + "]";
 	}
 
 }
