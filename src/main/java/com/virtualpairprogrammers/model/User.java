@@ -2,23 +2,27 @@ package com.virtualpairprogrammers.model;
 
 import java.sql.Date;
 
-public class Users {
+public class User {
     
     private Integer userID;
     private String  username;
     private String  password;
+    private String  firstName;
+    private String  lastName;
     private String  email;
-    private Integer userRoleFk;
+    private Integer userTypeFK;
     private Date    createdAt;
     private Date    updatedAt;
     private Date    deletedAt;
     
-    public Users (Integer userID, String username, String password, String email, Integer userRoleFk, Date createdAt, Date updatedAt, Date deletedAt) {
+    public User (Integer userID, String username, String firstName, String lastName ,String password, String email, Integer userTypeFK, Date createdAt, Date updatedAt, Date deletedAt) {
         this.userID = userID;
         this.username = username;
         this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.email = email;
-        this.userRoleFk = userRoleFk;
+        this.userTypeFK = userTypeFK;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.deletedAt = deletedAt;
@@ -40,6 +44,22 @@ public class Users {
         this.username = username;
     }
     
+    public String getFirstName () {
+        return firstName;
+    }
+    
+    public void setFirstName (String firstName) {
+        this.firstName = firstName;
+    }
+    
+    public String getLastName () {
+        return lastName;
+    }
+    
+    public void setLastName (String lastName) {
+        this.lastName = lastName;
+    }
+    
     public String getPassword () {
         return password;
     }
@@ -56,12 +76,12 @@ public class Users {
         this.email = email;
     }
     
-    public Integer getUserRoleFk () {
-        return userRoleFk;
+    public Integer getUserTypeFK () {
+        return userTypeFK;
     }
     
-    public void setUserRoleFk (Integer userRoleFk) {
-        this.userRoleFk = userRoleFk;
+    public void setUserTypeFK (Integer userTypeFK) {
+        this.userTypeFK = userTypeFK;
     }
     
     public Date getCreatedAt () {
@@ -90,7 +110,7 @@ public class Users {
     
     @Override
     public String toString () {
-        return "User [user_ID =" + userID + ", username =" + username + ", password =" + password + ", email =" + email + ", user_role_FK =" + userRoleFk
+        return "User [user_ID =" + userID + ", username =" + username + ", first_name =" + firstName +", last_name =" + lastName +", password =" + password + ", email =" + email + ", user_role_FK =" + userTypeFK
                 + "]\n\t [created_at =" + createdAt.toString () + ", updated_at=" + updatedAt.toString () + ", deleted_at =" + deletedAt.toString () + "]";
     }
     

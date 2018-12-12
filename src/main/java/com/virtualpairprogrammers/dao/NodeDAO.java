@@ -6,9 +6,9 @@ import java.util.List;
 
 import com.virtualpairprogrammers.utils.ConnectionSingleton;
 import com.virtualpairprogrammers.utils.GestoreEccezioni;
-import com.virtualpairprogrammers.model.Nodes;
+import com.virtualpairprogrammers.model.Node;
 
-public class NodesDAO {
+public class NodeDAO {
     
     private final String QUERY_ALL         = "SELECT * FROM nodes";
     private final String QUERY_ALL_VALID   = "SELECT * FROM nodes WHERE deleted_at IS NULL";
@@ -19,10 +19,10 @@ public class NodesDAO {
     private final String QUERY_DELETE      = "DELETE FROM nodes WHERE node_ID = (?)";
     
     
-    public List<Nodes> getAllNodes () {
+    public List<Node> getAllNodes () {
         return getNodes(QUERY_ALL);
     }
-    public List<Nodes> getAllValidNodes () {
+    public List<Node> getAllValidNodes () {
         return getNodes(QUERY_ALL_VALID);
     }
     
@@ -31,8 +31,8 @@ public class NodesDAO {
      * DIVERSE ALLORA HO CREATO 2 METODI CON NOMI DIVERSI CHE RICHIAMANO QUESTO METODO CAMBIANDO LA QUERY DESIDERATA
      * CON QUESTA METODOLOGIA EVITO DI SCRIVERE 2 VOLTE LO STESSO CODICE IN CUI CAMBIA SOLO LA QUERY DESIDERATA
      */
-    private List<Nodes> getNodes (String select_query) {
-        List<Nodes> nodes      = new ArrayList<>();
+    private List<Node> getNodes (String select_query) {
+        List<Node> nodes      = new ArrayList<>();
         Connection connection = ConnectionSingleton.getInstance();
         
         try {
@@ -45,7 +45,7 @@ public class NodesDAO {
                 Date    createdAT  = resultSet.getDate("created_at");
                 Date    updatedAT  = resultSet.getDate("updated_at");
                 Date    deletedAT  = resultSet.getDate("deleted_at");
-                nodes.add(new Nodes(node_ID, chatbot_FK, content, createdAT, updatedAT, deletedAT));
+                nodes.add(new Node(node_ID, chatbot_FK, content, createdAT, updatedAT, deletedAT));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -54,7 +54,7 @@ public class NodesDAO {
     }
     
     // INSERISCE UN NUOVO RECORD
-    public boolean insertNode (Nodes node) {
+    public boolean insertNode (Node node) {
         Connection connection = ConnectionSingleton.getInstance();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(QUERY_INSERT);
@@ -72,7 +72,7 @@ public class NodesDAO {
     }
     
     //MODIFICARE LA STRUTTURA DEI NODI.
-    public boolean updateNode (Nodes node) {
+    public boolean updateNode (Node node) {
         Connection connection = ConnectionSingleton.getInstance();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(QUERY_UPDATE);
@@ -88,7 +88,7 @@ public class NodesDAO {
     }
     
     //ESEGUE UN SOFT DELETE DEL RECORD. OVVERO INSERISCE UNA DATA DELLA COLONNA DELETED_AT
-    public boolean softDeleteNode (Nodes node) {
+    public boolean softDeleteNode (Node node) {
         Connection connection = ConnectionSingleton.getInstance();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(QUERY_SOFT_DELETE);
@@ -102,7 +102,7 @@ public class NodesDAO {
     }
     
     //CANCELLA DEFINITIVAMENTE DAL DATABASE UN RECORD
-    public boolean deleteNode (Nodes node) {
+    public boolean deleteNode (Node node) {
         Connection connection = ConnectionSingleton.getInstance();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(QUERY_DELETE);

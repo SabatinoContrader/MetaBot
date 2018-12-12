@@ -6,9 +6,9 @@ import java.util.List;
 
 import com.virtualpairprogrammers.utils.ConnectionSingleton;
 import com.virtualpairprogrammers.utils.GestoreEccezioni;
-import com.virtualpairprogrammers.model.ChatBots;
+import com.virtualpairprogrammers.model.ChatBot;
 
-public class ChatBotsDAO {
+public class ChatBotDAO {
     private final String QUERY_ALL         = "SELECT * FROM chatbots";
     private final String QUERT_ALL_VALID   = "SELECT * FROM chatbots WHERE deleted_at IS NULL";
     private final String QUERTY_ONE        = "SELECT * FROM chatbots WHERE chatbot_ID";
@@ -17,15 +17,15 @@ public class ChatBotsDAO {
     private final String QUERY_SOFT_DELETE = "UPDATE chatbots SET deleted_at=(?) WHERE chatbot_ID = (?)";
     private final String QUERY_DELETE      = "DELETE FROM chatbots WHERE chatbot_ID = (?)";
     
-    public  List<ChatBots>getAllChatBots(){
+    public  List<ChatBot>getAllChatBots(){
         return getChatBots(QUERY_ALL);
     }
-    public List<ChatBots>getAllValidChatBots(){
+    public List<ChatBot>getAllValidChatBots(){
         return getChatBots(QUERT_ALL_VALID);
     }
     
-    private List<ChatBots> getChatBots (String select_query) {
-        List<ChatBots> chatbots   = new ArrayList<>();
+    private List<ChatBot> getChatBots (String select_query) {
+        List<ChatBot> chatbots   = new ArrayList<>();
         Connection    connection = ConnectionSingleton.getInstance();
         try {
             Statement statement = connection.createStatement();
@@ -40,7 +40,7 @@ public class ChatBotsDAO {
                 Date    createdAt = resultSet.getDate("created_at");
                 Date    updatedAt = resultSet.getDate("update_at");
                 Date    deletedAt = resultSet.getDate("deleted_at");
-                chatbots.add(new ChatBots(chatbotID, ownerFK, enterNode, endNode, botName, welcome, createdAt, updatedAt, deletedAt));
+                chatbots.add(new ChatBot(chatbotID, ownerFK, enterNode, endNode, botName, welcome, createdAt, updatedAt, deletedAt));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -48,7 +48,7 @@ public class ChatBotsDAO {
         return chatbots;
     }
     
-    public boolean insertChatBot (ChatBots chatbot) {
+    public boolean insertChatBot (ChatBot chatbot) {
         Connection connection = ConnectionSingleton.getInstance();
         try {
             PreparedStatement preparedStatement;
@@ -69,7 +69,7 @@ public class ChatBotsDAO {
         
     }
     
-    public boolean updateChatBot (ChatBots chatbot) {
+    public boolean updateChatBot (ChatBot chatbot) {
         Connection connection = ConnectionSingleton.getInstance();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(QUERY_UPDATE);
@@ -87,7 +87,7 @@ public class ChatBotsDAO {
         }
     }
     
-    public boolean softDeleteChatBot(ChatBots chatbot){
+    public boolean softDeleteChatBot(ChatBot chatbot){
         Connection connection = ConnectionSingleton.getInstance();
         try{
             PreparedStatement preparedStatement = connection.prepareStatement(QUERY_SOFT_DELETE);
@@ -100,7 +100,7 @@ public class ChatBotsDAO {
         }
     }
     
-    public boolean deleteChatBot (ChatBots chatbot) {
+    public boolean deleteChatBot (ChatBot chatbot) {
         Connection connection = ConnectionSingleton.getInstance();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(QUERY_DELETE);

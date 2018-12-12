@@ -2,17 +2,17 @@ package com.virtualpairprogrammers.model;
 
 import java.sql.Date;
 
-public class Nodes {
+public class Node {
     
     private Integer nodeID;
     private Integer chatbotFK;
-    private String content;
+    private String  content;
     private Date    createdAt;
     private Date    updatedAt;
     private Date    deletedAt;
     
     
-    public Nodes (Integer nodeID, Integer chatbotFK, String content, Date createdAt, Date updatedAt, Date deletedAt) {
+    public Node (Integer nodeID, Integer chatbotFK, String content, Date createdAt, Date updatedAt, Date deletedAt) {
         this.nodeID = nodeID;
         this.chatbotFK = chatbotFK;
         this.content = content;

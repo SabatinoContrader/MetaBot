@@ -2,7 +2,7 @@ package com.virtualpairprogrammers.model;
 
 import java.sql.Date;
 
-public class UserTypes {
+public class UserType {
     
     private Integer userTypeID;
     private String  userTypeName;
@@ -10,9 +10,9 @@ public class UserTypes {
     private Date    updatedAt;
     private Date    deletedAt;
     
-    public UserTypes (Integer userTypeID, String userTypeName, Date createdAt, Date updatedAt, Date deletedAt) {
+    public UserType (Integer userTypeID, String userTypeName, Date createdAt, Date updatedAt, Date deletedAt) {
         this.userTypeID = userTypeID;
-        this.userTypeName = this.userTypeName;
+        this.userTypeName = userTypeName;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.deletedAt = deletedAt;

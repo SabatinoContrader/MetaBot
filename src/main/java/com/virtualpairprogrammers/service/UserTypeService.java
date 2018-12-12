@@ -1,38 +1,38 @@
 package com.virtualpairprogrammers.service;
 
-import com.virtualpairprogrammers.dao.UserTypesDAO;
-import com.virtualpairprogrammers.model.UserTypes;
+import com.virtualpairprogrammers.dao.UserTypeDAO;
+import com.virtualpairprogrammers.model.UserType;
 
 import java.util.List;
 
 public class UserTypeService {
-    private UserTypesDAO userTypeDAO;
+    private UserTypeDAO userTypeDAO;
     
     public UserTypeService () {
-        this.userTypeDAO = new UserTypesDAO();
+        this.userTypeDAO = new UserTypeDAO();
     }
     
-    public List<UserTypes> getAllUserTypes () {
+    public List<UserType> getAllUserTypes () {
         return this.userTypeDAO.getAllUserTypes();
     }
     
-    public List<UserTypes> getAllValidUserTypes () {
+    public List<UserType> getAllValidUserTypes () {
         return this.userTypeDAO.getAllValidUserTypes();
     }
     
-    public boolean insertUserType (UserTypes user_type) {
+    public boolean insertUserType (UserType user_type) {
         return this.userTypeDAO.insertUserType(user_type);
     }
     
-    public boolean updateUserType (UserTypes user_type) {
+    public boolean updateUserType (UserType user_type) {
         return this.userTypeDAO.updateUserType(user_type);
     }
     
-    public boolean softDeleteUserType (UserTypes user_type) {
+    public boolean softDeleteUserType (UserType user_type) {
         return this.userTypeDAO.softDeleteUserType(user_type);
     }
     
-    public boolean deleteUserType (UserTypes user_type) {
+    public boolean deleteUserType (UserType user_type) {
         return this.userTypeDAO.deleteUserType(user_type);
     }
 }

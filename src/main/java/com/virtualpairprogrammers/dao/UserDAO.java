@@ -6,25 +6,25 @@ import java.util.List;
 
 import com.virtualpairprogrammers.utils.ConnectionSingleton;
 import com.virtualpairprogrammers.utils.GestoreEccezioni;
-import com.virtualpairprogrammers.model.UserTypes;
+import com.virtualpairprogrammers.model.User;
 
 //CURRENT TIME PER LE DATE DI CREAZIONE MODIFICA E CANCELLAZIONE
 //java.sql.Date currentDate = new java.sql.Date(Calendar.getInstance().getTime().getTime());
 
-public class UserTypesDAO {
-    private final String QUERY_ALL         = "SELECT * FROM user_types";
-    private final String QUERY_ALL_VALID   = "SELECT * FROM user_types WHERE deleted_at IS NULL";
-    private final String QUERY_ONE         = "SELECT * FROM user_types WHERE  user_type_ID = (?)";
-    private final String QUERY_INSERT      = "INSERT INTO user_types (user_type_name, created_at, updated_at, deleted_at) VALUES (?,?,?,?)";
-    private final String QUERY_UPDATE      = "UPDATE user_types SET user_type_name = (?),updated_at =(?) WHERE user_type_ID = (?)";
-    private final String QUERY_SOFT_DELETE = "UPDATE user_types SET deleted_at = (?) WHERE user_type_ID = (?)";
-    private final String QUERY_DELETE      = "DELETE FROM user_types WHERE user_type_ID = (?)";
+public class UserDAO {
+    private final String QUERY_ALL         = "SELECT * FROM users";
+    private final String QUERY_ALL_VALID   = "SELECT * FROM users WHERE deleted_at IS NULL";
+    private final String QUERY_ONE         = "SELECT * FROM users WHERE  user_ID = (?)";
+    private final String QUERY_INSERT      = "INSERT INTO users (username, password, first_name, last_name, email, user_type_FK, created_at, updated_at, deleted_at) VALUES (?,?,?,?,?,?,?)";
+    private final String QUERY_UPDATE      = "UPDATE users SET password = (?), email =(?),updated_at =(?) WHERE user_ID = (?)";
+    private final String QUERY_SOFT_DELETE = "UPDATE users SET deleted_at = (?) WHERE user_ID = (?)";
+    private final String QUERY_DELETE      = "DELETE FROM users WHERE user_ID = (?)";
     
-    public List<UserTypes> getAllUserTypes () {
-        return getUserTypes(QUERY_ALL);
+    public List<User> getAllUsers () {
+        return getUsers(QUERY_ALL);
     }
-    public List<UserTypes> getAllValidUserTypes () {
-        return getUserTypes(QUERY_ALL_VALID);
+    public List<User> getAllValidUsers () {
+        return getUsers(QUERY_ALL_VALID);
     }
     
     /*
@@ -32,36 +32,44 @@ public class UserTypesDAO {
      * DIVERSE ALLORA HO CREATO 2 METODI CON NOMI DIVERSI CHE RICHIAMANO QUESTO METODO CAMBIANDO LA QUERY DESIDERATA
      * CON QUESTA METODOLOGIA EVITO DI SCRIVERE 2 VOLTE LO STESSO CODICE IN CUI CAMBIA SOLO LA QUERY DESIDERATA
      */
-    private List<UserTypes> getUserTypes (String select_query) {
-        List<UserTypes> user_types      = new ArrayList<>();
+    private List<User> getUsers (String select_query) {
+        List<User> users      = new ArrayList<>();
         Connection connection = ConnectionSingleton.getInstance();
         try {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(select_query);
             while (resultSet.next()) {
-                Integer usertypeID = resultSet.getInt("user_type_ID");
-                String  usertypename   = resultSet.getString("user_type_name");;
+                Integer userID     = resultSet.getInt("user_ID");
+                String  username   = resultSet.getString("username");
+                String  password   = resultSet.getString("password");
+                String 	first_name = resultSet.getString("first_name");
+                String  last_name  = resultSet.getString("last_name");
+                String  email      = resultSet.getString("email");
+                Integer userTypeFK = resultSet.getInt("user_type_FK");
                 Date    createdAT  = resultSet.getDate("created_at");
                 Date    updatedAT  = resultSet.getDate("updated_at");
                 Date    deletedAT  = resultSet.getDate("deleted_at");
                 
-                user_types.add(new UserTypes(usertypeID, usertypename, createdAT, updatedAT, deletedAT));
+                users.add(new User(userID, username, password, first_name, last_name, email, userTypeFK, createdAT, updatedAT, deletedAT));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return user_types;
+        return users;
     }
     
-    public boolean insertUserTypes (UserTypes usertype) {
+    public boolean insertUser (User user) {
         Connection connection = ConnectionSingleton.getInstance();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(QUERY_INSERT);
             
-            preparedStatement.setString(1, usertype.getUserTypeName());
-            preparedStatement.setDate(2, usertype.getCreatedAt());
-            preparedStatement.setDate(3, usertype.getUpdatedAt());
-            preparedStatement.setDate(4, usertype.getDeletedAt());
+            preparedStatement.setString(1, user.getUsername());
+            preparedStatement.setString(2, user.getPassword());
+            preparedStatement.setString(3, user.getEmail());
+            preparedStatement.setInt(4, user.getUserTypeFK());
+            preparedStatement.setDate(5, user.getCreatedAt());
+            preparedStatement.setDate(6, user.getUpdatedAt());
+            preparedStatement.setDate(7, user.getDeletedAt());
             return preparedStatement.execute();
         } catch (SQLException e) {
             GestoreEccezioni.getInstance().gestisciEccezione(e);
@@ -69,15 +77,16 @@ public class UserTypesDAO {
         }
     }
     
-    public boolean updateUserType (UserTypes usertype) {
+    public boolean updateUser (User user) {
         Connection connection = ConnectionSingleton.getInstance();
         
         
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(QUERY_UPDATE);
-            preparedStatement.setString(1, usertype.getUserTypeName());
-            preparedStatement.setDate(2, usertype.getUpdatedAt());
-            preparedStatement.setInt(3, usertype.getUserTypeID());
+            preparedStatement.setString(1, user.getPassword());
+            preparedStatement.setString(2, user.getEmail());
+            preparedStatement.setDate(3, user.getUpdatedAt());
+            preparedStatement.setInt(4, user.getUserID());
             return preparedStatement.execute();
         } catch (SQLException e) {
             GestoreEccezioni.getInstance().gestisciEccezione(e);
@@ -85,12 +94,12 @@ public class UserTypesDAO {
         }
     }
     
-    public boolean softDeleteUserType (UserTypes usertype) {
+    public boolean softDeleteUser (User user) {
         Connection connection = ConnectionSingleton.getInstance();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(QUERY_SOFT_DELETE);
-            preparedStatement.setDate(1, usertype.getDeletedAt());
-            preparedStatement.setInt(2, usertype.getUserTypeID());
+            preparedStatement.setDate(1, user.getDeletedAt());
+            preparedStatement.setInt(2, user.getUserID());
             return preparedStatement.execute();
         } catch (SQLException e) {
             GestoreEccezioni.getInstance().gestisciEccezione(e);
@@ -98,12 +107,12 @@ public class UserTypesDAO {
         }
     }
     
-    public boolean deleteUserType (UserTypes usertype) {
+    public boolean deleteUser (User user) {
         Connection connection = ConnectionSingleton.getInstance();
         try {
             PreparedStatement preparedStatement;
             preparedStatement = connection.prepareStatement(QUERY_DELETE);
-            preparedStatement.setInt(1, usertype.getUserTypeID());
+            preparedStatement.setInt(1, user.getUserID());
             return preparedStatement.execute();
         } catch (SQLException e) {
             GestoreEccezioni.getInstance().gestisciEccezione(e);
