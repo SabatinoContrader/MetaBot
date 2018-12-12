@@ -23,6 +23,8 @@ CREATE TABLE `contrader-metabot`.`users`
  `user_ID`      int NOT NULL AUTO_INCREMENT ,
  `username`     varchar(45) NOT NULL ,
  `password`     varchar(45) NOT NULL ,
+ `first_name`   varchar(45) NOT NULL ,
+ `last_name`    varchar(45) NOT NULL ,
  `email`        varchar(45) NOT NULL ,
  `user_type_FK` int NOT NULL ,
  `created_at`   datetime NOT NULL ,
