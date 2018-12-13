@@ -13,9 +13,9 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import com.mysql.fabric.xmlrpc.base.Data;
-import com.virtualpairprogrammers.model.ChatBots;
+import com.virtualpairprogrammers.model.ChatBot;
 import com.virtualpairprogrammers.model.NodeToNode;
-import com.virtualpairprogrammers.model.Nodes;
+import com.virtualpairprogrammers.model.Node;
 import com.virtualpairprogrammers.utils.ConnectionSingleton;
 import com.virtualpairprogrammers.utils.GestoreEccezioni;
 
@@ -26,7 +26,7 @@ public class NodeToNodeDAO {
 
 	private final String QUERY_ALL = "SELECT * FROM node_to_node ";
 	private final String QUERY_INSERT = "insert into node_to_node (first_node_ID, second_node_ID) values (?,?)";
-	private final String QUERY_DELETE = "DELETE FROM node_to_node WHERE first_node_ID and second_node_IS = (?,?)";
+	private final String QUERY_DELETE = "DELETE FROM node_to_node WHERE first_node_ID and second_node_ID = (?,?)";
 	
 
 	
