@@ -22,7 +22,7 @@ import com.virtualpairprogrammers.utils.GestoreEccezioni;
 public class NodeToNodeDAO {
 
 
-	String param = "";
+	
 
 	private final String QUERY_ALL = "SELECT * FROM node_to_node ";
 	private final String QUERY_INSERT = "insert into node_to_node (first_node_ID, second_node_ID) values (?,?)";
