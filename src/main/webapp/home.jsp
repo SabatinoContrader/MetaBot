@@ -11,15 +11,7 @@
 	<table>
 		<tr>
 			<th>
-				<form action="UserTypesServlet" method="post">1. UserTypes
-			</th>
-			<th><input type="submit" value="userTypesManagement"
-				name="richiesta">
-				</form></th>
-		</tr>
-		<tr>
-			<th>
-				<form action="UserServlet" method="post">2. Users
+				<form action="UsersServlet" method="post">2. Users
 			</th>
 			<th><input type="submit" value="usersManagement"
 				name="richiesta">

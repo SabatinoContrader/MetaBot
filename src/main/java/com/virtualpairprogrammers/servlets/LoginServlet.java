@@ -1,13 +1,15 @@
 package com.virtualpairprogrammers.servlets;
 
-import com.virtualpairprogrammers.model.User;
-import com.virtualpairprogrammers.service.UserService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import com.virtualpairprogrammers.model.User;
+import com.virtualpairprogrammers.service.UserService;
+
 import java.io.IOException;
 
 public class LoginServlet extends HttpServlet {
@@ -24,6 +26,7 @@ public class LoginServlet extends HttpServlet {
 
 			if (user != null) {
 				session.setAttribute("utente", username);
+				System.out.println(user.getUserTypeFK());
 				switch (user.getUserTypeFK()) {
 				case 1:
 					getServletContext().getRequestDispatcher("/home.jsp").forward(request, response);

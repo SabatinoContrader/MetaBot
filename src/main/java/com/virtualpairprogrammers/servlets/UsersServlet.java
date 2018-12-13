@@ -28,16 +28,48 @@ public class UsersServlet extends HttpServlet {
 		
 		switch (scelta) {
 		case "usersManagement":
-			this.allUsers = this.userService.getAllUsers();
-			request.setAttribute("allUsers", this.allUsers);
-			getServletContext().getRequestDispatcher("/users.jsp").forward(request,response);
+			showAllUsers(request, response);
 			break;
 	
+		case "eliminaUsers":
+			Integer id = Integer.parseInt(request.getParameter("id"));
+			userService.deleteUser(id);
+			showAllUsers(request, response);
+			break;
+			
+		case "insert":
+			getServletContext().getRequestDispatcher("/insertUsers.jsp").forward(request,response);
+			break;
+			
+		case "insertUser":
+			if (request != null) {
+				String username =request.getParameter("username");
+				String password =request.getParameter("password");
+				String firstName =request.getParameter("firstName");
+				String lastName =request.getParameter("lastName");
+				String email =request.getParameter("email");
+				Integer userTypeFK = Integer.parseInt(request.getParameter("userTypeFK"));
+				
+				if(userTypeFK !=1 || userTypeFK!=2) {
+					throw new RuntimeException("non esiste questo ruolo");
+				}
+				userService.insertUser(new User(0, username, firstName, lastName, password, email, userTypeFK, null, null, null));
+				showAllUsers(request, response);
+			}
+			break;
+			
 		case "Indietro":
 			getServletContext().getRequestDispatcher("/home.jsp").forward(request,response);
 			break;
 		
 		
 		}
+	}
+
+	private void showAllUsers(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		this.allUsers = this.userService.getAllUsers();
+		request.setAttribute("allUsers", this.allUsers);
+		getServletContext().getRequestDispatcher("/users.jsp").forward(request,response);
 	}
 }
