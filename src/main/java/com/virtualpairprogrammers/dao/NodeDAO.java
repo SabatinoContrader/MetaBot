@@ -22,6 +22,7 @@ public class NodeDAO {
     public List<Node> getAllNodes () {
         return getNodes(QUERY_ALL);
     }
+    
     public List<Node> getAllValidNodes () {
         return getNodes(QUERY_ALL_VALID);
     }
@@ -55,7 +56,8 @@ public class NodeDAO {
     
     // INSERISCE UN NUOVO RECORD
     public boolean insertNode (Node node) {
-        Connection connection = ConnectionSingleton.getInstance();
+        Connection connection       = ConnectionSingleton.getInstance();
+        //int        inserted_primary = 0;
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(QUERY_INSERT);
             preparedStatement.setInt(1, node.getChatbotFK());
@@ -63,12 +65,14 @@ public class NodeDAO {
             preparedStatement.setDate(3, node.getCreatedAt());
             preparedStatement.setDate(4, node.getUpdatedAt());
             preparedStatement.setDate(5, node.getDeletedAt());
-            return preparedStatement.execute();
+            //preparedStatement.execute();
+            //inserted_primary = preparedStatement.getGeneratedKeys().getInt(1);
+            return /*inserted_primary;*/ preparedStatement.execute();
+            
         } catch (SQLException e) {
             GestoreEccezioni.getInstance().gestisciEccezione(e);
-            return false;
+            return /*inserted_primary*/false;
         }
-        
     }
     
     //MODIFICARE LA STRUTTURA DEI NODI.

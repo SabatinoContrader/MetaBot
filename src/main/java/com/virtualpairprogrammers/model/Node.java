@@ -72,7 +72,7 @@ public class Node {
     @Override
     public String toString () {
         return "Node [node_ID =" + nodeID + ", chatbot_FK =" + chatbotFK + ", content =" + content
-                + "]\n\t [created_at =" + createdAt.toString () + ", updated_at=" + updatedAt.toString () + ", deleted_at =" + deletedAt.toString () + "]";
+                + "]\n\t [created_at =" + createdAt.toString() + ", updated_at=" + updatedAt.toString() + ", deleted_at =" + deletedAt.toString() + "]";
     }
     
 }
