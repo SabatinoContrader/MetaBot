@@ -1,57 +1,38 @@
 <html>
 <head>
-<title>Menu Principale METABOT</title>
-<link rel="stylesheet" type="text/css" href="styles.css">
+<title>Menu Principale</title>
 </head>
 <body>
-	<h1>
-		BENVENUTO
-		<%=request.getSession().getAttribute("utente")%></h1>
-	<h2>------- MENU PRINCIPALE METABOT -------</h2>
-	<table>
-		<tr>
-			<th>
-				<form action="UsersServlet" method="post">2. Users
-			</th>
-			<th><input type="submit" value="usersManagement"
-				name="richiesta">
-				</form></th>
-		</tr>
+	<h1>Benvenuto: ${utente}</h1>
+	<h2>------- MENU PRINCIPALE -------</h2>
 
-		<tr>
-			<th>
-				<form action="ChatBotsServlet" method="post">5. ChatBots
-			</th>
-			<th><input type="submit" value="chatBotsManagement"
-				name="richiesta">
-				</form></th>
-		</tr>
+	<h3>1. Esempio</h3>
+	<form action="MenuServlet" method="post">
+		<button type="submit" value="esempioManager" name="richiesta">
+			bottone esempio</button>
+	</form>
+	<!--  
+     <h3>2. Badges</h3>
+     <form action="BadgeServlet" method="post">
+     <button type="submit" value="badgesManagement" name="richiesta"> Management badge</button>
+     </form>
+     
+     <h3>3. Assegnazione Badges</h3>
+     <form action="AssegnazioneServlet" method="post">
+     <button type="submit" value="assegnazioneManagement" name="richiesta"> Management Assegnazione</button>
+     </form>
+     
+     <h3>4. Indietro</h3>
+     <form action="CustomersServlet" method="post">
+     <input type="submit" value="indietro" name="richiesta">
+     </form>
+     
+       <h3>5.logout<h3>
+     <form action="LogoutServlet" method="post">
+     <input type="submit" value="Logout" name="Logout">
+     </form>
+-->
 
-		<tr>
-			<th>
-				<form action="NodesServlet" method="post">6. Nodes
-			</th>
-			<th><input type="submit" value="nodesManagement"
-				name="richiesta">
-				</form></th>
-		</tr>
 
-		<tr>
-			<th>
-				<form action="SubNodesServlet" method="post">7. SubNodes
-			</th>
-			<th><input type="submit" value="subNodesManagement"
-				name="richiesta">
-				</form></th>
-		</tr>
-
-		<tr>
-			<th>
-				<form action="LogoutServlet" method="post">8. Logout
-			</th>
-			<th><input type="submit" value="Logout" name="richiesta">
-				</form></th>
-		</tr>
-	</table>
 </body>
 </html>

@@ -1,28 +1,50 @@
-<%@ page import="com.virtualpairprogrammers.model.Node" %>
-<%@ page import="java.util.List" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="com.virtualpairprogrammers.dto.NodesDTO"%>
+<%@ page import="java.util.*"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <html>
 <head>
-    <% List<Node> allNodes = (List<Node>) request.getAttribute("allUsers");%>
+<%
+	List<NodesDTO> allNodes = (List<NodesDTO>) request.getAttribute("allNodes");
+%>
 </head>
 <body>
-<form action="NodeServlet" method="post">
-    <table border="2">
-        <tr><th>NODE ID </th>
-            <th>CHATBOT_FK</th>
-            <th>CONTENT</th>
-        </tr>
-        <%for (Node lista : allNodes) { %>
-        <tr><td><%= lista.getNodeID()%></td>
-            <td><%=  lista.getChatbotFK()%></td>
-            <td><%=  lista.getContent()%></td>
-            <td><a href="NodeServlet ? richiesta = eliminaNode <% request.setAttribute("node_to_delete",lista) %>">Elimina</a> </td></tr>
-            <td><a href="NodeServlet ? richiesta = updateNode  <% request.setAttribute("node_to_update", lista)%>">Update </a> </td></tr>
-        <% }%>
-    </table>
-    <h2></h2>
-    <h2></h2>
-    <input type="submit" value="Indietro" name="richiesta">
-</form>
+	<h1>
+		Benvenuto
+		<%=request.getSession().getAttribute("utente")%></h1>
+	<form action="InsertRedirectServlet" method="post">
+		<input type="submit" value="nodesInsert" name="richiesta">
+	</form>
+
+	<form action="NodesServlet" method="post">
+		<table border="2">
+			<tr>
+				<th>ID</th>
+				<th>text</th>
+				<th>idNodoPadre</th>
+			</tr>
+			<%
+				for (NodesDTO nodes : allNodes) {
+			%>
+			<tr>
+				<td><%=nodes.getId()%></td>
+				<td><%=nodes.getText()%></td>
+				<td><%=nodes.getIdNodoPadre()%></td>
+
+				<td>
+					<form action="UpdateRedirectServlet" method="post">
+						<input type="submit" value="nodesUpdate" name="richiesta">
+					</form>
+				</td>
+				<td><a
+					href="NodesServlet?richiesta=delete&id=<%=nodes.getId()%>">Elimina</a>
+				</td>
+			</tr>
+			<%
+				}
+			%>
+		</table>
+
+		<input type="submit" value="Indietro" name="richiesta">
+	</form>
 </body>
 </html>
