@@ -12,20 +12,19 @@ public class ChatBotService {
         this.chatbotDAO = new ChatBotDAO();
     }
     
-    public List<ChatBot> getAllChatBots(){
-        return this.chatbotDAO.getAllChatBots();
+    public List<ChatBot> getAllChatBot(){
+        return this.chatbotDAO.getAllChatBot();
     }
-    public List<ChatBot> getAllValidChatBots(){
-        return this.chatbotDAO.getAllValidChatBots();
+    
+    public List<ChatBot> getChatBot(int id){
+        return this.chatbotDAO.getChatBot(id);
     }
+    
     public boolean insertChatBot(ChatBot chat_bot){
         return this.chatbotDAO.insertChatBot(chat_bot);
     }
     public boolean updateChatBot(ChatBot chat_bot){
         return this.chatbotDAO.updateChatBot(chat_bot);
-    }
-    public boolean softDeleteChatBot(ChatBot chat_bot){
-        return this.chatbotDAO.softDeleteChatBot(chat_bot);
     }
     public boolean deleteChatBot(ChatBot chat_bot){
         return this.chatbotDAO.deleteChatBot(chat_bot);

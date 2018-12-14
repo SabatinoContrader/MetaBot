@@ -1,40 +1,43 @@
-<%@ page import="com.virtualpairprogrammers.model.ChatBots" %>
+<%@ page import="com.virtualpairprogrammers.model.ChatBot" %>
 <%@ page import="java.util.*" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-<% List<ChatBots> allChatBots = (List<ChatBots>) request.getAttribute("allChatBots");%>
+<% List<ChatBot> allChatBot = (List<ChatBot>) request.getAttribute("allChatBot");%>
 <link rel="stylesheet" type="text/css" href="styles.css">
 <h1>------Modifica Useres------</h1>     
 </head>
 <body>
 <h1>SEI LOGGATO COME: <%= request.getSession().getAttribute("utente")%></h1>
 <%int scelta = Integer.parseInt(request.getParameter("id")); %>
-<form action="ChatBotsServlet" method="post">
-<table border="2">
-<tr><th>ID </th>
- <th>MESSAGIO INIZIO</th>
- <th>NOME UTENTE</th></tr>
- <%for (ChatBots lista : allChatBots) { %>
- <tr><td><%= lista.getChatBotsId()%></td>
- <td><%=  lista.getInitialMessage()%></td>
- <td><%=  lista.getUsersFK().getUsername() %></td>
+<form action="ChatBotServlet" method="post">
+<input type="hidden" name="chatbotID" value="<%=scelta %>"> 
+<table border="2">	
+ <tr><th>chatbotID </th>
+ <th>ownerFK</th>
+ <th>enterPoint</th>
+ <th>endPoint</th>
+ <th>name</th>
+ <th>welcome</th></tr>
+ <%for (ChatBot lista : allChatBot) { %>
+ <tr><td><%= lista.getChatbotID()%></td>
+ <td><%=  lista.getOwnerFK()%></td>
+ <td><%=  lista.getEnterPoint()%></td>
+ <td><%=  lista.getEndPoint()%></td>
+ <td><%=  lista.getName()%></td>
+ <td><%=  lista.getWelcome()%></td>
   <% }%>
  </table>
-<table>
-    <input type="hidden" name="idChatBots" value="<%=scelta %>"> 
- 	<tr><td><h2>Seleziona il campo:</h2></td>
-    <td><input type="radio" name="campo" value="initial_message">Messagio Inizio</td></tr>
-</table>
-<table>    
-	<tr><td><h2>Inserisci il nuovo valore del campo</h2></td>
-    <td><input type="text" name="newData" placeholder = "Nuovo valore"></td></tr>  
-</table> 
-<table> 
-	<tr><input type="submit" value="updateChatBots" name="richiesta"></tr>
+<table border="2">	
+    <h2>ownerFK inizio<input type="text" name="ownerFK"></h2>
+    <h2>enterPoint inizio<input type="text" name="enterPoint"></h2>
+    <h2>endPoint<input type="text" name="endPoint"></h2>
+    <h2>name<input type="text" name="name"></h2>
+    <h2>welcome<input type="text" name="welcome"></h2>
+<tr><input type="submit" value="updateChatBot" name="richiesta"></tr>
 </table>
 </form>
-<form action="ChatBotsServlet" method=post>
+<form action="ChatBotServlet" method=post>
 <button type="submit" value="Indietro" name="richiesta">Indietro</button>
 </form>
 </body>
