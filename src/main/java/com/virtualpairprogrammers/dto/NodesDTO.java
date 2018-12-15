@@ -1,24 +1,24 @@
 package com.virtualpairprogrammers.dto;
 
 
-public class NodeDTO { 
+public class NodesDTO { 
 	
-	private static Integer id;
+	private Integer id;
 	private String text;
 	private Integer idNodoPadre;
 	
-	public NodeDTO(Integer id, String text, Integer idNodoPadre)  {
+	public NodesDTO (Integer id, String text, Integer idNodoPadre)  {
 		this.id = id;
 		this.text = text;
 	    this.idNodoPadre = idNodoPadre;
 	}
 
-	public static Integer getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public static void setId(Integer id) {
-		NodeDTO.id = id;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public String getText() {

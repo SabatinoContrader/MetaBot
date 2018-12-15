@@ -1,13 +1,13 @@
 package com.virtualpairprogrammers.model;
 
 
-public class Node {
+public class Nodes {
 	
 	private Integer id;
 	private String text;
 	private Integer idNodoPadre;
 	
-	public Node (Integer id, String text, Integer idNodoPadre) {
+	public Nodes (Integer id, String text, Integer idNodoPadre) {
 	this.id = id;
 	this.text = text;
 	this.idNodoPadre = idNodoPadre;
