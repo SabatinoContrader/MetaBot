@@ -12,18 +12,16 @@ public class NodeConverter {
 		
 		Node node = null;
 		if (nodeDTO != null) {
-			node = new Node(NodeDTO.getId(), nodeDTO.getId_user_fk(), nodeDTO.getId_nodo_root_fk(), nodeDTO.getName_chat());
+			node = new Node(NodeDTO.getId(), nodeDTO.getText(), nodeDTO.getIdNodoPadre());
 		}
-		
-		return node;
-	
+		return node;		
 	}
 	
 	public static NodeDTO toDTO(Node node) {
 		
 		NodeDTO nodeDTO = null;
 		if (node != null) {
-			nodeDTO = new NodeDTO (node.getId(), node.getId_user_fk(), node.getId_nodo_root_fk(), node.getName_chat());
+			nodeDTO = new NodeDTO (node.getId(), node.getText(), node.getIdNodoPadre());
 		}
 		
 		return nodeDTO;

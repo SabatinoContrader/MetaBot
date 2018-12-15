@@ -26,11 +26,10 @@ public class NodeDAO {
 			final ResultSet resultSet = statement.executeQuery(GET_ALL);
 			while (resultSet.next()) {
 				final Integer id = resultSet.getInt("id");
-				final Integer id_user_fk = resultSet.getInt("id_user_fk");
-				final Integer id_nodo_root_fk = resultSet.getInt("id_nodo_root_fk");
-				final String name_chat = resultSet.getString("name_chat");
+				final String text = resultSet.getString("text");
+				final Integer idNodoPadre = resultSet.getInt("idNodoPadre");
 				
-				nodes.add(new Node(id, id_user_fk, id_nodo_root_fk, name_chat));
+				nodes.add(new Node(id, text, idNodoPadre));
 				}
 		} catch (final SQLException e) {
 	        e.printStackTrace();
