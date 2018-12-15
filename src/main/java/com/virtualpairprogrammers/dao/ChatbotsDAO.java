@@ -22,8 +22,8 @@ public class ChatbotsDAO {
 	 */
 	private final String GET_ALL = "select * from Chatbots";
 	private final String QUERY_INSERT 	= "INSERT INTO Chatbots (id, id_user_fk, id_nodo_root_fk, name_chat) values (?,?,?,?)";
-	private final String QUERY_DELETE 	= "DELETE FROM chat WHERE id = (?)";
-	private final String QUERY_UPDATE  = "UPDATE Chatbots SET id_user_fk, id_nodo_root_fk, name_chat =(?,?,?) WHERE id = (?)";
+	private final String QUERY_DELETE 	= "DELETE FROM Chatbots WHERE id = (?)";
+	private final String QUERY_UPDATE   = "UPDATE Chatbots SET id_user_fk, id_nodo_root_fk, name_chat =(?,?,?) WHERE id = (?)";
 	
 	/**
 	 * Il suddetto metodo si occupa interagire con il database e restituire tutte le tuple al servizio che ha chiamato questo metodo
