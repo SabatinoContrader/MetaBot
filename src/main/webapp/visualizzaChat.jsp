@@ -6,7 +6,7 @@
 <head>
 <%
 	List<NodesDTO> allNodesDTO = (List<NodesDTO>) request.getAttribute("allNodesDTO");
-	String sChat = request.getSession().getAttribute("sChatID").toString();
+	//String sChat = request.getSession().getAttribute("sChatID").toString();
 %>
 <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
@@ -16,7 +16,7 @@
 		<%=request.getSession().getAttribute("utente")%></h1>
 	<h2>
 		------- MENU Message DI CHAT:
-		<%=sChat%>
+		
 		-------
 	</h2>
 
@@ -65,8 +65,9 @@
 	</form>
 	<h2></h2>
 	<h2></h2>
-<form action="MessageServlet" method=post>
-<button type="submit" value="simulaChat" name="richiesta" class="btn">Simula Chat</button>
-</form>
+	<form action="MessageServlet" method=post>
+		<button type="submit" value="simulaChat" name="richiesta" class="btn">Simula
+			Chat</button>
+	</form>
 </body>
 </html>

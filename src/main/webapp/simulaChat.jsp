@@ -15,7 +15,7 @@
 		foglia = request.getAttribute("foglia").toString();
 	}
 //System.out.println(allMessageDTO);
-	String sChat = request.getSession().getAttribute("sChatID").toString();
+//	String sChat = request.getSession().getAttribute("sChatID").toString();
 %>
 <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
@@ -25,7 +25,7 @@
 		<%=request.getSession().getAttribute("utente")%></h1>
 	<h2>
 		------- MENU Message DI CHAT:
-		<%=sChat%>
+		
 		-------
 	</h2> 
 	<% if (foglia == ""){%>
