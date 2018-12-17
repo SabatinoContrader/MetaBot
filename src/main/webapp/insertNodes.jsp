@@ -10,28 +10,28 @@
 
 
 			<tr>
-				<td><h2>Id</h2></td>
+				<td><h3>Id</h3></td>
 				<td>
-					<h2>
+					<h3>
 						<input type="text" name="id">
-					</h2>
+					</h3>
 				</td>
 			</tr>
 			<tr>
 				<td><h2>text</h2></td>
 				<td>
-					<h2>
+					<h3>
 						<input type="text" name="text">
-					</h2>
+					</h3>
 				</td>
 			</tr>
 
 			<tr>
-				<td><h2>usersIdFK</h2></td>
+				<td><h3>id Nodo Padre</h3></td>
 				<td>
-					<h2>
+					<h3>
 						<input type="text" name="idNodoPadre">
-					</h2>
+					</h3>
 				</td>
 			</tr>
 

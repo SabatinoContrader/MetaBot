@@ -30,7 +30,7 @@ public class NodesServlet extends HttpServlet {
 
 		switch (scelta) {
 
-		case "insert":
+		case "insertnodes":
 			final Integer id = Integer.parseInt(request.getParameter("id"));
 			final String text = request.getParameter("text");
 			final Integer idNodoPadre = Integer.parseInt(request.getParameter("idNodoPadre"));
@@ -39,7 +39,7 @@ public class NodesServlet extends HttpServlet {
 			showAllNodes(request, response);
 			break;
 
-		case "update":
+		case "updatenodes":
 			System.out.println("id: " + Integer.parseInt(request.getParameter("id")));
 			System.out.println("text: " + request.getParameter("text"));
 			System.out.println("idNodo: " + Integer.parseInt(request.getParameter("idNodoPadre")));
@@ -53,7 +53,7 @@ public class NodesServlet extends HttpServlet {
 			showAllNodes(request, response);
 			break;
 
-		case "delete":
+		case "deletenodes":
 			nodesServiceDTO.deleteNodes(Integer.parseInt(request.getParameter("id")));
 			showAllNodes(request, response);
 			break;

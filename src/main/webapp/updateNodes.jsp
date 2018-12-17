@@ -18,7 +18,7 @@
 			<tr>
 				<th>Id</th>
 				<th>text</th>
-				<th>nodoPadre</th>
+				<th>IdNodoPadre</th>
 			</tr>
 			<%
 				for (NodesDTO lista : allNodes) {
@@ -35,7 +35,7 @@
 		</table>
 		<table>
 			<tr>
-				<td><h2>Inserisci il nuovo valore del testo</h2></td>
+				<td><h2>Inserisci nuovo testo</h2></td>
 				<td><input type="text" name="text"
 					placeholder="Nuovo valore"></td>
 			</tr>
