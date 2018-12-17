@@ -3,17 +3,17 @@ package com.virtualpairprogrammers.utils;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.virtualpairprogrammers.dto.MessageDTO;
+import com.virtualpairprogrammers.dto.NodesDTO;
 
 public class FunzioniDiUtilita {
 
-	public static List<MessageDTO> stampaChat(List<MessageDTO> list, int inizio, int fine) {
+	public static List<NodesDTO> stampaChat(List<NodesDTO> list, int inizio, int fine) {
 
-		final List<MessageDTO> daVisitareList = new ArrayList<>();
-		final List<MessageDTO> visitati = new ArrayList<>();
+		final List<NodesDTO> daVisitareList = new ArrayList<>();
+		final List<NodesDTO> visitati = new ArrayList<>();
 
-		for (final MessageDTO node : list) {
-			if (node.getMessageFK().getMessageId() == inizio) {
+		for (final NodesDTO node : list) {
+			if (node.getIdNodoPadre() == inizio) {
 				daVisitareList.add(node);
 				// System.out.println("Nodo iniziale: " + node.getPadre());
 				break;
@@ -26,7 +26,7 @@ public class FunzioniDiUtilita {
 
 				for (int j = 0; j < list.size(); j++) {
 
-					if (daVisitareList.get(i).getMessageId() == list.get(j).getMessageFK().getMessageId()
+					if (daVisitareList.get(i).getId() == list.get(j).getIdNodoPadre()
 							&& !visitati.contains(list.get(j))) {
 
 						if (!visitati.contains(daVisitareList.get(i))) {
@@ -49,10 +49,10 @@ public class FunzioniDiUtilita {
 //				visitati.add(node);
 //			}
 //		}
-		for (MessageDTO node : list) {
+		for (NodesDTO node : list) {
 			boolean check =false;
-			for (MessageDTO node2 : list) {
-				if(node.getMessageId() == node2.getMessageFK().getMessageId() && node!=node2)
+			for (NodesDTO node2 : list) {
+				if(node.getId() == node2.getIdNodoPadre() && node!=node2)
 					check= true;
 			}
 			if(!check)

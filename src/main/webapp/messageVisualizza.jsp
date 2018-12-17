@@ -1,11 +1,11 @@
-<%@ page import="com.virtualpairprogrammers.dto.MessageDTO"%>
+<%@ page import="com.virtualpairprogrammers.dto.NodesDTO"%>
 <%@ page import="com.virtualpairprogrammers.utils.FunzioniDiUtilita"%>
 <%@ page import="java.util.*"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <html>
 <head>
 <%
-	List<MessageDTO> allMessageDTO = (List<MessageDTO>) request.getAttribute("allMessageDTO");
+	List<NodesDTO> allNodesDTO = (List<NodesDTO>) request.getAttribute("allNodesDTO");
 	String sChat = request.getSession().getAttribute("sChatID").toString();
 %>
 <link rel="stylesheet" type="text/css" href="styles.css">
@@ -23,16 +23,16 @@
 	<form action="MessageServlet" method="post">
 		<%
 			List<Integer> listaPadre = new ArrayList<>();
-			HashMap<MessageDTO, List<MessageDTO>> hashMessage = new HashMap<>();
+			HashMap<Integer, List<NodesDTO>> hashMessage = new HashMap<>();
 
-			for (MessageDTO messageDTO : allMessageDTO) {
-				if (!listaPadre.contains(messageDTO.getMessageFK().getMessageId())) {
-					listaPadre.add(messageDTO.getMessageFK().getMessageId());
-					List<MessageDTO> listaFigli = new ArrayList<>();
-					hashMessage.put(messageDTO, listaFigli);
-					for (MessageDTO lista2 : allMessageDTO) {
-						if (messageDTO.getMessageFK().getMessageId() == lista2.getMessageFK().getMessageId()) {
-							hashMessage.get(messageDTO).add(lista2);
+			for (NodesDTO NodesDTO : allNodesDTO) {
+				if (!listaPadre.contains(NodesDTO.getIdNodoPadre())) {
+					listaPadre.add(NodesDTO.getIdNodoPadre());
+					List<NodesDTO> listaFigli = new ArrayList<>();
+					hashMessage.put(NodesDTO.getIdNodoPadre(), listaFigli);
+					for (NodesDTO lista2 : allNodesDTO) {
+						if (NodesDTO.getIdNodoPadre() == lista2.getIdNodoPadre()) {
+							hashMessage.get(NodesDTO.getIdNodoPadre()).add(lista2);
 						}
 					}
 				}
@@ -43,15 +43,15 @@
 		<table>
 			<ul>
 				<%
-					for (MessageDTO allMess : allMessageDTO) {
-						for (MessageDTO padre : hashMessage.keySet()) {
-							if (allMess == padre) {
+					for (NodesDTO allMess : allNodesDTO) {
+						for (Integer padre : hashMessage.keySet()) {
+							if (allMess.getIdNodoPadre() == padre) {
 								
-				%><li><%=padre.getMessageFK().getTesto()%><ul>
+				%><li><%=padre%><ul>
 						<%
-							List<MessageDTO> figli = hashMessage.get(padre);
-										for (MessageDTO figlio : figli) {
-						%><li><%=figlio.getTesto()%> <%
+							List<NodesDTO> figli = hashMessage.get(padre);
+										for (NodesDTO figlio : figli) {
+						%><li><%=figlio.getText()%> <%
  	}
  			}
  %></li>

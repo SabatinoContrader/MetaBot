@@ -1,4 +1,4 @@
-<%@ page import="com.virtualpairprogrammers.dto.MessageDTO"%>
+<%@ page import="com.virtualpairprogrammers.dto.NodesDTO"%>
 <%@ page import="com.virtualpairprogrammers.utils.FunzioniDiUtilita"%>
 <%@ page import="java.util.*"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
@@ -6,9 +6,9 @@
 <html>
 <head>
 <%
-	List<MessageDTO> allMessageDTO = null;
+	List<NodesDTO> allNodesDTO = null;
     if (request.getAttribute("list") != null){
-    	allMessageDTO = (List<MessageDTO>) request.getAttribute("list");
+    	allNodesDTO = (List<NodesDTO>) request.getAttribute("list");
     }
     String foglia = "";
 	if (request.getAttribute("foglia") != null){
@@ -29,14 +29,14 @@
 		-------
 	</h2> 
 	<% if (foglia == ""){%>
-	<%for (MessageDTO messageDTO : allMessageDTO){
+	<%for (NodesDTO messageDTO : allNodesDTO){
 		%>
 			<form action="MessageServlet">
-			<div><%=messageDTO.getTesto()%>
+			<div><%=messageDTO.getText()%>
 				<input type="submit" value="NovoChat"
 					name="richiesta">
 				
-				<input type="hidden" value="<%=messageDTO.getMessageId()%>"
+				<input type="hidden" value="<%=messageDTO.getId()%>"
 					name="prossimoPadre">
 			
 			</form>
