@@ -112,7 +112,7 @@ public class ChatbotsDAO {
 	
      // Modifica Chat
         
-        public boolean updateNode (Chatbots chatbots) {
+        public boolean updateChatbots (Chatbots chatbots) {
             Connection connection = ConnectionSingleton.getInstance();
             try {
                 PreparedStatement preparedStatement = connection.prepareStatement(QUERY_UPDATE);
