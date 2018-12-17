@@ -7,17 +7,8 @@
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
 	<servlet>
-		<servlet-name>InsertRedirectServlet</servlet-name>
-		<servlet-class>com.virtualpairprogrammers.servlets.InsertRedirectServlet</servlet-class>
-	</servlet>
-	<servlet>
 		<servlet-name>LoginServlet</servlet-name>
 		<servlet-class>com.virtualpairprogrammers.servlets.LoginServlet</servlet-class>
-	</servlet>
-	
-	<servlet>
-		<servlet-name>MenuServlet</servlet-name>
-		<servlet-class>com.virtualpairprogrammers.servlets.MenuServlet</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>LogoutServlet</servlet-name>
@@ -26,35 +17,18 @@
 	<servlet>
 		<servlet-name>NodesServlet</servlet-name>
 		<servlet-class>com.virtualpairprogrammers.servlets.NodesServlet</servlet-class>
-	</servlet>
-	<servlet>
-		<servlet-name>UpdateRedirectServlet</servlet-name>
-		<servlet-class>com.virtualpairprogrammers.servlets.UpdateRedirectServlet</servlet-class>
-	</servlet>
-	
+	</servlet>	
 	<servlet-mapping>
 		<servlet-name>LoginServlet</servlet-name>
 		<url-pattern>/LoginServlet</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>UpdateRedirectServlet</servlet-name>
-		<url-pattern>/UpdateRedirectServlet</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>LogoutServlet</servlet-name>
 		<url-pattern>/LogoutServlet</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
-		<servlet-name>MenuServlet</servlet-name>
-		<url-pattern>/MenuServlet</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
 		<servlet-name>NodesServlet</servlet-name>
 		<url-pattern>/NodesServlet</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>InsertRedirectServlet</servlet-name>
-		<url-pattern>/InsertRedirectServlet</url-pattern>
 	</servlet-mapping>
 	<session-config>
 		<session-timeout>4000</session-timeout>
