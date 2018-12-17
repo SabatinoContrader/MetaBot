@@ -1,4 +1,4 @@
-package com.virtualpairprogrammers.servlets;
+package com.virtualpairprogrammers.utils;
 
 
 import java.util.HashMap;

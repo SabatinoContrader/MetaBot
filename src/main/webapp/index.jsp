@@ -4,13 +4,6 @@
 </head>
 <body>
 	<div>
-	
-		<h3>1. Esempio</h3>
-	<form action="EsempioServlet" method="post">
-		<button type="submit" value="esempioManager" name="richiesta">
-			bottone esempio</button>
-	</form>
-	
 		<form action="LoginServlet" method="post">
 			<h3>
 				username: <input type="text" id="user" name="username"
