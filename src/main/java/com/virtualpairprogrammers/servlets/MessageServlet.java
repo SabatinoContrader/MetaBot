@@ -1,6 +1,8 @@
 package com.virtualpairprogrammers.servlets;
 
-import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+
+/*import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,10 +18,10 @@ import com.virtualpairprogrammers.dto.ChatDTO;
 import com.virtualpairprogrammers.dto.MessageDTO;
 import com.virtualpairprogrammers.service.MessageService;
 import com.virtualpairprogrammers.utils.FunzioniDiUtilita;
-import com.virtualpairprogrammers.service.ChatService;
+import com.virtualpairprogrammers.service.ChatService;*/
 
 public class MessageServlet extends HttpServlet {
-
+/*
 	private MessageService messageService;
 	private ChatService chatService;
 	private List<MessageDTO> allMessageDTO;
@@ -161,5 +163,5 @@ public class MessageServlet extends HttpServlet {
 			getServletContext().getRequestDispatcher("/simulaChat.jsp").forward(request, response);
 			break;
 		}
-	}
+	}*/
 }
