@@ -4,9 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-import com.virtualpairprogrammers.dto.EsempioDTO;
 import com.virtualpairprogrammers.dto.UsersDTO;
-import com.virtualpairprogrammers.model.Esempio;
 import com.virtualpairprogrammers.model.Users;
 
 /**

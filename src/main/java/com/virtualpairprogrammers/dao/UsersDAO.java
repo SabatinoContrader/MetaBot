@@ -10,7 +10,6 @@ import java.util.List;
 
 import com.mysql.fabric.xmlrpc.base.Array;
 import com.virtualpairprogrammers.model.Chatbots;
-import com.virtualpairprogrammers.model.Esempio;
 import com.virtualpairprogrammers.model.Users;
 import com.virtualpairprogrammers.utils.ConnectionSingleton;
 import com.virtualpairprogrammers.utils.GestoreEccezioni;

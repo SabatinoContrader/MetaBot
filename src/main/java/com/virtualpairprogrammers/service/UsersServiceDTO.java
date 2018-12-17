@@ -3,13 +3,10 @@ package com.virtualpairprogrammers.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.virtualpairprogrammers.converter.EsempioConverter;
 import com.virtualpairprogrammers.converter.UsersConverter;
-import com.virtualpairprogrammers.dao.EsempioDAO;
 import com.virtualpairprogrammers.dao.UsersDAO;
-import com.virtualpairprogrammers.dto.EsempioDTO;
 import com.virtualpairprogrammers.dto.UsersDTO;
-import com.virtualpairprogrammers.model.Esempio;
+import com.virtualpairprogrammers.model.Nodes;
 import com.virtualpairprogrammers.model.Users;
 
 /**
@@ -45,4 +42,21 @@ public class UsersServiceDTO {
 		return UsersConverter.toDTO(usersDAO.login(username, password));
 	}
 
+	public boolean updateUsers (UsersDTO usersDTO) {
+		return this.usersDAO.updateUsers(UsersConverter.toEntity(usersDTO));
+		
+}
+	
+	public boolean deleteUsers (UsersDTO usersDTO) {
+		return this.usersDAO.deleteUsers(UsersConverter.toEntity(usersDTO));
+		
+}
+	
+	public boolean insertUsers (UsersDTO usersDTO) {
+		return this.usersDAO.insertUsers(UsersConverter.toEntity(usersDTO));
+	
+}
+		
+	
+	
 }
