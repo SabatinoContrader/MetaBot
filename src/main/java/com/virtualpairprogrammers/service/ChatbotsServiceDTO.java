@@ -35,6 +35,10 @@ public class ChatbotsServiceDTO {
 		}
 
 		return listDTO;
+	
+	public boolean insertChatbots (Chatbots chatbots) {
+		return this.chatbotsDAO.insertChatbots(chatbots);
+	}
 	}
 
 }
