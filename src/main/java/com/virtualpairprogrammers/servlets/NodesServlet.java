@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import com.virtualpairprogrammers.dto.NodesDTO;
 import com.virtualpairprogrammers.model.Nodes;
 import com.virtualpairprogrammers.service.NodesServiceDTO;
+import com.virtualpairprogrammers.converter.NodesConverter;
 
 public class NodesServlet extends HttpServlet {
 
@@ -32,7 +33,7 @@ public class NodesServlet extends HttpServlet {
 			final String text = request.getParameter("text");
 			final Integer idNodoPadre = Integer.parseInt(request.getParameter("idNodoPadre"));
 			final NodesDTO node = new NodesDTO(id, text, idNodoPadre);
-			nodesServiceDTO.insertNodes();
+			nodesServiceDTO.insertNodes(NodesConverter.toEntity(node));
 			showAllNodes(request, response);
 			break;
 			
@@ -45,9 +46,11 @@ public class NodesServlet extends HttpServlet {
 				final Integer idUpdate = Integer.parseInt(request.getParameter("id"));
 				final String textUpdate = request.getParameter("text");
 				final Integer idNodoUpdate = Integer.parseInt(request.getParameter("idNodoPadre"));
+				final NodesDTO nodes = new NodesDTO(idUpdate, textUpdate, idNodoUpdate);
+			
 		
 			
-			nodesServiceDTO.updateNodes();
+			nodesServiceDTO.updateNodes(NodesConverter.toEntity(nodes));
 			showAllNodes(request, response);
 			break;
 
