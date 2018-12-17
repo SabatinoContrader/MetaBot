@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.virtualpairprogrammers.dto.NodesDTO;
+import com.virtualpairprogrammers.model.Nodes;
 import com.virtualpairprogrammers.service.NodesServiceDTO;
 
 public class NodesServlet extends HttpServlet {
@@ -31,19 +32,22 @@ public class NodesServlet extends HttpServlet {
 			final String text = request.getParameter("text");
 			final Integer idNodoPadre = Integer.parseInt(request.getParameter("idNodoPadre"));
 			final NodesDTO node = new NodesDTO(id, text, idNodoPadre);
-			nodesServiceDTO.insertNodes(node);
+			nodesServiceDTO.insertNodes();
 			showAllNodes(request, response);
 			break;
 			
 		case "update":
 			System.out.println("id: "+Integer.parseInt(request.getParameter("id")));
 			System.out.println("text: "+request.getParameter("text"));
+			System.out.println("idNodo: "+Integer.parseInt(request.getParameter("idNodoPadre")));
 			
-			final Integer idUpdate = Integer.parseInt(request.getParameter("id"));
-			final String textUpdate = request.getParameter("text");
-
+     	
+				final Integer idUpdate = Integer.parseInt(request.getParameter("id"));
+				final String textUpdate = request.getParameter("text");
+				final Integer idNodoUpdate = Integer.parseInt(request.getParameter("idNodoPadre"));
+		
 			
-			nodesServiceDTO.updateNodes(idUpdate, textUpdate);
+			nodesServiceDTO.updateNodes();
 			showAllNodes(request, response);
 			break;
 
