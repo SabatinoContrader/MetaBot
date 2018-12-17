@@ -25,7 +25,7 @@ public class LoginServlet extends HttpServlet {
 			final String nomeUtente = request.getParameter("username").toString();
 			final String password = request.getParameter("password").toString();
 			// recuperiamo l'utente
-			final UsersDTO usersDTO = usersServiceDTO.getUserByUsernameAndPassword(nomeUtente, password);
+			final UsersDTO usersDTO = usersServiceDTO.getUserByUsernameAndPasword(nomeUtente, password);
 
 			if (usersDTO != null)
 				session.setAttribute("utente", usersDTO);

@@ -40,5 +40,9 @@ public class UsersServiceDTO {
 
 		return listDTO;
 	}
+	
+	public UsersDTO getUserByUsernameAndPasword(String username, String password) {
+		return UsersConverter.toDTO(usersDAO.login(username, password));
+	}
 
 }
