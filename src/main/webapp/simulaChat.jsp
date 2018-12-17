@@ -31,7 +31,7 @@
 	<% if (foglia == ""){%>
 	<%for (NodesDTO messageDTO : allNodesDTO){
 		%>
-			<form action="MessageServlet">
+			<form action="NodesServlet">
 			<div><%=messageDTO.getText()%>
 				<input type="submit" value="NovoChat"
 					name="richiesta">
@@ -47,7 +47,7 @@
 	%>
 		<%	}%>
 
-<form action="MessageServlet" method="post">
+<form action="NodesServlet" method="post">
 		<input type="submit" value="Indietro" name="richiesta">
 	</form>
 	

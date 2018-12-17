@@ -20,7 +20,7 @@
 		-------
 	</h2>
 
-	<form action="MessageServlet" method="post">
+	<form action="NodesServlet" method="post">
 		<%
 			List<Integer> listaPadre = new ArrayList<>();
 			HashMap<Integer, List<NodesDTO>> hashMessage = new HashMap<>();
@@ -65,7 +65,7 @@
 	</form>
 	<h2></h2>
 	<h2></h2>
-	<form action="MessageServlet" method=post>
+	<form action="NodesServlet" method=post>
 		<button type="submit" value="simulaChat" name="richiesta" class="btn">Simula
 			Chat</button>
 	</form>
