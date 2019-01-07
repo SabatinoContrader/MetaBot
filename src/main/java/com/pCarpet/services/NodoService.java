@@ -1,0 +1,62 @@
+package com.pCarpet.services;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.pCarpet.converter.ConverterNodo;
+import com.pCarpet.dao.NodoRepository;
+import com.pCarpet.dto.NodoDTO;
+import com.pCarpet.model.Nodo;
+
+@Service
+public class NodoService {
+
+	private final NodoRepository nodoRepository;
+
+	@Autowired
+	public NodoService(NodoRepository nodoRepository) {
+		this.nodoRepository = nodoRepository;
+	}
+
+	public List<NodoDTO> findByNodoPadreIsNull() {
+		final List<Nodo> list = nodoRepository.findByNodoPadreIsNull();
+
+		final List<NodoDTO> listDTO = new ArrayList<>();
+		for (final Nodo nodo : list) {
+			listDTO.add(ConverterNodo.toDTO(nodo));
+		}
+		return listDTO;
+	}
+
+	public List<NodoDTO> findAllNodesDTO() {
+
+		final List<Nodo> list = nodoRepository.findAllByOrderByIdNodoAsc();
+
+		final List<NodoDTO> listDTO = new ArrayList<>();
+		for (final Nodo nodo : list) {
+			listDTO.add(ConverterNodo.toDTO(nodo));
+		}
+		return listDTO;
+	}
+
+	public void deleteById(Integer idNodo) {
+		nodoRepository.deleteById(idNodo);
+	}
+
+	public NodoDTO findByIdNodoDTO(Integer idNodo) {
+		return ConverterNodo.toDTO(nodoRepository.findByIdNodo(idNodo));
+	}
+
+	public List<Nodo> trovaNodiSenzaPadreDisponibili() {
+
+//		final List<NodoDTO> listNodoDTO = new ArrayList<>();
+//		final List<Nodo> listNodo = chatbotRepository.findAllNodoPadre();
+//		listNodo.forEach(i -> listNodoDTO.add(ConverterNodo.toDTO(i)));
+		final List<Nodo> nodiSenzaPadreDisponibili = nodoRepository.nodiSenzaPadreDisponibili();
+		return nodiSenzaPadreDisponibili;
+	}
+
+}

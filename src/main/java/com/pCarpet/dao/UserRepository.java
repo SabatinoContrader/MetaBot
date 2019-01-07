@@ -1,12 +1,12 @@
 package com.pCarpet.dao;
-import com.pCarpet.model.User;
-import javax.transaction.Transactional;
+
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import com.pCarpet.model.User;
 
 @Repository
-@Transactional
-public interface UserRepository  extends CrudRepository<User, Long>{
-	
+public interface UserRepository extends CrudRepository<User, Integer> {
+
+	public User findUserByUsernameAndPassword(String username,String password);
 }

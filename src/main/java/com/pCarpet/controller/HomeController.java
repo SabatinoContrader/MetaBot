@@ -1,52 +1,55 @@
 package com.pCarpet.controller;
 
-
-import com.pCarpet.model.User;
-import com.pCarpet.services.UserService;
-
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.ui.Model;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.pCarpet.dto.ChatbotDTO;
+import com.pCarpet.dto.NodoDTO;
+import com.pCarpet.dto.UserDTO;
+import com.pCarpet.services.ChatbotService;
+import com.pCarpet.services.NodoService;
 
 @Controller
 @RequestMapping("/Home")
 public class HomeController {
 
-	private UserService userService;
+	private final NodoService nodoService;
+	private final ChatbotService chatbotService;
 
 	@Autowired
-	public HomeController(UserService userService) {
-		this.userService = userService;
+	public HomeController(NodoService nodoService, ChatbotService chatbotService) {
+		this.nodoService = nodoService;
+		this.chatbotService = chatbotService;
 	}
 
-
-		
-
-	
 	@RequestMapping(value = "/homeDirectory", method = RequestMethod.GET)
-	public String AsseBad(HttpServletRequest request) {
-		String scelta= request.getParameter("scelta");
-		if (scelta.equals("AssBadRead"))
-			return "homeAssBadRead";
-		else if (scelta.equals("Customers"))
-			return "homeCustomers";
-		else if (scelta.equals("Bookings"))
-			return "homeBookings";
-		else if (scelta.equals("Logs"))
-			return "homeLogs";
-		else if (scelta.equals("indietro"))
-			return "homeSegretaria";
-		else
+	public String directoryMethod(HttpServletRequest request) {
+		final String choice = request.getParameter("choice");
+		if (choice.equals("Nodo")) {
+
+			final List<NodoDTO> allNodeDTO = nodoService.findAllNodesDTO();
+			request.setAttribute("allNodeDTO", allNodeDTO);
+			return "homeNodo";
+
+		} else if (choice.equals("Chatbot")) {
+
+			final UserDTO userDTO = (UserDTO) request.getSession().getAttribute("utenteCollegato");
+
+			final List<ChatbotDTO> allChatbotsDTO = chatbotService.findAllChatbotsDTOByIdUser(userDTO);
+			request.setAttribute("allChatbotsDTO", allChatbotsDTO);
+			return "homeChatbot";
+
+		} else if (choice.equals("indietro")) {
+			return "home";
+		} else {
 			return "";
+		}
 	}
-	
-	
 
 }
