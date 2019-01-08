@@ -1,3 +1,4 @@
+
 <%@ taglib prefix="jstl" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 
@@ -20,13 +21,13 @@
 
 	<div class="container">
 		<table class="table table-dark table-borderedtable-hover">
-			<thead >
+			<thead>
 				<tr>
 					<th scope="col">ID Chat</th>
 					<th scope="col">Nome Chat</th>
 					<th scope="col">utenteCollegato</th>
 					<th scope="col">NodoPadre</th>
-					
+
 				</tr>
 			</thead>
 			<jstl:forEach items="${allChatbotsDTO}" var="chatbot">
@@ -37,25 +38,34 @@
 						<td><jstl:out value="${chatbot.user.username}"></jstl:out></td>
 						<td><jstl:out value="${chatbot.nodoPadre.text}"></jstl:out></td>
 						<td><a class="btn btn-lg btn-secondary btn-block"
-				         href="/Chatbot/chatbotDirectory/?choice=gestisci&idChatDaGestire=${chatbot.idChatbot}">Gestisci</a></td>
-				        <td><a class="btn btn-lg btn-secondary btn-block"
-						 href="/Chatbot/chatbotDirectory/?choice=esportareXML&idChatDaEsportare=${chatbot.idChatbot}">Esportare XML</a></td>	
-				         
+							href="/Chatbot/chatbotDirectory/?choice=gestisci&idChatDaGestire=${chatbot.idChatbot}">Gestisci</a></td>
+						<td><a class="btn btn-lg btn-secondary btn-block"
+							href="/Chatbot/chatbotDirectory/?choice=esportareXML&idChatDaEsportare=${chatbot.idChatbot}">Esportare
+								XML</a></td>
+
 					</tr>
 				</tbody>
 			</jstl:forEach>
 			<tr>
-					<td><a class="btn btn-lg btn-success btn-block"
-				href="/Chatbot/chatbotDirectory/?choice=crea">Crea nuova Chatbot</a></td>
+				<td><a class="btn btn-lg btn-success btn-block"
+					href="/Chatbot/chatbotDirectory/?choice=crea">Crea nuova
+						Chatbot</a></td>
 				<td><a class="btn btn-lg btn-secondary btn-block"
 					href="/Home/homeDirectory/?choice=indietro">Indietro</a></td>
 				<td><a class="btn btn-lg btn-secondary btn-block"
-			        href="/Chatbot/chatbotDirectory/?choice=importareXML">Importare XML</a></td>
+					href="/Chatbot/chatbotDirectory/?choice=importareXML">Importare
+						XML</a></td>
+
 			</tr>
-			<br>
+
 		</table>
 	</div>
 
 
 </body>
 </html>
+
+
+
+
+

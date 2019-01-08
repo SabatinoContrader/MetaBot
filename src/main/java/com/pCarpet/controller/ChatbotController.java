@@ -34,6 +34,7 @@ public class ChatbotController {
 	public String directoryMethod(HttpServletRequest request) {
 
 		final String choice = request.getParameter("choice");
+		
 		if (choice.equals("crea")) {
 
 			final List<NodoDTO> listNodesDTONodoPadreNull = nodoService.findByNodoPadreIsNull();
@@ -44,6 +45,17 @@ public class ChatbotController {
 			request.setAttribute("allChatbotsDTO", allChatbotsDTO);
 
 			return "creaChatbot";
+			
+			
+			
+			
+		
+				
+
+				
+				
+				
+				
 		} else if (choice.equals("homeChatbot")) {
 			return "homeChatbot";
 		} else if (choice.equals("gestisci")) {
@@ -88,7 +100,8 @@ public class ChatbotController {
 		}
 	}
 
-	@RequestMapping(value = "/creaChat", method = RequestMethod.GET)
+
+	@RequestMapping(value = "/creaChatbot", method = RequestMethod.GET)
 	public String creaChatbot(HttpServletRequest request) {
 
 		final String nomeChat = request.getParameter("nomeChatbot");
@@ -104,4 +117,25 @@ public class ChatbotController {
 		return "homeChatbot";
 
 	}
+	
+	
+	
+	@RequestMapping(value = "/cercaChatbot", method = RequestMethod.GET)
+	public String cercaChatbot(HttpServletRequest request) {
+
+		String content = request.getParameter("search");
+		
+		System.out.println(content);
+		
+		List <ChatbotDTO> chatbots = chatbotService.findChatbotDTOByNomeChatbot(content);
+		request.setAttribute("chatbots", chatbots);
+		
+		
+
+		return "cercaChatbot";
+
+	}
+	
+	
+	
 }

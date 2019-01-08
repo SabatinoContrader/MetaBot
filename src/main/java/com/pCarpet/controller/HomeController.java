@@ -37,7 +37,13 @@ public class HomeController {
 			request.setAttribute("allNodeDTO", allNodeDTO);
 			return "homeNodo";
 
-		} else if (choice.equals("Chatbot")) {
+		} 
+		else if (choice.equals("cercachat")) {
+			return "cercaChatbot";
+			
+		}
+		
+		else if (choice.equals("Chatbot")) {
 
 			final UserDTO userDTO = (UserDTO) request.getSession().getAttribute("utenteCollegato");
 
