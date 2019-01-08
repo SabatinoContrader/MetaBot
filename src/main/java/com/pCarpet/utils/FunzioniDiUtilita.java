@@ -160,7 +160,7 @@ public class FunzioniDiUtilita {
 			TransformerFactory transformerFactory = TransformerFactory.newInstance();
 			Transformer transformer = transformerFactory.newTransformer();
 			DOMSource domSource = new DOMSource(document);
-			StreamResult streamResult = new StreamResult(new File("C:\\Users\\Bernardo\\Desktop\\albero.xml"));
+			StreamResult streamResult = new StreamResult(new File("src/main/resources/static/files/albero.xml"));
 			// System.out.println("streamResult: " + streamResult);
 			transformer.transform(domSource, streamResult);
 
@@ -178,7 +178,7 @@ public class FunzioniDiUtilita {
 	public static int readXML() {
 		int retorno = 0;
 		try {
-			File fXmlFile = new File("C:\\Users\\Bernardo\\Desktop\\albero.xml");
+			File fXmlFile = new File("src/main/resources/static/files/albero.xml");
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 			Document doc = dBuilder.parse(fXmlFile);
