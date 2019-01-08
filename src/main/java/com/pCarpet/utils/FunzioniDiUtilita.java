@@ -27,81 +27,6 @@ import com.pCarpet.dto.NodoDTO;
 public class FunzioniDiUtilita {
 
 	/**
-	 * Crea un file xml contenente la lista dei nodi appartenenti ad una chat
-	 * 
-	 * @param list
-	 * @return
-	 */
-//	public static boolean printXML(List<NodesDTO> list) {
-//
-//		/**
-//		 * Prendo un set di interi rappresentanti i padri
-//		 */
-//		final Set<Integer> padri = new HashSet<>();
-//		for (final NodesDTO node : list) {
-//			padri.add(node.getIdNodoPadre());
-//		}
-//
-//		try {
-//
-//			/**
-//			 * Creiamo il DOM XML
-//			 */
-//			final DocumentBuilderFactory documentFactory = DocumentBuilderFactory.newInstance();
-//			final DocumentBuilder documentBuilder = documentFactory.newDocumentBuilder();
-//			final Document document = documentBuilder.newDocument();
-//
-//			/**
-//			 * Elemento radice
-//			 */
-//			final Element root = document.createElement("metabot");
-//			document.appendChild(root);
-//
-//			/**
-//			 * Ciclo la lista dei padri e all'interno la lista della chat e appendo padre e
-//			 * figlio in maniera opportuna
-//			 */
-//			for (final Integer padre : padri) {
-//
-//				final Element padreElement = document.createElement("Padre");
-//				root.appendChild(padreElement);
-//				final Attr attr = document.createAttribute("id");
-//				attr.setValue("" + padre + "");
-//				padreElement.setAttributeNode(attr);
-//
-//				for (final NodesDTO nodeFiglio : list) {
-//
-//					if (nodeFiglio.getIdNodoPadre() == padre) {
-//						final Element figlioElement = document.createElement("Figlio");
-//						figlioElement.appendChild(
-//								document.createTextNode("" + nodeFiglio.getId() + ": " + nodeFiglio.getText() + ""));
-//						padreElement.appendChild(figlioElement);
-//					}
-//				}
-//
-//			}
-//
-//			/**
-//			 * Trasformo il DOM in un xml e lo streammo nel file.xml
-//			 */
-//			final TransformerFactory transformerFactory = TransformerFactory.newInstance();
-//			final Transformer transformer = transformerFactory.newTransformer();
-//			final DOMSource domSource = new DOMSource(document);
-//			final StreamResult streamResult = new StreamResult(new File("albero.xml"));
-//			transformer.transform(domSource, streamResult);
-//
-//			return true;
-//		} catch (final ParserConfigurationException pce) {
-//			pce.printStackTrace();
-//		} catch (final TransformerException tfe) {
-//			tfe.printStackTrace();
-//
-//		}
-//
-//		return false;
-	// }
-
-	/**
 	 * Data una lista di nodi non ordinata, restituisce la lista ordinata secondo un
 	 * algoritmo di BFS
 	 * 
@@ -160,7 +85,14 @@ public class FunzioniDiUtilita {
 		return visitati;
 	}
 	
-	public static boolean printXML(List<NodoDTO> list) {
+	/**
+	 * Crea un file xml contenente la lista dei nodi appartenenti ad una chat
+	 * 
+	 * @param list
+	 * @return
+	 */
+
+	public static boolean printXML(Integer idChat, List<NodoDTO> list) {
 
 		/**
 		 * Prendo un set di interi rappresentanti i padri
@@ -185,8 +117,11 @@ public class FunzioniDiUtilita {
 			/**
 			 * Elemento radice
 			 */
-			Element root = document.createElement("metabot");
+			Element root = document.createElement("Chat");
 			document.appendChild(root);
+			Attr attr = document.createAttribute("id");
+			attr.setValue("" + idChat + "");
+			root.setAttributeNode(attr);
 
 			// System.out.println("document: " + document);
 			/**
@@ -197,7 +132,7 @@ public class FunzioniDiUtilita {
 
 				Element padreElement = document.createElement("Padre");
 				root.appendChild(padreElement);
-				Attr attr = document.createAttribute("id");
+				attr = document.createAttribute("id");
 				attr.setValue("" + padre + "");
 				padreElement.setAttributeNode(attr);
 
@@ -208,8 +143,11 @@ public class FunzioniDiUtilita {
 						Element figlioElement = document.createElement("Figlio");
 
 						figlioElement.appendChild(document
-								.createTextNode("" + nodeFiglio.getIdNodo() + ": " + nodeFiglio.getText() + ""));
+								.createTextNode("" + nodeFiglio.getText() + ""));
 						padreElement.appendChild(figlioElement);
+						attr = document.createAttribute("id");
+						attr.setValue("" + nodeFiglio.getIdNodo() + "");
+						figlioElement.setAttributeNode(attr);
 					}
 					}
 				}
@@ -237,9 +175,8 @@ public class FunzioniDiUtilita {
 		return false;
 	}
 
-	/*public static List<NodoDTO> readXML() {
-		List<NodoDTO> list = new ArrayList<>();
-
+	public static int readXML() {
+		int retorno = 0;
 		try {
 			File fXmlFile = new File("C:\\Users\\Bernardo\\Desktop\\albero.xml");
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -248,39 +185,13 @@ public class FunzioniDiUtilita {
 
 			doc.getDocumentElement().normalize();
 
-			//System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
-
-			NodeList nList = doc.getElementsByTagName("Padre");
-
-			//System.out.println("----------------------------");
-
-			for (int temp = 0; temp < nList.getLength(); temp++) {
-
-				Node nNode = nList.item(temp);
-
-				//System.out.println("\nCurrent Element :" + nNode.getNodeName());
-
-				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-
-					Element eElement = (Element) nNode;
-					
-					NodoDTO objPadre = new NodoDTO();
-					objPadre.setMessageid(Integer.parseInt(eElement.getAttribute("id")));
-					//System.out.println("Padre id : " + eElement.getAttribute("id"));
-					for (int item = 0; item < eElement.getElementsByTagName("Figlio").getLength(); item++) {
-						String[] testo = eElement.getElementsByTagName("Figlio").item(item).getTextContent().split(":");
-						NodoDTO ObjMessage = new NodoDTO();
-						ObjMessage.setMessageid(Integer.parseInt(testo[0]));
-						ObjMessage.setTesto(testo[1]);
-						ObjMessage.setMessage(objPadre);
-						list.add(ObjMessage);
-								//System.out.println(	"Figlio : " + eElement.getElementsByTagName("Figlio").item(item).getTextContent());
-					}
-				}
-			}
+			Node nNode = doc.getFirstChild();
+			Element eElement = (Element) nNode;
+			retorno = Integer.parseInt(eElement.getAttribute("id"));
+		
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return list;
-	}*/
+		return retorno;
+	}
 }

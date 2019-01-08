@@ -69,15 +69,20 @@ public class ChatbotController {
 			// prendo la chat da gestire tramite l'id recuperato dalla session
 			final ChatbotDTO chatbotDTODaGestire = chatbotService
 					.findChatbotDTOByIdChatbot(Integer.parseInt(request.getParameter("idChatDaEsportare")));
-System.out.println("CHAT " + chatbotDTODaGestire);
+
 			// prendo la lista dei nodi, la ordino e la recupero
 			final List<NodoDTO> listDTOOrdinata = FunzioniDiUtilita.recuperaAlberoOrdinato(
 					nodoService.findAllNodesDTO(), chatbotDTODaGestire.getNodoPadre().getIdNodo());
-			System.out.println("LISTA " + listDTOOrdinata);	
-			FunzioniDiUtilita.printXML(listDTOOrdinata);
+		
+			FunzioniDiUtilita.printXML(Integer.parseInt(request.getParameter("idChatDaEsportare")), listDTOOrdinata);
 			return "home";
 		}else if (choice.equals("importareXML")) {
-			return "homeChatbot";
+			final ChatbotDTO chatbotDTODaImportare= chatbotService
+					.findChatbotDTOByIdChatbot(FunzioniDiUtilita.readXML());
+			final ChatbotDTO chatbotDTO = new ChatbotDTO(0, chatbotDTODaImportare.getNomeChatbot(), chatbotDTODaImportare.getUser(), chatbotDTODaImportare.getNodoPadre());
+			chatbotService.inserisciChatbotDTO(chatbotDTO);
+
+			return "home";
 		}else {
 			return "";
 		}
