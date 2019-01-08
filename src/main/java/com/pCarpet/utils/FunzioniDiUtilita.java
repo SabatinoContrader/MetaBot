@@ -102,6 +102,8 @@ public class FunzioniDiUtilita {
 		for (NodoDTO node : list) {
 			if (node.getNodoPadre() != null) {
 				padri.add(node.getNodoPadre().getIdNodo());
+			}else {
+				padri.add(0);
 			}
 		}
 
@@ -138,17 +140,28 @@ public class FunzioniDiUtilita {
 
 				for (NodoDTO nodeFiglio : list) {
 					if (nodeFiglio.getNodoPadre() != null) {
-					if (nodeFiglio.getNodoPadre().getIdNodo() == padre) {
-
+						if (nodeFiglio.getNodoPadre().getIdNodo() == padre) {
+	
+							Element figlioElement = document.createElement("Figlio");
+	
+							figlioElement.appendChild(document
+									.createTextNode("" + nodeFiglio.getText() + ""));
+							padreElement.appendChild(figlioElement);
+							attr = document.createAttribute("id");
+							attr.setValue("" + nodeFiglio.getIdNodo() + "");
+							figlioElement.setAttributeNode(attr);
+						}
+					}else {
+						if (0 == padre) {
 						Element figlioElement = document.createElement("Figlio");
-
+						
 						figlioElement.appendChild(document
 								.createTextNode("" + nodeFiglio.getText() + ""));
 						padreElement.appendChild(figlioElement);
 						attr = document.createAttribute("id");
 						attr.setValue("" + nodeFiglio.getIdNodo() + "");
 						figlioElement.setAttributeNode(attr);
-					}
+						}
 					}
 				}
 
