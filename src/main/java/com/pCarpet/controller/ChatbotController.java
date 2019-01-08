@@ -65,7 +65,20 @@ public class ChatbotController {
 			request.setAttribute("nodiSenzaPadreDisponibili", nodiSenzaPadreDisponibili);
 
 			return "gestisciChatbot";
-		} else {
+		} else if (choice.equals("esportareXML")) {
+			// prendo la chat da gestire tramite l'id recuperato dalla session
+			final ChatbotDTO chatbotDTODaGestire = chatbotService
+					.findChatbotDTOByIdChatbot(Integer.parseInt(request.getParameter("idChatDaEsportare")));
+System.out.println("CHAT " + chatbotDTODaGestire);
+			// prendo la lista dei nodi, la ordino e la recupero
+			final List<NodoDTO> listDTOOrdinata = FunzioniDiUtilita.recuperaAlberoOrdinato(
+					nodoService.findAllNodesDTO(), chatbotDTODaGestire.getNodoPadre().getIdNodo());
+			System.out.println("LISTA " + listDTOOrdinata);	
+			FunzioniDiUtilita.printXML(listDTOOrdinata);
+			return "home";
+		}else if (choice.equals("importareXML")) {
+			return "homeChatbot";
+		}else {
 			return "";
 		}
 	}
@@ -86,5 +99,4 @@ public class ChatbotController {
 		return "homeChatbot";
 
 	}
-
 }

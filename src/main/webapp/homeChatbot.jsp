@@ -36,8 +36,11 @@
 						<td><jstl:out value="${chatbot.nomeChatbot}"></jstl:out></td>
 						<td><jstl:out value="${chatbot.user.username}"></jstl:out></td>
 						<td><jstl:out value="${chatbot.nodoPadre.text}"></jstl:out></td>
-									<td><a class="btn btn-lg btn-secondary btn-block"
-				href="/Chatbot/chatbotDirectory/?choice=gestisci&idChatDaGestire=${chatbot.idChatbot}">Gestisci</a></td>
+						<td><a class="btn btn-lg btn-secondary btn-block"
+				         href="/Chatbot/chatbotDirectory/?choice=gestisci&idChatDaGestire=${chatbot.idChatbot}">Gestisci</a></td>
+				        <td><a class="btn btn-lg btn-secondary btn-block"
+						 href="/Chatbot/chatbotDirectory/?choice=esportareXML&idChatDaEsportare=${chatbot.idChatbot}">Esportare XML</a></td>	
+				         
 					</tr>
 				</tbody>
 			</jstl:forEach>
@@ -46,6 +49,8 @@
 				href="/Chatbot/chatbotDirectory/?choice=crea">Crea nuova Chatbot</a></td>
 				<td><a class="btn btn-lg btn-secondary btn-block"
 					href="/Home/homeDirectory/?choice=indietro">Indietro</a></td>
+				<td><a class="btn btn-lg btn-secondary btn-block"
+			        href="/Chatbot/chatbotDirectory/?choice=importareXML">Importare XML</a></td>
 			</tr>
 			<br>
 		</table>
