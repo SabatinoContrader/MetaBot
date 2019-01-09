@@ -1,5 +1,8 @@
 package com.pCarpet.converter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.pCarpet.dto.NodoDTO;
 import com.pCarpet.model.Nodo;
 
@@ -28,4 +31,32 @@ public class ConverterNodo {
 		return nodo;
 	}
 
+	
+	public static List<NodoDTO> toListNodoDTO(List<Nodo> list){
+
+		List<NodoDTO> nodoDTOs = new ArrayList<>();
+		
+		for (Nodo nodo : list) {
+		
+			NodoDTO nuovoNodoDaConvertire = ConverterNodo.toDTO(nodo);
+			nodoDTOs.add(nuovoNodoDaConvertire);
+								
+		}
+			
+		return nodoDTOs;
+	}
+	
+	public static List<Nodo> toListNodoEntity(List<NodoDTO> listDTO){
+
+		List<Nodo> nodos = new ArrayList<>();
+		
+		for (NodoDTO nodoDTO : listDTO) {
+		
+			Nodo nuovoNodoDaConvertire = ConverterNodo.toEntity(nodoDTO);
+			nodos.add(nuovoNodoDaConvertire);
+								
+		}
+			
+		return nodos;
+	}
 }

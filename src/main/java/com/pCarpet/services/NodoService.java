@@ -55,8 +55,12 @@ public class NodoService {
 //		final List<NodoDTO> listNodoDTO = new ArrayList<>();
 //		final List<Nodo> listNodo = chatbotRepository.findAllNodoPadre();
 //		listNodo.forEach(i -> listNodoDTO.add(ConverterNodo.toDTO(i)));
+		
+		
+		
 		final List<Nodo> nodiSenzaPadreDisponibili = nodoRepository.nodiSenzaPadreDisponibili();
-		return nodiSenzaPadreDisponibili;
+		
+				return nodiSenzaPadreDisponibili;
 	}
 
 }

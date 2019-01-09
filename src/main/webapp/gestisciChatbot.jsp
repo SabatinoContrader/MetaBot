@@ -17,39 +17,71 @@
 </head>
 <body>
 	<h1>Gestisci la tua Chatbot: ${chatbotDTODaGestire.nomeChatbot}</h1>
-	<div class="container text-center">
+	
 		
-		<!-- row requires "row-divided" class -->
-		<div class="row row-divided offset-md-3">
-			<div class="col-md-4  column-one"></div>
-		</div>
-		<div class="vertical-divider"></div>
-		<div class="col-md-5 column-two">
+		<div class ="container text-center">
+		    <div class="col-md-6 column-one">
+		       
 			<table class="table table-dark table-borderedtable-hover">
 				<thead>
 					<tr>
+						<th scope="col"></th>
 						<th scope="col">ID Nodo</th>
-						<th scope="col">Text</th>
-
+						<th scope="col">Messaggio</th>
+                        <th scope="col">Nodo Padre</th>
 					</tr>
 				</thead>
 				<jstl:forEach items="${listDTOOrdinata}" var="nodo">
 					<tbody>
 						<tr>
+							<td><input type="radio" name="choice" value="${nodo.idNodo}" ></td>
 							<td><jstl:out value="${nodo.idNodo}"></jstl:out></td>
 							<td><jstl:out value="${nodo.text}"></jstl:out></td>
-							<td><a class="btn btn-lg btn-secondary btn-block" href="">rimuovi</a></td>
+							<td><jstl:out value="${nodo.nodoPadre.idNodo}"></jstl:out></td>
+							<td><a class="btn btn-lg btn-secondary btn-block" href="">Elimina</a></td>
 						</tr>
 					</tbody>
+				
 				</jstl:forEach>
+				</table>
+				
+	 </div>
+	 		<div class ="vertical divider"></div>
+		        <div class="col-md-6 column-two">
+			
+		<table class="table table-dark table-borderedtable-hover">
+			<thead>
+				<tr>
+					<th scope="col">ID</th>
+					<th scope="col">Messaggio</th>
+				</tr>
+			</thead>
+			<jstl:forEach items="${nodiSenzaPadreDisponibili}" var="node">
+				<tbody>
+					<tr>
+						<td><jstl:out value="${node.idNodo}"></jstl:out></td>
+						<td><jstl:out value="${node.text}"></jstl:out></td>
+						<td><a class="btn btn-lg btn-danger btn-block"
+							href="/Nodo/nodoDirectory/?choice=elimina&id=${node.idNodo}">Elimina</a></td>
+							<td>
+							<a class="btn btn-lg btn-danger btn-block"
+							href="/Nodo/nodoDirectory/?choice=elimina&id=${node.idNodo}">Aggiungi</a>
+					</tr>
+					
+				</tbody>
+			</jstl:forEach>
+	       			<tr>
+						<td></td>
+						<td><input type="text" name="text" id="text" ></td>
+						<td><a class="btn btn-lg btn-danger btn-block"
+							href="/Nodo/nodoDirectory/?choice=creanodo&id=${node.idNodo}">Crea Nodo</a>
+					</tr>
 				<tr>
 					<td><a class="btn btn-lg btn-secondary btn-block"
 						href="/Home/homeDirectory/?choice=indietro">Indietro</a></td>
 				</tr>
 			</table>
 		</div>
-
-	</div>
 
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 	<script src="/js/jquery-3.1.1.min.js"></script>

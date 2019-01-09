@@ -58,11 +58,18 @@ public class ChatbotController {
 			final List<NodoDTO> listDTOOrdinata = FunzioniDiUtilita.recuperaAlberoOrdinato(
 					nodoService.findAllNodesDTO(), chatbotDTODaGestire.getNodoPadre().getIdNodo());
 			request.setAttribute("listDTOOrdinata", listDTOOrdinata);
+			
+			//final List<NodoDTO> listDTOOrdinata = FunzioniDiUtilita.recuperaAlberoOrdinato(
+			//nodoService.findAllNodesDTO(), chatbotDTODaGestire.getNodoPadre().getIdNodo());
+	//        request.setAttribute("listDTOOrdinata", listDTOOrdinata);
 
 			// lista di nodi disponibili per essere aggiunti nella chat, poi salvo nella
 			// request
 			final List<Nodo> nodiSenzaPadreDisponibili = nodoService.trovaNodiSenzaPadreDisponibili();
 			request.setAttribute("nodiSenzaPadreDisponibili", nodiSenzaPadreDisponibili);
+			
+			//final List<NodoDTO> allNodeDTO = nodoService.findAllNodesDTO();
+		//	request.setAttribute("allNodeDTO", allNodeDTO);
 
 			return "gestisciChatbot";
 		} else {
