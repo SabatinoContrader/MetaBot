@@ -24,7 +24,7 @@ public class ConverterNodo {
 			nodo = new Nodo();
 			nodo.setIdNodo(nodoDTO.getIdNodo());
 			nodo.setText(nodoDTO.getText());
-			if (nodo.getNodoPadre() != null) {
+			if (nodoDTO.getNodoPadre() != null) {
 				nodo.setNodoPadre(ConverterNodo.toEntity(nodoDTO.getNodoPadre()));
 			}
 		}

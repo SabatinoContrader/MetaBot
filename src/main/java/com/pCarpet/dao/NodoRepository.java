@@ -4,9 +4,10 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
 import com.pCarpet.model.Nodo;
-
+@Repository
 public interface NodoRepository extends CrudRepository<Nodo, Integer> {
 
 	public List<Nodo> findAllByOrderByIdNodoAsc();
@@ -18,4 +19,6 @@ public interface NodoRepository extends CrudRepository<Nodo, Integer> {
 	@Query(value = "select * from nodo n where n.id_nodo_padre is null and n.id_nodo not in (select c.id_nodo from chatbot c ); ", nativeQuery = true)
 	public List<Nodo> nodiSenzaPadreDisponibili();
 
+	
+	
 }

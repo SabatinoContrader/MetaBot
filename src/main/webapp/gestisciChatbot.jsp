@@ -15,7 +15,9 @@
 <link href="/css/bootstrap.min.css" rel="stylesheet">
 
 </head>
+<form class="form-signin" action="/Chatbot/chatbotDirectory/" method="post">
 <body>
+
 	<h1>Gestisci la tua Chatbot: ${chatbotDTODaGestire.nomeChatbot}</h1>
 	
 		
@@ -34,7 +36,8 @@
 				<jstl:forEach items="${listDTOOrdinata}" var="nodo">
 					<tbody>
 						<tr>
-							<td><input type="radio" name="choice" value="${nodo.idNodo}" ></td>
+						
+							<td><input type="radio" id="choiceIdNodoPadre" name="choiceIdNodoPadre" value="${nodo.idNodo}" ></td>
 							<td><jstl:out value="${nodo.idNodo}"></jstl:out></td>
 							<td><jstl:out value="${nodo.text}"></jstl:out></td>
 							<td><jstl:out value="${nodo.nodoPadre.idNodo}"></jstl:out></td>
@@ -64,17 +67,19 @@
 						<td><a class="btn btn-lg btn-danger btn-block"
 							href="/Nodo/nodoDirectory/?choice=elimina&id=${node.idNodo}">Elimina</a></td>
 							<td>
-							<a class="btn btn-lg btn-danger btn-block"
-							href="/Nodo/nodoDirectory/?choice=elimina&id=${node.idNodo}">Aggiungi</a>
+							
+							<input type="text" hidden id="idNode" name="idNode" value="${node.idNodo}" >
+						    <button class="btn btn-lg btn-primary btn-block" name="choice" value="Aggiungi"  type="submit" >Aggiungi</button></td>
+						    
 					</tr>
 					
 				</tbody>
 			</jstl:forEach>
+
 	       			<tr>
 						<td></td>
 						<td><input type="text" name="text" id="text" ></td>
-						<td><a class="btn btn-lg btn-danger btn-block"
-							href="/Nodo/nodoDirectory/?choice=creanodo&id=${node.idNodo}">Crea Nodo</a>
+						<td><button class="btn btn-lg btn-primary btn-block" name="choice" value="creanodo"  type="submit" >Crea Nodo</button></td>
 					</tr>
 				<tr>
 					<td><a class="btn btn-lg btn-secondary btn-block"
@@ -82,7 +87,7 @@
 				</tr>
 			</table>
 		</div>
-
+			</form>
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 	<script src="/js/jquery-3.1.1.min.js"></script>
 
@@ -91,6 +96,5 @@
 
 	<!-- Include all compiled plugins (below), or include individual files as needed -->
 	<script src="/js/bootstrap.min.js"></script>
-
 </body>
 </html>

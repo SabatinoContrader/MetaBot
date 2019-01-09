@@ -6,9 +6,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.pCarpet.converter.ConverterChatbot;
 import com.pCarpet.converter.ConverterNodo;
 import com.pCarpet.dao.NodoRepository;
 import com.pCarpet.dto.NodoDTO;
+import com.pCarpet.model.Chatbot;
 import com.pCarpet.model.Nodo;
 
 @Service
@@ -55,12 +57,19 @@ public class NodoService {
 //		final List<NodoDTO> listNodoDTO = new ArrayList<>();
 //		final List<Nodo> listNodo = chatbotRepository.findAllNodoPadre();
 //		listNodo.forEach(i -> listNodoDTO.add(ConverterNodo.toDTO(i)));
-		
-		
-		
+
 		final List<Nodo> nodiSenzaPadreDisponibili = nodoRepository.nodiSenzaPadreDisponibili();
-		
-				return nodiSenzaPadreDisponibili;
+
+		return nodiSenzaPadreDisponibili;
 	}
 
+	public Nodo update(NodoDTO nodoFiglio) {
+		return nodoRepository.save(ConverterNodo.toEntity(nodoFiglio));
+
+	}
+	
+	public Nodo save(NodoDTO nodo) {
+		return nodoRepository.save(ConverterNodo.toEntity(nodo));
+
+	}
 }
