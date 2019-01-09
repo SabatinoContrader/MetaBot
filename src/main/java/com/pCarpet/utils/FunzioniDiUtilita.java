@@ -43,6 +43,7 @@ public class FunzioniDiUtilita {
 		list.forEach(i -> {
 			if (i.getIdNodo() == inizio) {
 				daVisitareList.add(i);
+				visitati.add(i);
 			}
 		});
 		// list.remove(daVisitareList.get(0));
