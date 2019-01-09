@@ -34,6 +34,10 @@
 							href="/Home/homeDirectory/?choice=Nodo">Nodo</a><br> <a
 							class="btn btn-lg btn-primary btn-block"
 							href="/Home/homeDirectory/">Logout</a><br>
+							
+							 <a
+							class="btn btn-lg btn-primary btn-block"
+							href="/Home/homeDirectory/?choice=cercachat">Cerca Chat</a>
 
 					</form>
 				</div>

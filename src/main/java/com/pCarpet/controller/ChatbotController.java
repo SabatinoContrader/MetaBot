@@ -34,6 +34,7 @@ public class ChatbotController {
 	public String directoryMethod(HttpServletRequest request) {
 
 		final String choice = request.getParameter("choice");
+		
 		if (choice.equals("crea")) {
 
 			final List<NodoDTO> listNodesDTONodoPadreNull = nodoService.findByNodoPadreIsNull();
@@ -44,6 +45,17 @@ public class ChatbotController {
 			request.setAttribute("allChatbotsDTO", allChatbotsDTO);
 
 			return "creaChatbot";
+			
+			
+			
+			
+		
+				
+
+				
+				
+				
+				
 		} else if (choice.equals("homeChatbot")) {
 			return "homeChatbot";
 		} else if (choice.equals("gestisci")) {
@@ -72,12 +84,31 @@ public class ChatbotController {
 		//	request.setAttribute("allNodeDTO", allNodeDTO);
 
 			return "gestisciChatbot";
-		} else {
+		} else if (choice.equals("esportareXML")) {
+			// prendo la chat da gestire tramite l'id recuperato dalla session
+			final ChatbotDTO chatbotDTODaGestire = chatbotService
+					.findChatbotDTOByIdChatbot(Integer.parseInt(request.getParameter("idChatDaEsportare")));
+
+			// prendo la lista dei nodi, la ordino e la recupero
+			final List<NodoDTO> listDTOOrdinata = FunzioniDiUtilita.recuperaAlberoOrdinato(
+					nodoService.findAllNodesDTO(), chatbotDTODaGestire.getNodoPadre().getIdNodo());
+		
+			FunzioniDiUtilita.printXML(Integer.parseInt(request.getParameter("idChatDaEsportare")), listDTOOrdinata);
+			return "home";
+		}else if (choice.equals("importareXML")) {
+			final ChatbotDTO chatbotDTODaImportare= chatbotService
+					.findChatbotDTOByIdChatbot(FunzioniDiUtilita.readXML());
+			final ChatbotDTO chatbotDTO = new ChatbotDTO(0, chatbotDTODaImportare.getNomeChatbot(), chatbotDTODaImportare.getUser(), chatbotDTODaImportare.getNodoPadre());
+			chatbotService.inserisciChatbotDTO(chatbotDTO);
+
+			return "home";
+		}else {
 			return "";
 		}
 	}
 
-	@RequestMapping(value = "/creaChat", method = RequestMethod.GET)
+
+	@RequestMapping(value = "/creaChatbot", method = RequestMethod.GET)
 	public String creaChatbot(HttpServletRequest request) {
 
 		final String nomeChat = request.getParameter("nomeChatbot");
@@ -93,5 +124,25 @@ public class ChatbotController {
 		return "homeChatbot";
 
 	}
+	
+	
+	
+	@RequestMapping(value = "/cercaChatbot", method = RequestMethod.GET)
+	public String cercaChatbot(HttpServletRequest request) {
 
+		String content = request.getParameter("search");
+		
+		System.out.println(content);
+		
+		List <ChatbotDTO> chatbots = chatbotService.findChatbotDTOByNomeChatbot(content);
+		request.setAttribute("chatbots", chatbots);
+		
+		
+
+		return "cercaChatbot";
+
+	}
+	
+	
+	
 }

@@ -42,5 +42,16 @@ public class ChatbotService {
 	public ChatbotDTO findChatbotDTOByIdChatbot(Integer idChatbot) {
 		return ConverterChatbot.toDTO(chatbotRepository.findById(idChatbot).get());
 	}
+	
+	public List<ChatbotDTO> findChatbotDTOByNomeChatbot(String nomeChatbot) {
+		
+		final List<Chatbot> list = chatbotRepository.findAllByNomeChatbot(nomeChatbot);
+		final List<ChatbotDTO> chatbotDTOs = new ArrayList<>();
+		list.forEach(i -> chatbotDTOs.add(ConverterChatbot.toDTO(i)));
+		return chatbotDTOs;
+		
+	
+	}
+
 
 }
