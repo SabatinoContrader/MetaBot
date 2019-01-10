@@ -43,8 +43,15 @@
 							<td><jstl:out value="${nodo.idNodo}"></jstl:out></td>
 							<td><jstl:out value="${nodo.text}"></jstl:out></td>
 							<td><jstl:out value="${nodo.nodoPadre.idNodo}"></jstl:out></td>
+							<jstl:forEach items="${hashElimina}" var="padre">
+     	                        <jstl:if test="${nodo == padre.key}">
+								<jstl:if test="${0 == padre.value}">
 							<td><a class="btn btn-lg btn-secondary btn-block"
 							href="/Nodo/nodoDirectory/?choice=eliminanodo&id=${nodo.idNodo}&idChatDaGestire=${idChatDaGestire}">Elimina</a></td>
+						    </jstl:if>
+						   </jstl:if>
+      	                    </jstl:forEach>
+						
 						</tr>
 					</tbody>
 				

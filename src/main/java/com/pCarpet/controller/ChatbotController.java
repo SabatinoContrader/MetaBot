@@ -1,5 +1,6 @@
 package com.pCarpet.controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -61,6 +62,15 @@ public class ChatbotController {
 					nodoService.findAllNodesDTO(), chatbotDTODaGestire.getNodoPadre().getIdNodo());
 			request.setAttribute("listDTOOrdinata", listDTOOrdinata);
 
+			final HashMap<NodoDTO, Integer> hashElimina = new HashMap<>();
+			for (NodoDTO lista : listDTOOrdinata) {
+				
+				if (nodoService.findUserByIdNodoPadre(lista.getIdNodo()) == 1) {
+					hashElimina.put(lista, 1);
+				}else			
+					hashElimina.put(lista, 0);
+			}
+			request.setAttribute("hashElimina", hashElimina);
 			// lista di nodi disponibili per essere aggiunti nella chat, poi salvo nella
 			// request
 			final List<Nodo> nodiSenzaPadreDisponibili = nodoService.trovaNodiSenzaPadreDisponibili();
