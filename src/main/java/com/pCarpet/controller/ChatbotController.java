@@ -63,12 +63,13 @@ public class ChatbotController {
 			request.setAttribute("listDTOOrdinata", listDTOOrdinata);
 
 			final HashMap<NodoDTO, Integer> hashElimina = new HashMap<>();
-			for (NodoDTO lista : listDTOOrdinata) {
-				
+			for (final NodoDTO lista : listDTOOrdinata) {
+
 				if (nodoService.findUserByIdNodoPadre(lista.getIdNodo()) == 1) {
 					hashElimina.put(lista, 1);
-				}else			
+				} else {
 					hashElimina.put(lista, 0);
+				}
 			}
 			request.setAttribute("hashElimina", hashElimina);
 			// lista di nodi disponibili per essere aggiunti nella chat, poi salvo nella
@@ -108,11 +109,9 @@ public class ChatbotController {
 	@RequestMapping(value = "/cercaChatbot", method = RequestMethod.GET)
 	public String cercaChatbot(HttpServletRequest request) {
 
-		String content = request.getParameter("search");
+		final String content = request.getParameter("search");
 
-		System.out.println(content);
-
-		List<ChatbotDTO> chatbots = chatbotService.findChatbotDTOByNomeChatbot(content);
+		final List<ChatbotDTO> chatbots = chatbotService.findChatbotDTOByNomeChatbot(content);
 		request.setAttribute("allChatbotsDTO", chatbots);
 
 		return "homeChatbot";
@@ -123,19 +122,14 @@ public class ChatbotController {
 	public String creaChatbot(HttpServletRequest request) {
 
 		final String nomeChat = request.getParameter("nomeChatbot");
-		System.out.println(nomeChat);
 
 		final UserDTO user = (UserDTO) request.getSession().getAttribute("utenteCollegato");
-		System.out.println(user);
 
 		final Integer nodoPadreSelezionato = Integer.parseInt(request.getParameter("nodoPadreSelezionato"));
-		System.out.println(nodoPadreSelezionato);
 
 		final NodoDTO nodo = nodoService.findByIdNodoDTO(nodoPadreSelezionato);
-		System.out.println(nodo);
 
 		final ChatbotDTO chatbotDTO = new ChatbotDTO(0, nomeChat, user, nodo);
-		System.out.println(chatbotDTO);
 
 		chatbotService.inserisciChatbotDTO(chatbotDTO);
 

@@ -43,12 +43,8 @@ public class LoginController {
 				return "home";
 			} else if (ruolo.equals("CHATMASTER")) {
 				// return "homeCliente";
-				model.addAttribute("feedback", "success");
 				return "home";
 			}
-		} else {
-			model.addAttribute("feedback", "wrong");
-			// return "index";
 		}
 		return "index";
 	}
