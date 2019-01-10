@@ -13,6 +13,7 @@ public class ConverterNodo {
 			nodoDTO = new NodoDTO();
 			nodoDTO.setIdNodo(nodo.getIdNodo());
 			nodoDTO.setText(nodo.getText());
+			nodoDTO.setPath(nodo.getPath());
 			nodoDTO.setNodoPadre(ConverterNodo.toDTO(nodo.getNodoPadre()));
 		}
 		return nodoDTO;
@@ -24,6 +25,7 @@ public class ConverterNodo {
 			nodo = new Nodo();
 			nodo.setIdNodo(nodoDTO.getIdNodo());
 			nodo.setText(nodoDTO.getText());
+			nodo.setPath(nodoDTO.getPath());
 			if (nodoDTO.getNodoPadre() != null) {
 				nodo.setNodoPadre(ConverterNodo.toEntity(nodoDTO.getNodoPadre()));
 			}
@@ -31,32 +33,31 @@ public class ConverterNodo {
 		return nodo;
 	}
 
-	
-	public static List<NodoDTO> toListNodoDTO(List<Nodo> list){
+	public static List<NodoDTO> toListNodoDTO(List<Nodo> list) {
 
-		List<NodoDTO> nodoDTOs = new ArrayList<>();
-		
-		for (Nodo nodo : list) {
-		
-			NodoDTO nuovoNodoDaConvertire = ConverterNodo.toDTO(nodo);
+		final List<NodoDTO> nodoDTOs = new ArrayList<>();
+
+		for (final Nodo nodo : list) {
+
+			final NodoDTO nuovoNodoDaConvertire = ConverterNodo.toDTO(nodo);
 			nodoDTOs.add(nuovoNodoDaConvertire);
-								
+
 		}
-			
+
 		return nodoDTOs;
 	}
-	
-	public static List<Nodo> toListNodoEntity(List<NodoDTO> listDTO){
 
-		List<Nodo> nodos = new ArrayList<>();
-		
-		for (NodoDTO nodoDTO : listDTO) {
-		
-			Nodo nuovoNodoDaConvertire = ConverterNodo.toEntity(nodoDTO);
+	public static List<Nodo> toListNodoEntity(List<NodoDTO> listDTO) {
+
+		final List<Nodo> nodos = new ArrayList<>();
+
+		for (final NodoDTO nodoDTO : listDTO) {
+
+			final Nodo nuovoNodoDaConvertire = ConverterNodo.toEntity(nodoDTO);
 			nodos.add(nuovoNodoDaConvertire);
-								
+
 		}
-			
+
 		return nodos;
 	}
 }

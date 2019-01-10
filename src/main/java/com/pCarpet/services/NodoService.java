@@ -6,11 +6,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.pCarpet.converter.ConverterChatbot;
 import com.pCarpet.converter.ConverterNodo;
 import com.pCarpet.dao.NodoRepository;
 import com.pCarpet.dto.NodoDTO;
-import com.pCarpet.model.Chatbot;
 import com.pCarpet.model.Nodo;
 
 @Service
@@ -49,35 +47,28 @@ public class NodoService {
 	}
 
 	public NodoDTO findByIdNodoDTO(Integer idNodo) {
-		return ConverterNodo.toDTO(nodoRepository.findByIdNodo(idNodo));
+		return ConverterNodo.toDTO(nodoRepository.findById(idNodo).get());
 	}
 
 	public List<Nodo> trovaNodiSenzaPadreDisponibili() {
-
-//		final List<NodoDTO> listNodoDTO = new ArrayList<>();
-//		final List<Nodo> listNodo = chatbotRepository.findAllNodoPadre();
-//		listNodo.forEach(i -> listNodoDTO.add(ConverterNodo.toDTO(i)));
-
-		final List<Nodo> nodiSenzaPadreDisponibili = nodoRepository.nodiSenzaPadreDisponibili();
-
-		return nodiSenzaPadreDisponibili;
+		return nodoRepository.nodiSenzaPadreDisponibili();
 	}
 
 	public Nodo update(NodoDTO nodoFiglio) {
 		return nodoRepository.save(ConverterNodo.toEntity(nodoFiglio));
 
 	}
-	
+
 	public Nodo save(NodoDTO nodo) {
 		return nodoRepository.save(ConverterNodo.toEntity(nodo));
-	
+
 	}
-	
+
 	public Integer findUserByIdNodoPadre(Integer idNodoPadre) {
-		if(nodoRepository.findUserByIdNodoPadre(idNodoPadre) == null) {
-		  return 0;
-		}else {
-		  return 1;
+		if (nodoRepository.findUserByIdNodoPadre(idNodoPadre) == null) {
+			return 0;
+		} else {
+			return 1;
 		}
 	}
 
