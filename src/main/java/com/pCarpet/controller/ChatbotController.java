@@ -113,9 +113,9 @@ public class ChatbotController {
 		System.out.println(content);
 
 		List<ChatbotDTO> chatbots = chatbotService.findChatbotDTOByNomeChatbot(content);
-		request.setAttribute("chatbots", chatbots);
+		request.setAttribute("allChatbotsDTO", chatbots);
 
-		return "cercaChatbot";
+		return "homeChatbot";
 
 	}
 

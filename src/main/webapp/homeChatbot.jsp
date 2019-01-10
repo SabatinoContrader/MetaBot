@@ -42,20 +42,27 @@
 						<td><a class="btn btn-lg btn-secondary btn-block"
 							href="/Chatbot/chatbotDirectory/?choice=esportareXML&idChatDaEsportare=${chatbot.idChatbot}">Esportare
 								XML</a></td>
-
 					</tr>
 				</tbody>
-			</jstl:forEach>
+			</jstl:forEach>			
 			<tr>
 				<td><a class="btn btn-lg btn-success btn-block"
 					href="/Chatbot/chatbotDirectory/?choice=crea">Crea nuova
 						Chatbot</a></td>
+					
+					
 				<td><a class="btn btn-lg btn-secondary btn-block"
 					href="/Home/homeDirectory/?choice=indietro">Indietro</a></td>
 				<td><a class="btn btn-lg btn-secondary btn-block"
 					href="/Chatbot/chatbotDirectory/?choice=importareXML">Importare
 						XML</a></td>
-
+			<tr>		
+					<td>
+						<form class="example" action="/Chatbot/cercaChatbot" method="get">
+  							<input type="text" placeholder="Search.." name="search" class="btn btn-default" >
+  							<button type="submit" class="btn btn-default">Cerca</button>
+						</form>
+					</td>
 			</tr>
 
 		</table>
