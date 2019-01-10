@@ -15,6 +15,7 @@ public class ConverterNodo {
 			nodoDTO.setText(nodo.getText());
 			nodoDTO.setPath(nodo.getPath());
 			nodoDTO.setNodoPadre(ConverterNodo.toDTO(nodo.getNodoPadre()));
+			nodoDTO.setTipoNodo(nodo.getTipoNodo());
 		}
 		return nodoDTO;
 	}
@@ -24,6 +25,7 @@ public class ConverterNodo {
 		if (nodoDTO != null) {
 			nodo = new Nodo();
 			nodo.setIdNodo(nodoDTO.getIdNodo());
+			nodo.setTipoNodo(nodoDTO.getTipoNodo());
 			nodo.setText(nodoDTO.getText());
 			nodo.setPath(nodoDTO.getPath());
 			if (nodoDTO.getNodoPadre() != null) {

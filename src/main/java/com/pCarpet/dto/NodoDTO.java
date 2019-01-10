@@ -12,5 +12,6 @@ public class NodoDTO {
 	private Integer idNodo;
 	private String text;
 	private NodoDTO nodoPadre;
+	private String tipoNodo;
 	private String path;
 }

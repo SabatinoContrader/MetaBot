@@ -33,6 +33,7 @@
 							<th scope="col"></th>
 							<th scope="col">ID Nodo</th>
 							<th scope="col">Messaggio</th>
+						    <th scope="col">Tipo nodo</th>
 							<th scope="col">Nodo Padre</th>
 						</tr>
 					</thead>
@@ -44,6 +45,7 @@
 									name="choiceIdNodoPadre" value="${nodo.idNodo}"></td>
 								<td><jstl:out value="${nodo.idNodo}"></jstl:out></td>
 								<td><jstl:out value="${nodo.text}"></jstl:out></td>
+								<td><jstl:out value="${nodo.tipoNodo}"></jstl:out></td>
 								<td><jstl:out value="${nodo.nodoPadre.idNodo}"></jstl:out></td>
 								<jstl:forEach items="${hashElimina}" var="padre">
 									<jstl:if test="${nodo == padre.key}">
@@ -78,22 +80,19 @@
 						<tr>
 							<th scope="col">ID</th>
 							<th scope="col">Messaggio</th>
+							<th scope="col">Tipo Nodo</th>
 						</tr>
 					</thead>
 					<jstl:forEach items="${nodiSenzaPadreDisponibili}" var="node">
 						<tbody>
 							<tr>
+							<td><input type="radio" id="choiceIdNodoFiglio" name="choiceIdNodoFiglio" value="${node.idNodo}" ></td>
 								<td><jstl:out value="${node.idNodo}"></jstl:out></td>
 								<td><jstl:out value="${node.text}"></jstl:out></td>
+								<td><jstl:out value="${node.tipoNodo}"></jstl:out></td>
 								<td><a class="btn btn-lg btn-danger btn-block"
 									href="/Nodo/nodoDirectory/?choice=eliminanodo&id=${node.idNodo}&idChatDaGestire=${idChatDaGestire}">Elimina</a></td>
-								<td><input type="text" hidden id="idNode" name="idNode"
-									value="${node.idNodo}">
-									<button class="btn btn-lg btn-primary btn-block" name="choice"
-										value="Aggiungi" type="submit">Aggiungi</button>
-
-
-
+								
 									<div class="form-group">
 										<input type="file" class="form-control-file" name="file">
 										<input type="submit" name="choice" value="upload"
@@ -104,12 +103,23 @@
 
 						</tbody>
 					</jstl:forEach>
-
+<tr>
+<td>
+						    <button class="btn btn-lg btn-primary btn-block" name="choice" value="Aggiungi"  type="submit" >Aggiungi</button></td>
+						    </td>
+						    </tr>
+	       			<tr>
 					<tr>
 						<td></td>
 						<td><input type="text" name="text" id="text"> <input
 							type="hidden" id="idChatDaGestire" name="idChatDaGestire"
 							value="${idChatDaGestire}"></td>
+							<tr>
+<td>
+						    <button class="btn btn-lg btn-primary btn-block" name="choice" value="Aggiungi"  type="submit" >Aggiungi</button></td>
+						    </td>
+						    </tr>
+	       			<tr>
 						<td><button class="btn btn-lg btn-primary btn-block"
 								name="choice" value="creanodo" type="submit">Crea Nodo</button></td>
 					</tr>

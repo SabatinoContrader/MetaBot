@@ -90,7 +90,7 @@ public class NodoController {
 		final String choice = request.getParameter("choice");
 
 		if (choice.equals("Aggiungi")) {
-			final Integer figlioDaAggiungere = Integer.parseInt(request.getParameter("idNode"));
+			final Integer figlioDaAggiungere = Integer.parseInt(request.getParameter("choiceIdNodoFiglio"));
 			final Integer idPadre = Integer.parseInt(request.getParameter("choiceIdNodoPadre"));
 
 			final NodoDTO nodoDTODaAggiungere = nodoService.findByIdNodoDTO(figlioDaAggiungere);
@@ -105,7 +105,9 @@ public class NodoController {
 
 		} else if (choice.equals("creanodo")) {
 			final String testo = request.getParameter("text");
-			final NodoDTO nuovoNodo = new NodoDTO(0, testo, null, null);
+			final String tiponodo = request.getParameter("tipoNodo");
+			
+			final NodoDTO nuovoNodo = new NodoDTO(0, testo, null, tiponodo , null);
 			nodoService.save(nuovoNodo);
 			// System.out.println(nuovoNodo);
 
