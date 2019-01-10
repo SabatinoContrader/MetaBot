@@ -1,5 +1,6 @@
 package com.pCarpet.controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -61,6 +62,15 @@ public class ChatbotController {
 					nodoService.findAllNodesDTO(), chatbotDTODaGestire.getNodoPadre().getIdNodo());
 			request.setAttribute("listDTOOrdinata", listDTOOrdinata);
 
+			final HashMap<NodoDTO, Integer> hashElimina = new HashMap<>();
+			for (NodoDTO lista : listDTOOrdinata) {
+				
+				if (nodoService.findUserByIdNodoPadre(lista.getIdNodo()) == 1) {
+					hashElimina.put(lista, 1);
+				}else			
+					hashElimina.put(lista, 0);
+			}
+			request.setAttribute("hashElimina", hashElimina);
 			// lista di nodi disponibili per essere aggiunti nella chat, poi salvo nella
 			// request
 			final List<Nodo> nodiSenzaPadreDisponibili = nodoService.trovaNodiSenzaPadreDisponibili();
@@ -68,10 +78,10 @@ public class ChatbotController {
 
 			// final List<NodoDTO> allNodeDTO = nodoService.findAllNodesDTO();
 			// request.setAttribute("allNodeDTO", allNodeDTO);
-
+			request.setAttribute("idChatDaGestire", request.getParameter("idChatDaGestire"));
 			return "gestisciChatbot";
 
-		}else if (choice.equals("esportareXML")) {
+		} else if (choice.equals("esportareXML")) {
 			// prendo la chat da gestire tramite l'id recuperato dalla session
 			final ChatbotDTO chatbotDTODaGestire = chatbotService
 					.findChatbotDTOByIdChatbot(Integer.parseInt(request.getParameter("idChatDaEsportare")));
@@ -109,36 +119,6 @@ public class ChatbotController {
 
 	}
 
-	@RequestMapping(value = "/chatbotDirectory", method = RequestMethod.POST)
-	public String directoryMethod2(HttpServletRequest request) {
-
-		final String choice = request.getParameter("choice");
-		
-		if ( choice.equals("Aggiungi")) {
-			final Integer figlioDaAggiungere = Integer.parseInt(request.getParameter("idNode"));
-			final Integer idPadre = Integer.parseInt(request.getParameter("choiceIdNodoPadre"));
-
-			final NodoDTO nodoDTODaAggiungere = nodoService.findByIdNodoDTO(figlioDaAggiungere);
-			final NodoDTO nodoDTOPadre = nodoService.findByIdNodoDTO(idPadre);
-
-			nodoDTODaAggiungere.setNodoPadre(nodoDTOPadre);
-
-			
-			nodoService.update(nodoDTODaAggiungere);
-			
-			
-			return "home";
-			
-		}else if ( choice.equals("creanodo")){
-			final String testo = request.getParameter("text");
-			final NodoDTO nuovoNodo = new NodoDTO(0,testo,null,null);
-			nodoService.save(nuovoNodo);
-			return "home";
-		}else {
-			return "";
-		}
-	}
-
 	@RequestMapping(value = "/creaChatbot", method = RequestMethod.GET)
 	public String creaChatbot(HttpServletRequest request) {
 
@@ -165,5 +145,4 @@ public class ChatbotController {
 		return "homeChatbot";
 
 	}
-
 }

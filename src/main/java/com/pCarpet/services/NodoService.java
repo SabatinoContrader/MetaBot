@@ -70,6 +70,15 @@ public class NodoService {
 	
 	public Nodo save(NodoDTO nodo) {
 		return nodoRepository.save(ConverterNodo.toEntity(nodo));
-
+	
 	}
+	
+	public Integer findUserByIdNodoPadre(Integer idNodoPadre) {
+		if(nodoRepository.findUserByIdNodoPadre(idNodoPadre) == null) {
+		  return 0;
+		}else {
+		  return 1;
+		}
+	}
+
 }

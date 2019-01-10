@@ -9,14 +9,16 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>Gestisci Chatbot</title>
+<title>Gestisci è Chatbot</title>
 
 <!-- Bootstrap core CSS -->
 <link href="/css/bootstrap.min.css" rel="stylesheet">
 
 </head>
-<form class="form-signin" action="/Chatbot/chatbotDirectory/" method="post">
+<form class="form-signin" action="/Nodo/nodoDirectory/" method="post">
 <body>
+
+
 
 	<h1>Gestisci la tua Chatbot: ${chatbotDTODaGestire.nomeChatbot}</h1>
 	
@@ -41,7 +43,15 @@
 							<td><jstl:out value="${nodo.idNodo}"></jstl:out></td>
 							<td><jstl:out value="${nodo.text}"></jstl:out></td>
 							<td><jstl:out value="${nodo.nodoPadre.idNodo}"></jstl:out></td>
-							<td><a class="btn btn-lg btn-secondary btn-block" href="">Elimina</a></td>
+							<jstl:forEach items="${hashElimina}" var="padre">
+     	                        <jstl:if test="${nodo == padre.key}">
+								<jstl:if test="${0 == padre.value}">
+							<td><a class="btn btn-lg btn-secondary btn-block"
+							href="/Nodo/nodoDirectory/?choice=eliminanodo&id=${nodo.idNodo}&idChatDaGestire=${idChatDaGestire}">Elimina</a></td>
+						    </jstl:if>
+						   </jstl:if>
+      	                    </jstl:forEach>
+						
 						</tr>
 					</tbody>
 				
@@ -65,7 +75,7 @@
 						<td><jstl:out value="${node.idNodo}"></jstl:out></td>
 						<td><jstl:out value="${node.text}"></jstl:out></td>
 						<td><a class="btn btn-lg btn-danger btn-block"
-							href="/Nodo/nodoDirectory/?choice=elimina&id=${node.idNodo}">Elimina</a></td>
+							href="/Nodo/nodoDirectory/?choice=eliminanodo&id=${node.idNodo}&idChatDaGestire=${idChatDaGestire}">Elimina</a></td>
 							<td>
 							
 							<input type="text" hidden id="idNode" name="idNode" value="${node.idNodo}" >
@@ -78,7 +88,9 @@
 
 	       			<tr>
 						<td></td>
-						<td><input type="text" name="text" id="text" ></td>
+						<td><input type="text" name="text" id="text" >
+						<input type="hidden"  id="idChatDaGestire" name="idChatDaGestire" value="${idChatDaGestire}" >
+						</td>
 						<td><button class="btn btn-lg btn-primary btn-block" name="choice" value="creanodo"  type="submit" >Crea Nodo</button></td>
 					</tr>
 				<tr>

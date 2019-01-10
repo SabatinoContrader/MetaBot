@@ -20,5 +20,7 @@ public interface NodoRepository extends CrudRepository<Nodo, Integer> {
 	public List<Nodo> nodiSenzaPadreDisponibili();
 
 	
+	@Query(value = "select 1 from nodo n where n.id_nodo_padre = ?1", nativeQuery = true)
+	public Integer findUserByIdNodoPadre(Integer id);
 	
 }
