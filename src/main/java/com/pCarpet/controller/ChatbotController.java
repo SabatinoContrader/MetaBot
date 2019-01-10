@@ -143,10 +143,20 @@ public class ChatbotController {
 	public String creaChatbot(HttpServletRequest request) {
 
 		final String nomeChat = request.getParameter("nomeChatbot");
+		System.out.println(nomeChat);
+
 		final UserDTO user = (UserDTO) request.getSession().getAttribute("utenteCollegato");
+		System.out.println(user);
+
 		final Integer nodoPadreSelezionato = Integer.parseInt(request.getParameter("nodoPadreSelezionato"));
+		System.out.println(nodoPadreSelezionato);
+
 		final NodoDTO nodo = nodoService.findByIdNodoDTO(nodoPadreSelezionato);
+		System.out.println(nodo);
+
 		final ChatbotDTO chatbotDTO = new ChatbotDTO(0, nomeChat, user, nodo);
+		System.out.println(chatbotDTO);
+
 		chatbotService.inserisciChatbotDTO(chatbotDTO);
 
 		final List<ChatbotDTO> allChatbotsDTO = chatbotService.findAllChatbotsDTOByIdUser(user);

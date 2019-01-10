@@ -26,7 +26,7 @@
 		<!-- row requires "row-divided" class -->
 		<div class="row row-divided offset-md-3">
 			<div class="col-md-4  column-one">
-				<form action="/Chatbot/creaChat" id="formCreaChatbot">
+				<form action="/Chatbot/creaChatbot" id="formCreaChatbot" method="get">
 					<div class="form-group">
 						<label for="nomeChatbot">Nome Chatbot:</label> <input type="text"
 							class="form-control" id="nomeChatbot"
