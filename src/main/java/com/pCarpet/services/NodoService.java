@@ -71,5 +71,13 @@ public class NodoService {
 			return 1;
 		}
 	}
-
+	
+	public List<NodoDTO>findAllByNodoPadre(NodoDTO nodopadre){
+		final List<Nodo> list = nodoRepository.findAllByNodoPadre(ConverterNodo.toEntity(nodopadre));
+		final List<NodoDTO> listDTO = new ArrayList<>();
+		for (final Nodo nodo : list ) {
+			listDTO.add(ConverterNodo.toDTO(nodo));
+		}
+		return listDTO;
+	}
 }

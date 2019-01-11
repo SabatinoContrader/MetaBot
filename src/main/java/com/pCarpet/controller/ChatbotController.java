@@ -1,5 +1,6 @@
 package com.pCarpet.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -7,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -17,6 +19,7 @@ import com.pCarpet.model.Nodo;
 import com.pCarpet.services.ChatbotService;
 import com.pCarpet.services.NodoService;
 import com.pCarpet.utils.FunzioniDiUtilita;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/Chatbot")
@@ -138,5 +141,28 @@ public class ChatbotController {
 
 		return "homeChatbot";
 
+	}
+	@RequestMapping(value ="/simulazione/{chatbotID}", method = RequestMethod.GET)
+	public String avviaSimulazione (@PathVariable("chatbotID") Integer cID, HttpServletRequest request){
+		List<String> log = new ArrayList<>();
+		ChatbotDTO chat = chatbotService.findChatbotDTOByIdChatbot(cID);
+		log.add(nodoService.findByIdNodoDTO(chat.getNodoPadre().getIdNodo()).getText());
+		final List<NodoDTO> next = nodoService.findAllByNodoPadre(chat.getNodoPadre());
+		
+		request.setAttribute("chatlog",log);
+		request.setAttribute("simulatedChatID",cID);
+		request.setAttribute("prossimiNodi", next);
+		
+		return "simulaChat";
+	}
+	@RequestMapping(value = "/simulazione/{chatbotID}", method = RequestMethod.POST)
+	public String prossimiNodi (@PathVariable("chatbotID") Integer cID, HttpServletRequest request, @RequestParam(value ="chatlog") ArrayList<String>log){
+		NodoDTO nodo = nodoService.findByIdNodoDTO(Integer.parseInt(request.getParameter("nodoScelto")));
+		log.add(nodo.getText());
+		final List<NodoDTO> next = nodoService.findAllByNodoPadre(nodo);
+		request.setAttribute("simulatedChatID",cID);
+		request.setAttribute("prossimiNodi", next);
+		request.setAttribute("chatlog",log);
+		return "simulaChat";
 	}
 }
