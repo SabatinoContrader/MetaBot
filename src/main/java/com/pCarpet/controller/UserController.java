@@ -57,16 +57,6 @@ public class UserController {
 		
 	}
 	
-	@RequestMapping(value = "/update", method = RequestMethod.GET)
-	public String update(HttpServletRequest request) {
-		int id = Integer.parseInt(request.getParameter("id"));
-		UserDTO user = this.userService.getUserDTOById(id);
-		request.setAttribute("user", user);
-		request.setAttribute("option", "update");
-		return "userManagement";
-		
-	}
-	
 	@RequestMapping(value = "/cercaUser", method = RequestMethod.GET)
 	public String cercaUser(HttpServletRequest request) {
 
@@ -77,21 +67,6 @@ public class UserController {
 
 		return "homeUser";
 
-	}
-	
-	@RequestMapping(value = "/updateUser", method = RequestMethod.POST)
-	public String updateUser(HttpServletRequest request) {
-		int id = Integer.parseInt(request.getParameter("userid").toString());
-		String username = request.getParameter("username").toString();
-		String password = request.getParameter("password").toString();
-		String ruolo = request.getParameter("ruolo").toString();
-
-		UserDTO userObj = new UserDTO(id, username, password, ruolo,"");
-
-		userService.updateUser(userObj);
-
-		visualUser(request);
-		return "homeUser";
 	}
 	
 	@RequestMapping(value = "/creaUser", method = RequestMethod.POST)

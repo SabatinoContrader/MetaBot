@@ -42,48 +42,57 @@ public class NodoController {
 		this.chatbotService = chatbotService;
 	}
 
-	@RequestMapping(value = "/nodoDirectory", method = RequestMethod.GET)
-	public String nodoDirectoryGET(@RequestParam(value = "file", required = false) MultipartFile file,
-			HttpServletRequest request, HttpServletResponse response) {
-		final String choice = request.getParameter("choice");
+	@RequestMapping(value = "/eliminaNodo", method = RequestMethod.GET)
+	public String eliminaNodo(HttpServletRequest request) {
+		final Integer idNodo = Integer.parseInt(request.getParameter("id"));
 
-		if (choice.equals("eliminanodo")) {
+		nodoService.deleteById(idNodo);
 
-			final Integer idNodo = Integer.parseInt(request.getParameter("id"));
+		final List<NodoDTO> allNodeDTO = nodoService.findAllNodesDTO();
+		request.setAttribute("allNodeDTO", allNodeDTO);
 
-			nodoService.deleteById(idNodo);
-
-			final List<NodoDTO> allNodeDTO = nodoService.findAllNodesDTO();
-			request.setAttribute("allNodeDTO", allNodeDTO);
-
-			visualizzaChat(request);
-			return "gestisciChatbot";
-		} else if (choice.equals("download")) {
-
-			final Integer idNodo = Integer.parseInt(request.getParameter("idNodoPerPath"));
-			System.out.println("sono quaaa" + idNodo);
-			final NodoDTO nodo = nodoService.findByIdNodoDTO(idNodo);
-
-			System.out.println("nodo path " + nodo.getPath());
-			if (!StringUtils.isEmpty(nodo.getPath())) {
-				try {
-					final File fileToDownload = new File(nodo.getPath());
-					final InputStream inputStream = new FileInputStream(fileToDownload);
-					response.setContentType("application/force-download");
-					response.setHeader("Content-Disposition", "attachment; filename=" + fileToDownload.getName());
-					IOUtils.copy(inputStream, response.getOutputStream());
-					response.flushBuffer();
-					inputStream.close();
-				} catch (final Exception e) {
-					e.printStackTrace();
-				}
-			}
-			return "gestisciChatbot";
-		} else {
-			return "";
-		}
+		visualizzaChat(request);
+		return "gestisciChatbot";
 	}
+	
+	@RequestMapping(value = "/download", method = RequestMethod.GET)
+	public String download(@RequestParam(value = "file", required = false) MultipartFile file,
+			HttpServletRequest request, HttpServletResponse response) {
 
+		final Integer idNodo = Integer.parseInt(request.getParameter("idNodoPerPath"));
+		System.out.println("sono quaaa" + idNodo);
+		final NodoDTO nodo = nodoService.findByIdNodoDTO(idNodo);
+
+		System.out.println("nodo path " + nodo.getPath());
+		if (!StringUtils.isEmpty(nodo.getPath())) {
+			try {
+				final File fileToDownload = new File(nodo.getPath());
+				final InputStream inputStream = new FileInputStream(fileToDownload);
+				response.setContentType("application/force-download");
+				response.setHeader("Content-Disposition", "attachment; filename=" + fileToDownload.getName());
+				IOUtils.copy(inputStream, response.getOutputStream());
+				response.flushBuffer();
+				inputStream.close();
+			} catch (final Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return "gestisciChatbot";
+	}
+	
+	@RequestMapping(value = "/creanodo", method = RequestMethod.POST)
+	public String creaNodo(HttpServletRequest request) {
+		final Integer idNodo = Integer.parseInt(request.getParameter("id"));
+
+		nodoService.deleteById(idNodo);
+
+		final List<NodoDTO> allNodeDTO = nodoService.findAllNodesDTO();
+		request.setAttribute("allNodeDTO", allNodeDTO);
+
+		visualizzaChat(request);
+		return "gestisciChatbot";
+	}
+	
 	@RequestMapping(value = "/nodoDirectory", method = RequestMethod.POST)
 	public String nodoDirectoryPOST(@RequestParam(value = "file", required = false) MultipartFile file,
 			HttpServletRequest request, HttpServletResponse response) {

@@ -51,7 +51,7 @@
 									<jstl:if test="${nodo == padre.key}">
 										<jstl:if test="${0 == padre.value}">
 											<td><a class="btn btn-lg btn-secondary btn-block"
-												href="/Nodo/nodoDirectory/?choice=eliminanodo&id=${nodo.idNodo}&idChatDaGestire=${idChatDaGestire}">Elimina</a>
+												href="/Nodo/download/?id=${nodo.idNodo}&idChatDaGestire=${idChatDaGestire}">Elimina</a>
 											</td>
 										</jstl:if>
 
@@ -61,7 +61,7 @@
 								<td>
 									<div class="form-group">
 										<a class="btn btn-lg btn-secondary btn-block"
-											href="/Nodo/nodoDirectory/?choice=download&idNodoPerPath=${nodo.idNodo}">DOWNLOAD</a>
+											href="/Nodo/download/?idNodoPerPath=${nodo.idNodo}">DOWNLOAD</a>
 									</div>
 								</td>
 
@@ -95,7 +95,7 @@
 								<td><jstl:out value="${node.text}"></jstl:out></td>
 								<td><jstl:out value="${node.tipoNodo}"></jstl:out></td>
 								<td><a class="btn btn-lg btn-danger btn-block"
-									href="/Nodo/nodoDirectory/?choice=eliminanodo&id=${node.idNodo}&idChatDaGestire=${idChatDaGestire}">Elimina</a></td>
+									href="/Nodo/eliminaNodo/?id=${node.idNodo}&idChatDaGestire=${idChatDaGestire}">Elimina</a></td>
 								<td>
 									<div class="form-group">
 										<input type="file" class="form-control-file" name="file">
