@@ -151,6 +151,7 @@ public class ChatbotController {
 		
 		request.setAttribute("chatlog",log);
 		request.setAttribute("simulatedChatID",cID);
+		request.setAttribute("simulatedChatName",chat.getNomeChatbot());
 		request.setAttribute("prossimiNodi", next);
 		
 		return "simulaChat";
@@ -160,7 +161,9 @@ public class ChatbotController {
 		NodoDTO nodo = nodoService.findByIdNodoDTO(Integer.parseInt(request.getParameter("nodoScelto")));
 		log.add(nodo.getText());
 		final List<NodoDTO> next = nodoService.findAllByNodoPadre(nodo);
+		ChatbotDTO chat = chatbotService.findChatbotDTOByIdChatbot(cID);
 		request.setAttribute("simulatedChatID",cID);
+		request.setAttribute("simulatedChatName", chat.getNomeChatbot());
 		request.setAttribute("prossimiNodi", next);
 		request.setAttribute("chatlog",log);
 		return "simulaChat";

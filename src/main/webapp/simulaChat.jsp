@@ -20,15 +20,20 @@
 <body>
 
 <div class="container">
-<form action="/Chatbot/simulazione/${simulatedChatID}" method ="post">
-    <jstl:forEach items="${chatlog}" var="log">
-        <input readonly type="text" value="${log}" name="chatlog"><br>
-    </jstl:forEach>
-    <br>
-    <jstl:forEach items="${prossimiNodi}" var="nodo">
-        <button type="submit" name="nodoScelto" value="${nodo.idNodo}">${nodo.text}</button>
-    </jstl:forEach>
-</form>
+<div class = "col-sm-12 text-center">
+        <div class = "navbar">
+            <h3>Simulazione ${simulatedChatName}</h3>
+        </div>
+
+        <form action="/Chatbot/simulazione/${simulatedChatID}" method ="post">
+            <jstl:forEach items="${chatlog}" var="log">
+                <input class="form-control" onfocus="this.blur()" readonly type="text" value="${log}" name="chatlog"><br>
+            </jstl:forEach>
+            <br>
+            <jstl:forEach items="${prossimiNodi}" var="nodo">
+                <button class="btn btn-primary" type="submit" name="nodoScelto" value="${nodo.idNodo}">${nodo.text}</button>
+            </jstl:forEach>
+        </form>
 <a class="btn btn-lg btn-secondary btn-block"
 	href="/Home/chatManagement">Indietro</a>
 </div>
