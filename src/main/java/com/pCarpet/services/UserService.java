@@ -1,13 +1,17 @@
 package com.pCarpet.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.pCarpet.converter.ConverterChatbot;
 import com.pCarpet.converter.ConverterUser;
 import com.pCarpet.dao.UserRepository;
+import com.pCarpet.dto.ChatbotDTO;
 import com.pCarpet.dto.UserDTO;
+import com.pCarpet.model.Chatbot;
 import com.pCarpet.model.User;
 
 @Service
@@ -45,5 +49,15 @@ public class UserService {
 	
 	public void deleteUserById(Integer id) {
 		userRepository.deleteById(id);
+	}
+	
+	public List<UserDTO> findUserDTOByUsername(String username) {
+		
+		final List<User> list = userRepository.findAllByUsername(username);
+		final List<UserDTO> userDTOs = new ArrayList<>();
+		list.forEach(i -> userDTOs.add(ConverterUser.toDTO(i)));
+		return userDTOs;
+		
+	
 	}
 }

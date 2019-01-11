@@ -9,6 +9,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.pCarpet.dto.ChatbotDTO;
 import com.pCarpet.dto.UserDTO;
 import com.pCarpet.services.UserService;
 
@@ -35,7 +36,7 @@ public class UserController {
 	@RequestMapping(value = "/userManagement", method = RequestMethod.GET)
 	public String userManagement(HttpServletRequest request) {
 		visualUser(request);
-		return "user";		
+		return "homeUser";		
 	}
 	
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
@@ -44,7 +45,7 @@ public class UserController {
 		request.setAttribute("id", id);
 		this.userService.deleteUserById(id);
 		visualUser(request);
-		return "user";
+		return "homeUser";
 		
 	}
 	
@@ -52,7 +53,7 @@ public class UserController {
 	public String insert(HttpServletRequest request) {
 		visualUser(request);
 		request.setAttribute("option", "insert");
-		return "userManagement";
+		return "creaUser";
 		
 	}
 	
@@ -66,10 +67,16 @@ public class UserController {
 		
 	}
 	
-	@RequestMapping(value = "/logout", method = RequestMethod.GET)
-	public String logout(HttpServletRequest request) {
-		return "index";
-		
+	@RequestMapping(value = "/cercaUser", method = RequestMethod.GET)
+	public String cercaUser(HttpServletRequest request) {
+
+		final String content = request.getParameter("search");
+
+		List<UserDTO> allUser = this.userService.findUserDTOByUsername(content);
+		request.setAttribute("allUserDTO", allUser);
+
+		return "homeUser";
+
 	}
 	
 	@RequestMapping(value = "/updateUser", method = RequestMethod.POST)
@@ -84,22 +91,21 @@ public class UserController {
 		userService.updateUser(userObj);
 
 		visualUser(request);
-		return "user";
+		return "homeUser";
 	}
 	
-	@RequestMapping(value = "/insertUser", method = RequestMethod.POST)
+	@RequestMapping(value = "/creaUser", method = RequestMethod.POST)
 	public String insertUser(HttpServletRequest request) {
-		int id = Integer.parseInt(request.getParameter("userid").toString());
 		String username = request.getParameter("username").toString();
 		String password = request.getParameter("password").toString();
-		String ruolo = request.getParameter("choice").toString();
+		String ruolo = request.getParameter("ruolo").toString();
 
-		UserDTO userObj = new UserDTO(id, username, password, ruolo,"");
+		UserDTO userObj = new UserDTO(0, username, password, ruolo,"");
 		
 		userService.insertUser(userObj);
 
 		visualUser(request);
-		return "user";
+		return "homeUser";
 	}
 	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
