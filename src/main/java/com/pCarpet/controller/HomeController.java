@@ -12,16 +12,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.pCarpet.dto.ChatbotDTO;
 import com.pCarpet.dto.UserDTO;
 import com.pCarpet.services.ChatbotService;
+import com.pCarpet.services.UserService;
 
 @Controller
 @RequestMapping("/Home")
 public class HomeController {
 
 	private final ChatbotService chatbotService;
+	private final UserService userService;
 
 	@Autowired
-	public HomeController(ChatbotService chatbotService) {
+	public HomeController(ChatbotService chatbotService, UserService userService) {
 		this.chatbotService = chatbotService;
+		this.userService = userService;
 	}
 
 	@RequestMapping(value = "/chatManagement", method = RequestMethod.GET)
@@ -36,6 +39,8 @@ public class HomeController {
 
 	@RequestMapping(value = "/userManagement", method = RequestMethod.GET)
 	public String userManagement(HttpServletRequest request) {
+		List<UserDTO> allUser = this.userService.getListaUserDTO();
+		request.setAttribute("allUserDTO", allUser);
 		return "homeUser";
 
 	}

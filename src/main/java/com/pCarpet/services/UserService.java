@@ -39,6 +39,10 @@ public class UserService {
 		return userRepository.save(ConverterUser.toEntity(userDTO)) != null;
 	}
 
+	public boolean updateUser(UserDTO userDTO) {
+		return userRepository.save(ConverterUser.toEntity(userDTO)) != null;
+	}
+	
 	public void deleteUserById(Integer id) {
 		userRepository.deleteById(id);
 	}
