@@ -29,7 +29,8 @@
         <button type="submit" name="nodoScelto" value="${nodo.idNodo}">${nodo.text}</button>
     </jstl:forEach>
 </form>
-
+<a class="btn btn-lg btn-secondary btn-block"
+	href="/Home/chatManagement">Indietro</a>
 </div>
 
 </body>

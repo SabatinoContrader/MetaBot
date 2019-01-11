@@ -152,7 +152,7 @@
 
 					<tr>
 						<td><a class="btn btn-lg btn-secondary btn-block"
-							href="/Home/homeDirectory/?choice=indietro">Indietro</a></td>
+							href="/Home/chatManagement">Indietro</a></td>
 					</tr>
 
 

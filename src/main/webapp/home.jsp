@@ -25,13 +25,14 @@
 				<div class="col-md-8">
 					<form class="form-signin">
 						<h1 class="h3 mb-3 font-weight-normal">HOME</h1>
-
 						<a class="btn btn-lg btn-primary btn-block"
-							href="/Home/homeDirectory/?choice=Chatbot">Chatbot</a><br> <a
-							class="btn btn-lg btn-primary btn-block"
-							href="/Home/homeDirectory/">User</a><br> <br> <a
-							class="btn btn-lg btn-primary btn-block"
-							href="/Home/homeDirectory/">Logout</a><br> 
+							href="/Home/userManagement/">User</a>
+							<br> 
+						<a class="btn btn-lg btn-primary btn-block"
+							href="/Home/chatManagement/">Chatbot</a>
+							<br> 
+						<a class="btn btn-lg btn-primary btn-block" 
+						href="/Home/logout/">Logout</a>
 
 					</form>
 				</div>

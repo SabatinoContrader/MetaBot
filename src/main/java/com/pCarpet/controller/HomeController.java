@@ -10,52 +10,44 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.pCarpet.dto.ChatbotDTO;
-import com.pCarpet.dto.NodoDTO;
 import com.pCarpet.dto.UserDTO;
 import com.pCarpet.services.ChatbotService;
-import com.pCarpet.services.NodoService;
 
 @Controller
 @RequestMapping("/Home")
 public class HomeController {
 
-	private final NodoService nodoService;
 	private final ChatbotService chatbotService;
 
 	@Autowired
-	public HomeController(NodoService nodoService, ChatbotService chatbotService) {
-		this.nodoService = nodoService;
+	public HomeController(ChatbotService chatbotService) {
 		this.chatbotService = chatbotService;
 	}
 
-	@RequestMapping(value = "/homeDirectory", method = RequestMethod.GET)
-	public String directoryMethod(HttpServletRequest request) {
-		final String choice = request.getParameter("choice");
-		if (choice.equals("Nodo")) {
+	@RequestMapping(value = "/chatManagement", method = RequestMethod.GET)
+	public String chatManagement(HttpServletRequest request) {
+		final UserDTO userDTO = (UserDTO) request.getSession().getAttribute("utenteCollegato");
 
-			final List<NodoDTO> allNodeDTO = nodoService.findAllNodesDTO();
-			request.setAttribute("allNodeDTO", allNodeDTO);
-			return "homeNodo";
+		final List<ChatbotDTO> allChatbotsDTO = chatbotService.findAllChatbotsDTOByIdUser(userDTO);
+		request.setAttribute("allChatbotsDTO", allChatbotsDTO);
+		return "homeChatbot";
 
-		} 
-		else if (choice.equals("cercachat")) {
-			return "cercaChatbot";
-			
-		}
-		
-		else if (choice.equals("Chatbot")) {
-
-			final UserDTO userDTO = (UserDTO) request.getSession().getAttribute("utenteCollegato");
-
-			final List<ChatbotDTO> allChatbotsDTO = chatbotService.findAllChatbotsDTOByIdUser(userDTO);
-			request.setAttribute("allChatbotsDTO", allChatbotsDTO);
-			return "homeChatbot";
-
-		} else if (choice.equals("indietro")) {
-			return "home";
-		} else {
-			return "";
-		}
 	}
 
+	@RequestMapping(value = "/userManagement", method = RequestMethod.GET)
+	public String userManagement(HttpServletRequest request) {
+		return "homeUser";
+
+	}
+
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+	public String logout(HttpServletRequest request) {
+		return "index";
+
+	}
+	@RequestMapping(value = "/indietro", method = RequestMethod.GET)
+	public String indietro(HttpServletRequest request) {
+		return "home";
+
+	}
 }
