@@ -51,7 +51,7 @@
 									<jstl:if test="${nodo == padre.key}">
 										<jstl:if test="${0 == padre.value}">
 											<td><a class="btn btn-lg btn-secondary btn-block"
-												href="/Nodo/download/?id=${nodo.idNodo}&idChatDaGestire=${idChatDaGestire}">Elimina</a>
+												href="/Nodo/eliminaNodo/?id=${nodo.idNodo}&idChatDaGestire=${idChatDaGestire}">Elimina</a>
 											</td>
 										</jstl:if>
 

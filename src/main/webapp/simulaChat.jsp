@@ -25,7 +25,7 @@
             <h3>Simulazione ${simulatedChatName}</h3>
         </div>
 
-        <form action="/Chatbot/simulazione/${simulatedChatID}" method ="post">
+        <form action="/Chatbot/simulazione/?chatbotID=${simulatedChatID}" method ="post">
             <jstl:forEach items="${chatlog}" var="log">
                 <input class="form-control" onfocus="this.blur()" readonly type="text" value="${log}" name="chatlog"><br>
             </jstl:forEach>

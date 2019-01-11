@@ -43,7 +43,7 @@
 							href="/Chatbot/chatbotDirectory/?choice=esportareXML&idChatDaEsportare=${chatbot.idChatbot}">Esportare
 								XML</a></td>
 						<td><a class="btn btn-lg btn-secondary btn-block"
-							href="/Chatbot/simulazione/${chatbot.idChatbot}">Simula</a></td>
+							href="/Chatbot/simulazione/?chatbotID=${chatbot.idChatbot}">Simula</a></td>
 					</tr>
 				</tbody>
 			</jstl:forEach>

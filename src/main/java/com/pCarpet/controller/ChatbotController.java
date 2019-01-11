@@ -142,8 +142,8 @@ public class ChatbotController {
 		return "homeChatbot";
 
 	}
-	@RequestMapping(value ="/simulazione/{chatbotID}", method = RequestMethod.GET)
-	public String avviaSimulazione (@PathVariable("chatbotID") Integer cID, HttpServletRequest request){
+	@RequestMapping(value ="/simulazione/", method = RequestMethod.GET)
+	public String avviaSimulazione (@RequestParam("chatbotID") Integer cID, HttpServletRequest request){
 		List<String> log = new ArrayList<>();
 		ChatbotDTO chat = chatbotService.findChatbotDTOByIdChatbot(cID);
 		log.add(nodoService.findByIdNodoDTO(chat.getNodoPadre().getIdNodo()).getText());
@@ -156,8 +156,8 @@ public class ChatbotController {
 		
 		return "simulaChat";
 	}
-	@RequestMapping(value = "/simulazione/{chatbotID}", method = RequestMethod.POST)
-	public String prossimiNodi (@PathVariable("chatbotID") Integer cID, HttpServletRequest request, @RequestParam(value ="chatlog") ArrayList<String>log){
+	@RequestMapping(value = "/simulazione/", method = RequestMethod.POST)
+	public String prossimiNodi (@RequestParam("chatbotID") Integer cID, HttpServletRequest request, @RequestParam(value ="chatlog") ArrayList<String>log){
 		NodoDTO nodo = nodoService.findByIdNodoDTO(Integer.parseInt(request.getParameter("nodoScelto")));
 		log.add(nodo.getText());
 		final List<NodoDTO> next = nodoService.findAllByNodoPadre(nodo);
