@@ -15,25 +15,25 @@
 <link href="/css/bootstrap.min.css" rel="stylesheet">
 
 </head>
-<form class="form-signin" action="/Nodo/nodoDirectory/" method="post"
-	enctype="multipart/form-data">
-	<body>
 
+<body>
 
+	<form class="form-signin" action="/Nodo/nodoDirectory/" method="post"
+		enctype="multipart/form-data">
 
 		<h1>Gestisci la tua Chatbot: ${chatbotDTODaGestire.nomeChatbot}</h1>
 
 
-		<div class="container text-center">
-			<div class="col-md-6 column-one">
+		<div class="container">
+			<div >
 
 				<table class="table table-dark table-borderedtable-hover">
 					<thead>
 						<tr>
-							<th scope="col"></th>
+						    <th scope="col"></th>
 							<th scope="col">ID Nodo</th>
 							<th scope="col">Messaggio</th>
-						    <th scope="col">Tipo nodo</th>
+							<th scope="col">Tipo nodo</th>
 							<th scope="col">Nodo Padre</th>
 						</tr>
 					</thead>
@@ -56,12 +56,12 @@
 										</jstl:if>
 
 									</jstl:if>
-								
+
 								</jstl:forEach>
 								<td>
 									<div class="form-group">
-	<a class="btn btn-lg btn-secondary btn-block"
-												href="/Nodo/nodoDirectory/?choice=download&idNodoPerPath=${nodo.idNodo}">DOWNLOAD</a>
+										<a class="btn btn-lg btn-secondary btn-block"
+											href="/Nodo/nodoDirectory/?choice=download&idNodoPerPath=${nodo.idNodo}">DOWNLOAD</a>
 									</div>
 								</td>
 
@@ -73,70 +73,87 @@
 
 			</div>
 			<div class="vertical divider"></div>
-			<div class="col-md-6 column-two">
+			<div >
 
 				<table class="table table-dark table-borderedtable-hover">
 					<thead>
 						<tr>
+						    <th scope="col"></th>
 							<th scope="col">ID</th>
 							<th scope="col">Messaggio</th>
 							<th scope="col">Tipo Nodo</th>
+							<th scope="col"></th>
+							<th scope="col"></th>
 						</tr>
 					</thead>
 					<jstl:forEach items="${nodiSenzaPadreDisponibili}" var="node">
 						<tbody>
 							<tr>
-							<td><input type="radio" id="choiceIdNodoFiglio" name="choiceIdNodoFiglio" value="${node.idNodo}" ></td>
+								<td><input type="radio" id="choiceIdNodoFiglio"
+									name="choiceIdNodoFiglio" value="${node.idNodo}"></td>
 								<td><jstl:out value="${node.idNodo}"></jstl:out></td>
 								<td><jstl:out value="${node.text}"></jstl:out></td>
 								<td><jstl:out value="${node.tipoNodo}"></jstl:out></td>
 								<td><a class="btn btn-lg btn-danger btn-block"
 									href="/Nodo/nodoDirectory/?choice=eliminanodo&id=${node.idNodo}&idChatDaGestire=${idChatDaGestire}">Elimina</a></td>
-								
+								<td>
 									<div class="form-group">
 										<input type="file" class="form-control-file" name="file">
 										<input type="submit" name="choice" value="upload"
 											type="submit">
-									</div></td>
+									</div>
+								</td>
 
 							</tr>
 
 						</tbody>
 					</jstl:forEach>
-<tr>
-<td>
-						    <button class="btn btn-lg btn-primary btn-block" name="choice" value="Aggiungi"  type="submit" >Aggiungi</button></td>
-						    </td>
-						    </tr>
-	       			<tr>
 					<tr>
+						<td>
+							<button class="btn btn-lg btn-primary btn-block" name="choice"
+								value="Aggiungi" type="submit">Aggiungi</button>
+						</td>
+
+					</tr>
+					<tr>
+						<td></td>
 						<td></td>
 						<td><input type="text" name="text" id="text"> <input
 							type="hidden" id="idChatDaGestire" name="idChatDaGestire"
 							value="${idChatDaGestire}"></td>
-							<tr>
-<td>
-						    <button class="btn btn-lg btn-primary btn-block" name="choice" value="Aggiungi"  type="submit" >Aggiungi</button></td>
-						    </td>
-						    </tr>
-	       			<tr>
+						<td><table class="bordo rcorners">
+								
+								<tr>
+									<td><input type="radio" name="tipoNodo" value="DOMANDA"></td>
+									<td>DOMANDA</td>
+								</tr>
+								<tr>
+									<td><input type="radio" name="tipoNodo" value="OPZIONE"></td>
+									<td>OPZIONE</td>
+								</tr>
+								<tr>
+									<td><input type="radio" name="tipoNodo" value="RISPOSTA"></td>
+									<td>RISPOSTA</td>
+								</tr>
+							</table></td>
+						<td>
 						<td><button class="btn btn-lg btn-primary btn-block"
 								name="choice" value="creanodo" type="submit">Crea Nodo</button></td>
-					</tr>
 					<tr>
 						<td><a class="btn btn-lg btn-secondary btn-block"
 							href="/Home/homeDirectory/?choice=indietro">Indietro</a></td>
 					</tr>
 				</table>
 			</div>
-</form>
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="/js/jquery-3.1.1.min.js"></script>
+		</div>
+	</form>
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<script src="/js/jquery-3.1.1.min.js"></script>
 
-<!--  my js -->
-<script src="/js/creaChatbot.js" type="text/javascript"></script>
+	<!--  my js -->
+	<script src="/js/creaChatbot.js" type="text/javascript"></script>
 
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="/js/bootstrap.min.js"></script>
+	<!-- Include all compiled plugins (below), or include individual files as needed -->
+	<script src="/js/bootstrap.min.js"></script>
 </body>
 </html>
