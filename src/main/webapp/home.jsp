@@ -29,15 +29,9 @@
 						<a class="btn btn-lg btn-primary btn-block"
 							href="/Home/homeDirectory/?choice=Chatbot">Chatbot</a><br> <a
 							class="btn btn-lg btn-primary btn-block"
-							href="/Home/homeDirectory/">User</a><br> <a
+							href="/Home/homeDirectory/">User</a><br> <br> <a
 							class="btn btn-lg btn-primary btn-block"
-							href="/Home/homeDirectory/?choice=Nodo">Nodo</a><br> <a
-							class="btn btn-lg btn-primary btn-block"
-							href="/Home/homeDirectory/">Logout</a><br>
-							
-							 <a
-							class="btn btn-lg btn-primary btn-block"
-							href="/Home/homeDirectory/?choice=cercachat">Cerca Chat</a>
+							href="/Home/homeDirectory/">Logout</a><br> 
 
 					</form>
 				</div>
