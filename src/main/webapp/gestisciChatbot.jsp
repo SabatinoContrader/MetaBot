@@ -25,12 +25,12 @@
 
 
 		<div class="container">
-			<div >
+			<div>
 
 				<table class="table table-dark table-borderedtable-hover">
 					<thead>
 						<tr>
-						    <th scope="col"></th>
+							<th scope="col"></th>
 							<th scope="col">ID Nodo</th>
 							<th scope="col">Messaggio</th>
 							<th scope="col">Tipo nodo</th>
@@ -73,12 +73,12 @@
 
 			</div>
 			<div class="vertical divider"></div>
-			<div >
+			<div>
 
 				<table class="table table-dark table-borderedtable-hover">
 					<thead>
 						<tr>
-						    <th scope="col"></th>
+							<th scope="col"></th>
 							<th scope="col">ID</th>
 							<th scope="col">Messaggio</th>
 							<th scope="col">Tipo Nodo</th>
@@ -116,33 +116,46 @@
 
 					</tr>
 					<tr>
-						<td></td>
-						<td></td>
-						<td><input type="text" name="text" id="text"> <input
-							type="hidden" id="idChatDaGestire" name="idChatDaGestire"
-							value="${idChatDaGestire}"></td>
-						<td><table class="bordo rcorners">
-								
+						<table class="table table-dark table-borderedtable-hover">
+
+							<thead>
 								<tr>
-									<td><input type="radio" name="tipoNodo" value="DOMANDA"></td>
-									<td>DOMANDA</td>
+
+									<th scope="col">Messaggio</th>
+									<th scope="col"></th>
+									<th scope="col"></th>
+									<th scope="col"></th>
+									<th scope="col">Tipo Nodo</th>
+									<th scope="col"></th>
+									<th scope="col"></th>
+									<th scope="col"></th>
+
 								</tr>
-								<tr>
-									<td><input type="radio" name="tipoNodo" value="OPZIONE"></td>
-									<td>OPZIONE</td>
-								</tr>
-								<tr>
-									<td><input type="radio" name="tipoNodo" value="RISPOSTA"></td>
-									<td>RISPOSTA</td>
-								</tr>
-							</table></td>
-						<td>
-						<td><button class="btn btn-lg btn-primary btn-block"
-								name="choice" value="creanodo" type="submit">Crea Nodo</button></td>
+							</thead>
+							<tr>
+								<td><input type="text" name="text" id="text"> <input
+									type="hidden" id="idChatDaGestire" name="idChatDaGestire"
+									value="${idChatDaGestire}"></td>
+								<td><input type="radio" name="tipoNodo" value="DOMANDA"></td>
+								<td>DOMANDA</td>
+								<td><input type="radio" name="tipoNodo" value="OPZIONE"></td>
+								<td>OPZIONE</td>
+								<td><input type="radio" name="tipoNodo" value="RISPOSTA"></td>
+								<td>RISPOSTA</td>
+								<td><button class="btn btn-lg btn-primary btn-block"
+										name="choice" value="creanodo" type="submit">Crea
+										Nodo</button></td>
+							</tr>
+						</table>
+
+					</tr>
+
 					<tr>
 						<td><a class="btn btn-lg btn-secondary btn-block"
 							href="/Home/homeDirectory/?choice=indietro">Indietro</a></td>
 					</tr>
+
+
 				</table>
 			</div>
 		</div>
