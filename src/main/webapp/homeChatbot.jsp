@@ -38,9 +38,9 @@
 						<td><jstl:out value="${chatbot.user.username}"></jstl:out></td>
 						<td><jstl:out value="${chatbot.nodoPadre.text}"></jstl:out></td>
 						<td><a class="btn btn-lg btn-secondary btn-block"
-							href="/Chatbot/chatbotDirectory/?choice=gestisci&idChatDaGestire=${chatbot.idChatbot}">Gestisci</a></td>
+							href="/Chatbot/gestisci/?idChatDaGestire=${chatbot.idChatbot}">Gestisci</a></td>
 						<td><a class="btn btn-lg btn-secondary btn-block"
-							href="/Chatbot/chatbotDirectory/?choice=esportareXML&idChatDaEsportare=${chatbot.idChatbot}">Esportare
+							href="/Chatbot/esportareXML/?idChatDaEsportare=${chatbot.idChatbot}">Esportare
 								XML</a></td>
 						<td><a class="btn btn-lg btn-secondary btn-block"
 							href="/Chatbot/simulazione/?chatbotID=${chatbot.idChatbot}">Simula</a></td>
@@ -49,14 +49,14 @@
 			</jstl:forEach>
 			<tr>
 				<td><a class="btn btn-lg btn-success btn-block"
-					href="/Chatbot/chatbotDirectory/?choice=crea">Crea nuova
+					href="/Chatbot/crea/">Crea nuova
 						Chatbot</a></td>
 
 
 				<td><a class="btn btn-lg btn-secondary btn-block"
 					href="/Home/indietro/">Indietro</a></td>
 				<td><a class="btn btn-lg btn-secondary btn-block"
-					href="/Chatbot/chatbotDirectory/?choice=importareXML">Importare
+					href="/Chatbot/importareXML/">Importare
 						XML</a></td>
 				<td>
 					<form class="example" action="/Chatbot/cercaChatbot" method="get">
