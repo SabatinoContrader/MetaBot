@@ -18,7 +18,14 @@
 </head>
 
 <body>
-
+<nav class='navbar navbar-inverse'>
+     <div class='container-fluid'>
+         <ul class='nav navbar-nav navbar-inverse navbar-custom'>
+            <li><a href="/Home/chatManagement/">Indietro</a></li>
+            <li><a href="/Home/logout/">Logout</a></li>
+         </ul>
+    </div>
+</nav>
 <div class="container">
 <div class = "col-sm-12 text-center">
         <div class = "navbar">
@@ -34,8 +41,7 @@
                 <button class="btn btn-primary" type="submit" name="nodoScelto" value="${nodo.idNodo}">${nodo.text}</button>
             </jstl:forEach>
         </form>
-<a class="btn btn-lg btn-secondary btn-block"
-	href="/Home/chatManagement">Indietro</a>
+</div>
 </div>
 
 </body>

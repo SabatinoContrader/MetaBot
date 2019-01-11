@@ -17,7 +17,14 @@
 </head>
 
 <body>
-
+<nav class='navbar navbar-inverse'>
+     <div class='container-fluid'>
+         <ul class='nav navbar-nav navbar-inverse navbar-custom'>
+            <li><a href="/Home/chatManagement/">Indietro</a></li>
+            <li><a href="/Home/logout/">Logout</a></li>
+         </ul>
+    </div>
+</nav>
 	<form class="form-signin" action="/Nodo/nodoDirectory/" method="post"
 		enctype="multipart/form-data">
 
@@ -150,10 +157,7 @@
 
 					</tr>
 
-					<tr>
-						<td><a class="btn btn-lg btn-secondary btn-block"
-							href="/Home/chatManagement">Indietro</a></td>
-					</tr>
+		
 
 
 				</table>

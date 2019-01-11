@@ -19,25 +19,15 @@
 </head>
 
 <body>
-	<div class="vertical-center">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-8">
-					<form class="form-signin">
-						<h1 class="h3 mb-3 font-weight-normal">HOME</h1>
-						<a class="btn btn-lg btn-primary btn-block"
-							href="/Home/userManagement/">User</a>
-							<br> 
-						<a class="btn btn-lg btn-primary btn-block"
-							href="/Home/chatManagement/">Chatbot</a>
-							<br> 
-						<a class="btn btn-lg btn-primary btn-block" 
-						href="/Home/logout/">Logout</a>
-
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
+<nav class='navbar navbar-inverse'>
+     <div class='container-fluid'>
+         <ul class='nav navbar-nav navbar-inverse navbar-custom'>
+            <li><a href="/Home/userManagement/">User</a></li>
+            <li><a href="/Home/chatManagement/">Chatbot</a></li>
+            <li><a href="/Home/logout/">Logout</a></li>
+         </ul>
+    </div>
+</nav>
+<h1>Progetto METABOT</h1>
 </body>
 </html>

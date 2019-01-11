@@ -18,7 +18,15 @@
 </head>
 
 <body>
-
+<nav class='navbar navbar-inverse'>
+     <div class='container-fluid'>
+         <ul class='nav navbar-nav navbar-inverse navbar-custom'>
+            <li><a href="/Home/chatManagement/">Chatbot</a></li>
+            <li><a href="/Home/indietro/">Indietro</a></li>
+            <li><a href="/Home/logout/">Logout</a></li>
+         </ul>
+    </div>
+</nav>
 	<div class="container">
 		<table class="table table-dark table-borderedtable-hover">
 			<thead>
@@ -45,10 +53,6 @@
 			<tr>
 				<td><a class="btn btn-lg btn-success btn-block"
 					href="/User/crea">Crea nuovo User</a></td>
-
-
-				<td><a class="btn btn-lg btn-secondary btn-block"
-					href="/Home/indietro/">Indietro</a></td>
 				<td>
 					<form class="example" action="/User/cercaUser" method="get">
 						<input type="text" placeholder="Search.." name="search"

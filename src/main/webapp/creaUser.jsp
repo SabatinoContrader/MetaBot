@@ -16,7 +16,14 @@
 
 </head>
 <body>
-
+<nav class='navbar navbar-inverse'>
+     <div class='container-fluid'>
+         <ul class='nav navbar-nav navbar-inverse navbar-custom'>
+            <li><a href="/Home/userManagement/">Indietro</a></li>
+            <li><a href="/Home/logout/">Logout</a></li>
+         </ul>
+    </div>
+</nav>
 	<div class="container text-center">
 		<div class="row">
 			<div class="col-xs-12">
