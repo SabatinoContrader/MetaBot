@@ -115,7 +115,7 @@ public class NodoController {
 			return "gestisciChatbot";
 		} else if (choice.equals("upload")) {
 
-			final Integer idNodo = Integer.parseInt(request.getParameter("idNode"));
+			final Integer idNodo = Integer.parseInt(request.getParameter("choiceIdNodoFiglio"));
 			final NodoDTO nodo = nodoService.findByIdNodoDTO(idNodo);
 
 			if (!file.isEmpty()) {
