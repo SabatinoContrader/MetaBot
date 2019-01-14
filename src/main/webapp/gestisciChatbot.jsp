@@ -1,3 +1,4 @@
+﻿
 <%@ taglib prefix="jstl" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 
@@ -13,7 +14,12 @@
 
 <!-- Bootstrap core CSS -->
 <link href="/css/bootstrap.min.css" rel="stylesheet">
-
+<script language="javascript">
+function mudaAction(pagina){
+document.forms[0].action=pagina;
+document.forms[0].submit();
+}
+</script>
 </head>
 
 <body>
@@ -25,7 +31,7 @@
          </ul>
     </div>
 </nav>
-	<form class="form-signin" action="/Nodo/nodoDirectory/" method="post"
+	<form class="form-signin" action="" method="post"
 		enctype="multipart/form-data">
 
 		<h1>Gestisci la tua Chatbot: ${chatbotDTODaGestire.nomeChatbot}</h1>
@@ -107,7 +113,7 @@
 									<div class="form-group">
 										<input type="file" class="form-control-file" name="file">
 										<input type="submit" name="choice" value="upload"
-											type="submit">
+											type="submit" onClick="mudaAction('/Nodo/upload/')">
 									</div>
 								</td>
 
@@ -118,7 +124,7 @@
 					<tr>
 						<td>
 							<button class="btn btn-lg btn-primary btn-block" name="choice"
-								value="Aggiungi" type="submit">Aggiungi</button>
+								value="aggiungi" type="submit" onClick="mudaAction('/Nodo/aggiungi/')">Aggiungi</button>
 						</td>
 
 					</tr>
@@ -150,7 +156,7 @@
 								<td><input type="radio" name="tipoNodo" value="RISPOSTA"></td>
 								<td>RISPOSTA</td>
 								<td><button class="btn btn-lg btn-primary btn-block"
-										name="choice" value="creanodo" type="submit">Crea
+										name="choice" value="creanodo" type="submit" onClick="mudaAction('/Nodo/creanodo/')">Crea
 										Nodo</button></td>
 							</tr>
 						</table>

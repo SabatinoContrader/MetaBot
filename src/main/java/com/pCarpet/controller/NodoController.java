@@ -80,74 +80,60 @@ public class NodoController {
 		return "gestisciChatbot";
 	}
 	
-	@RequestMapping(value = "/creanodo", method = RequestMethod.POST)
-	public String creaNodo(HttpServletRequest request) {
-		final Integer idNodo = Integer.parseInt(request.getParameter("id"));
+	@RequestMapping(value = "/aggiungi", method = RequestMethod.POST)
+	public String aggiungi(HttpServletRequest request) {
+		final Integer figlioDaAggiungere = Integer.parseInt(request.getParameter("choiceIdNodoFiglio"));
+		final Integer idPadre = Integer.parseInt(request.getParameter("choiceIdNodoPadre"));
 
-		nodoService.deleteById(idNodo);
+		final NodoDTO nodoDTODaAggiungere = nodoService.findByIdNodoDTO(figlioDaAggiungere);
+		final NodoDTO nodoDTOPadre = nodoService.findByIdNodoDTO(idPadre);
 
-		final List<NodoDTO> allNodeDTO = nodoService.findAllNodesDTO();
-		request.setAttribute("allNodeDTO", allNodeDTO);
+		nodoDTODaAggiungere.setNodoPadre(nodoDTOPadre);
+
+		nodoService.update(nodoDTODaAggiungere);
 
 		visualizzaChat(request);
 		return "gestisciChatbot";
 	}
 	
-	@RequestMapping(value = "/nodoDirectory", method = RequestMethod.POST)
-	public String nodoDirectoryPOST(@RequestParam(value = "file", required = false) MultipartFile file,
+	@RequestMapping(value = "/creanodo", method = RequestMethod.POST)
+	public String creaNodo(HttpServletRequest request) {
+		final String testo = request.getParameter("text");
+		final String tiponodo = request.getParameter("tipoNodo");
+		
+		final NodoDTO nuovoNodo = new NodoDTO(0, testo, null, tiponodo , null);
+		nodoService.save(nuovoNodo);
+		// System.out.println(nuovoNodo);
+
+		visualizzaChat(request);
+		return "gestisciChatbot";
+	}
+	
+	@RequestMapping(value = "/upload", method = RequestMethod.POST)
+	public String upload(@RequestParam(value = "file", required = false) MultipartFile file,
 			HttpServletRequest request, HttpServletResponse response) {
-		final String choice = request.getParameter("choice");
 
-		if (choice.equals("Aggiungi")) {
-			final Integer figlioDaAggiungere = Integer.parseInt(request.getParameter("choiceIdNodoFiglio"));
-			final Integer idPadre = Integer.parseInt(request.getParameter("choiceIdNodoPadre"));
+		final Integer idNodo = Integer.parseInt(request.getParameter("choiceIdNodoFiglio"));
+		final NodoDTO nodo = nodoService.findByIdNodoDTO(idNodo);
 
-			final NodoDTO nodoDTODaAggiungere = nodoService.findByIdNodoDTO(figlioDaAggiungere);
-			final NodoDTO nodoDTOPadre = nodoService.findByIdNodoDTO(idPadre);
+		if (!file.isEmpty()) {
+			try {
+				final BufferedOutputStream stream = new BufferedOutputStream(
+						new FileOutputStream(new File(mainPath + file.getOriginalFilename())));
 
-			nodoDTODaAggiungere.setNodoPadre(nodoDTOPadre);
+				nodo.setPath(mainPath + file.getOriginalFilename());
 
-			nodoService.update(nodoDTODaAggiungere);
+				nodoService.save(nodo);
 
-			visualizzaChat(request);
-			return "gestisciChatbot";
+				stream.write(file.getBytes());
+				stream.flush();
+				stream.close();
 
-		} else if (choice.equals("creanodo")) {
-			final String testo = request.getParameter("text");
-			final String tiponodo = request.getParameter("tipoNodo");
-			
-			final NodoDTO nuovoNodo = new NodoDTO(0, testo, null, tiponodo , null);
-			nodoService.save(nuovoNodo);
-			// System.out.println(nuovoNodo);
-
-			visualizzaChat(request);
-			return "gestisciChatbot";
-		} else if (choice.equals("upload")) {
-
-			final Integer idNodo = Integer.parseInt(request.getParameter("choiceIdNodoFiglio"));
-			final NodoDTO nodo = nodoService.findByIdNodoDTO(idNodo);
-
-			if (!file.isEmpty()) {
-				try {
-					final BufferedOutputStream stream = new BufferedOutputStream(
-							new FileOutputStream(new File(mainPath + file.getOriginalFilename())));
-
-					nodo.setPath(mainPath + file.getOriginalFilename());
-
-					nodoService.save(nodo);
-
-					stream.write(file.getBytes());
-					stream.flush();
-					stream.close();
-
-				} catch (final IOException e) {
-					e.printStackTrace();
-				}
+			} catch (final IOException e) {
+				e.printStackTrace();
 			}
-			return "gestisciChatbot";
-		} else {
-			return "";
 		}
+		return "gestisciChatbot";
 	}
 
 	public void visualizzaChat(HttpServletRequest request) {
