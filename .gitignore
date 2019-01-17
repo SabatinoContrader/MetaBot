@@ -10,6 +10,11 @@
 .springBeans
 .sts4-cache
 
+### React ###
+/app/node_modules/
+/app/package-lock.json
+/app/package.json
+
 ### IntelliJ IDEA ###
 .idea
 *.iws
