@@ -103,22 +103,13 @@ public class UserController {
         return "homeUser";
     }
     */
+    
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String loginControl(HttpServletRequest request) {
+    public UserDTO loginControl(@RequestParam("username") String username, @RequestParam("password") String password) {
         
-        session = request.getSession();
-        final String username = request.getParameter("username");
-        final String password = request.getParameter("password");
+      
         final UserDTO userDTO = userService.getByUsernameAndPassword(username, password);
-        final String ruolo = userDTO.getRuolo();
-        if (!StringUtils.isEmpty(ruolo)) {
-            session.setAttribute("utenteCollegato", userDTO);
-            if (ruolo.equals("ADMIN")) {
-                return "home";
-            } else if (ruolo.equals("CHATMASTER")) {
-                return "home";
-            }
-        }
-        return "index";
+       
+        return userDTO;
     }
 }
