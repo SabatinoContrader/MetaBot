@@ -12,8 +12,11 @@
 
 ### React ###
 /app/node_modules/
-/app/package-lock.json
+.metadata/
+.package-lock.json
 /app/package.json
+/app/package-lock.json
+
 
 ### IntelliJ IDEA ###
 .idea
