@@ -1,4 +1,4 @@
-package com.contrader.react.service;
+ùpackage com.contrader.react.service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +37,7 @@ public class ChatbotService {
 	}
 	
 	
-	
+	public void prova() {}
 	
 	public List<ChatbotDTO> findAll () {
 		List<Chatbot> list = new ArrayList<>();
