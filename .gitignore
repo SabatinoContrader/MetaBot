@@ -17,19 +17,11 @@
 /app/package.json
 /app/package-lock.json
 
-
 ### IntelliJ IDEA ###
 .idea
 *.iws
 *.iml
 *.ipr
-
-### React ###
-/app/node_modules/
-.metadata/
-.package-lock.json
-/app/package.json
-/app/package-lock.json
 
 ### NetBeans ###
 /nbproject/private/
