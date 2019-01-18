@@ -11,9 +11,10 @@ export default class Navbar extends React.Component {
     return (
 
          <ul className="header">
-           <li><NavLink to="/home">Home</NavLink></li>
-           <li><NavLink to="/Chatbot">Chatbot</NavLink></li>
-           <li><NavLink to="/">logout</NavLink></li>
+           <li><NavLink exact to="/">Home</NavLink></li>
+           <li><NavLink to="/listChatbot">Chatbot</NavLink></li>
+           <li><NavLink to="/Login">Login</NavLink></li>
+          <li><NavLink to="/registration">Sign in</NavLink></li>
          </ul>
 );
 
