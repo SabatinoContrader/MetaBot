@@ -1,16 +1,17 @@
 import React from 'react';
 import Navbar from './navbar';
 
-const API = 'http://localhost:8080/Chatbot/';
+const API = 'http://localhost:8080/Chatbot';
 
 export default class ListChatbot extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      'u' : []
+      l : [],
+
     };
-    this.getAllChatbots = this.getAllChatbots.bind(this);
+this.getAllChatbots = this.getAllChatbots.bind(this);
   }
 
   componentDidMount() {
@@ -28,9 +29,8 @@ export default class ListChatbot extends React.Component {
 
           <div classname="stampa">
 
-// ciclo this.state. (map) per stampare le chatbot
 
-          <h2> {this.state.u.nomeChatbot}</h2>
+          <h2> {this.state.l.nomeChatbot}</h2>
 
 
           </div>
@@ -47,7 +47,7 @@ export default class ListChatbot extends React.Component {
     })
       .then(response => response.json())
       .then(result => {
-        this.setState({ u: result })
+        this.setState({ l : result })
       })
   }
 }

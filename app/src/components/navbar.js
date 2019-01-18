@@ -14,7 +14,6 @@ export default class Navbar extends React.Component {
            <li><NavLink exact to="/">Home</NavLink></li>
            <li><NavLink to="/listChatbot">Chatbot</NavLink></li>
            <li><NavLink to="/Login">Login</NavLink></li>
-          <li><NavLink to="/registration">Sign in</NavLink></li>
          </ul>
 );
 

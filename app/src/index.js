@@ -4,7 +4,6 @@ import ReactDOM from 'react-dom';
 import './css/index.css';
 import Login from "./components/login";
 import Home from "./components/home";
-import Registration from "./components/registration";
 // import Chatbot from "./components/Chatbot";
 import history from './components/history';
 
@@ -18,7 +17,6 @@ ReactDOM.render(
   <Route exact path="/" component={Home}/>
   <Route path="/login" component={Login}/>
   <Route path="/listChatbot" component={ListChatbot}/>
-  <Route path="/registration" component={Registration}/>
   </div>
   </div>
   </Router>
