@@ -83,4 +83,10 @@ public class NodoService {
 		}
 		return listDTO;
 	}
+	public void updateContatore(Integer idNodoScelto) {
+		Nodo nodo = nodoRepository.findById(idNodoScelto).get();
+		Integer cont = nodo.getContatore() + 1;
+		nodo.setContatore(cont);
+		nodoRepository.save(nodo);
+}
 }

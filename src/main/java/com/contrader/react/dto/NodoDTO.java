@@ -14,4 +14,5 @@ public class NodoDTO {
 	private NodoDTO nodoPadre;
 	private String tipoNodo;
 	private String path;
+	private Integer contatore;
 }

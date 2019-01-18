@@ -21,8 +21,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.contrader.react.dto.ChatbotDTO;
 import com.contrader.react.dto.NodoDTO;
+import com.contrader.react.service.ChatbotService;
 import com.contrader.react.service.NodoService;
+
 
 
 
@@ -32,13 +35,13 @@ import com.contrader.react.service.NodoService;
 public class NodoController {
 
 	private final NodoService nodoService;
-	//private final ChatbotService chatbotService;
+	private final ChatbotService chatbotService;
 	private final String mainPath = "src/main/resources/static/files/";
 
 	@Autowired
-	public NodoController(NodoService nodoService) {
+	public NodoController(NodoService nodoService,ChatbotService chatbotService) {
 		this.nodoService = nodoService;
-	//	this.chatbotService = chatbotService;
+		this.chatbotService = chatbotService;
 	}
 
 	
@@ -59,7 +62,17 @@ public class NodoController {
 		return  nodoService.save(nodoDTO);
 	}
 	
-	
+	@RequestMapping(value = "/percentuale", method = RequestMethod.GET)
+	public Float calcolo(@RequestParam("idChat")Integer idChat,@RequestParam("idNodo")Integer idNodo) {
+		ChatbotDTO chat = chatbotService.findChatbotDTOByIdChatbot(idChat);
+		//NodoDTO nodoPadre = nodoService.findByIdNodoDTO(chat.getNodoPadre().getIdNodo());
+		
+		NodoDTO nodo = this.nodoService.findByIdNodoDTO(idNodo);
+		float nodo1 = (float) nodo.getContatore();
+		float nodo2 =(float) chat.getNodoPadre().getContatore();
+		float percentuale = nodo1/nodo2;
+		return percentuale*100;
+	}
 
 	
 	

@@ -175,6 +175,7 @@ public class ChatbotController {
 //	public String prossimiNodi(@RequestParam("chatbotID") Integer cID, HttpServletRequest request,
 //			@RequestParam(value = "chatlog") ArrayList<String> log) {
 //		NodoDTO nodo = nodoService.findByIdNodoDTO(Integer.parseInt(request.getParameter("nodoScelto")));
+	// nodoService.updateContatore(Integer.parseInt(request.getParameter("nodoScelto")));
 //		log.add(nodo.getText());
 //		final List<NodoDTO> next = nodoService.findAllByNodoPadre(nodo);
 //		ChatbotDTO chat = chatbotService.findChatbotDTOByIdChatbot(cID);

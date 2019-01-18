@@ -35,4 +35,7 @@ public class Nodo {
 
 	@Column(name = "tipoNodo")
 	private String tipoNodo;
+	
+	@Column(name="contatore_nodo")
+	private Integer contatore;
 }
