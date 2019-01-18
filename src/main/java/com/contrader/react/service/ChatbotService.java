@@ -1,6 +1,8 @@
 package com.contrader.react.service;
 
+import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
@@ -51,6 +53,17 @@ public class ChatbotService {
 	return listDTO;
 	}
 	
+	public boolean deleteById(Integer id) {
+		Chatbot chat = chatbotRepository.findById(id).get();
+		Date date = new Date(Calendar.getInstance().getTime().getTime());
+		chat.setDeleteAT(date);
+		chatbotRepository.save(chat);
+		return chatbotRepository.existsById(id);
+	}
+
+	public List<ChatbotDTO> getAll() {
+		return ConverterChatbot.toListDTO((List<Chatbot>) chatbotRepository.findByDeleteATIsNull());
+	}
 	
 	public List<ChatbotDTO> findAllChatbotsDTOByIdUser(UserDTO userDTO) {
 

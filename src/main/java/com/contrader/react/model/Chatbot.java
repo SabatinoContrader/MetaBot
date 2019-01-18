@@ -1,6 +1,8 @@
 package com.contrader.react.model;
 
 
+import java.sql.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
@@ -37,4 +41,7 @@ public class Chatbot {
 	@JoinColumn(name = "id_nodo")
 	private Nodo nodoPadre;
 
+	@Column(name = "id_nodo", columnDefinition="DATETIME")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date deleteAT;
 }

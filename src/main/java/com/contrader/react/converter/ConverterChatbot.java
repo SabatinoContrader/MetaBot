@@ -1,5 +1,8 @@
 package com.contrader.react.converter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.contrader.react.dto.ChatbotDTO;
 import com.contrader.react.model.Chatbot;
 
@@ -27,6 +30,26 @@ public class ConverterChatbot {
 			chatbot.setUser(ConverterUser.toEntity(chatbotDTO.getUser()));
 		}
 		return chatbot;
+	}
+	
+	public static List<ChatbotDTO> toListDTO(List<Chatbot> list) {
+		List<ChatbotDTO> listUserDTO = new ArrayList<>();
+		if (!list.isEmpty()) {
+			for (Chatbot user : list) {
+				listUserDTO.add(ConverterChatbot.toDTO(user));
+			}
+		}
+		return listUserDTO;
+	}
+
+	public static List<Chatbot> toListEntity(List<ChatbotDTO> listUserDTO) {
+		List<Chatbot> list = new ArrayList<>();
+		if (!listUserDTO.isEmpty()) {
+			for (ChatbotDTO userDTO : listUserDTO) {
+				list.add(ConverterChatbot.toEntity(userDTO));
+			}
+		}
+		return list;
 	}
 
 }

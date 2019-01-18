@@ -15,6 +15,5 @@ public interface ChatbotRepository extends CrudRepository<Chatbot, Integer> {
 
 	public List<Chatbot> findAllByNomeChatbot(String nomeChatbot);
 	
-	
-
+	public List<Chatbot> findByDeleteATIsNull();
 }
