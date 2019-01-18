@@ -47,6 +47,6 @@ export default class Login extends React.Component {
 
       })
 
-history.push("/home");
+history.push("/");
     }
 }
