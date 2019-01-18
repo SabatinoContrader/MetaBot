@@ -62,6 +62,11 @@ public class NodoController {
 		return  nodoService.save(nodoDTO);
 	}
 	
+	@RequestMapping(value = "/update", method = RequestMethod.POST)
+	public NodoDTO update(@RequestBody NodoDTO nodoDTO ) {
+		return  nodoService.save(nodoDTO);
+	}
+	
 	@RequestMapping(value = "/percentuale", method = RequestMethod.GET)
 	public Float calcolo(@RequestParam("idChat")Integer idChat,@RequestParam("idNodo")Integer idNodo) {
 		ChatbotDTO chat = chatbotService.findChatbotDTOByIdChatbot(idChat);
