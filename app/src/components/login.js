@@ -16,17 +16,24 @@ export default class Login extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <div className="text-center">
-          <form onSubmit={this.login}>
-            <h2>Login</h2>
-            <br></br><br></br>
-            <h2>Username:</h2>
-            <input id="username" name="username" type="text" />
-            <h2>Password:</h2>
-            <input id="password" name="password" type="text" />
-            <br></br><br></br>
-            <button>Login</button>
-          </form>
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <form onSubmit={this.login}>
+              <div className="modal-header">
+                <h2 className="modal-title">Login</h2>
+              </div>
+              <div className="modal-body">
+              <label for="username" class="col-form-label">Username:</label>
+              <input className="form-control" id="username" name="username" type="text" />
+              <label for="password" class="col-form-label">Password:</label>
+              <input className="form-control" id="password" name="password" type="text" />
+              <br></br><br></br>
+              <div className="modal-footer">
+              <button  className="btn btn-primary">Login</button>
+              </div>
+              </div>
+            </form>
+          </div>
         </div>
       </React.Fragment>
     );
