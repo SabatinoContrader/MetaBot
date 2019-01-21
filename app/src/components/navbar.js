@@ -1,22 +1,23 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom'
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
-export default class Navbar extends React.Component {
-
-  constructor(props){
-    super(props);
-  }
-
+export default class Navbar extends Component {
   render() {
     return (
-
-         <ul className="header">
-           <li><NavLink exact to="/">Home</NavLink></li>
-           <li><NavLink to="/listChatbot">Chatbot</NavLink></li>
-           <li><NavLink to="/Login">Login</NavLink></li>
-         </ul>
-);
-
+      <React.Fragment>
+        <nav className="navbar navbar-expand-lg navbar-light bg-light">
+          <b className="navbar-brand" href="#">Metabot</b>
+          <div className="collapse navbar-collapse">
+            <ul className="navbar-nav mr-auto">
+              <li className="nav-item" ><Link className="nav-link" to="/home">Home</Link></li>
+              <li className="nav-item"><Link className="nav-link" to="/chatBot">Chatbot</Link></li>
+            </ul>
+            <ul className="navbar-nav">
+              <li className="nav-item"><Link className="nav-link" to="/">Logout</Link></li>
+            </ul>
+          </div>
+        </nav>
+      </React.Fragment>
+    );
   }
-
 }

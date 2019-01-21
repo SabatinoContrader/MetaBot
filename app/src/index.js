@@ -1,26 +1,22 @@
-// import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './css/index.css';
 import Login from "./components/login";
 import Home from "./components/home";
-// import Chatbot from "./components/Chatbot";
 import history from './components/history';
 
-import {Router,Route, HashRouter} from 'react-router-dom';
-import ListChatbot from './components/listChatbot';
+
+import { Router, Route } from 'react-router-dom';
+import Chatbot from './components/chatBot';
+import Nodo from './components/nodo';
 
 ReactDOM.render(
-  <Router history={history}>
-  <div>
-  <div className="content">
-  <Route exact path="/" component={Home}/>
-  <Route path="/login" component={Login}/>
-  <Route path="/listChatbot" component={ListChatbot}/>
-  </div>
-  </div>
-  </Router>
-
-
-
+    <Router history={history}>
+      <div className="content">
+        <Route exact path="/" component={Login} />
+        <Route path="/home" component={Home} />
+        <Route path="/chatBot" component={Chatbot} />
+        <Route path="/nodo" component={Nodo} />
+      </div>
+    </Router>
   , document.getElementById('root'));

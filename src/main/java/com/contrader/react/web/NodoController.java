@@ -25,6 +25,7 @@ import com.contrader.react.dto.ChatbotDTO;
 import com.contrader.react.dto.NodoDTO;
 import com.contrader.react.service.ChatbotService;
 import com.contrader.react.service.NodoService;
+import com.contrader.react.utils.FunzioniDiUtilita;
 
 
 
@@ -79,7 +80,11 @@ public class NodoController {
 		return percentuale*100;
 	}
 
-	
+	@RequestMapping(value = "/visualizzaChat", method = RequestMethod.GET)
+	public List<NodoDTO> visualizzaChat(@RequestParam("idNodoPadre")Integer idNodoPadre) {
+		return FunzioniDiUtilita.recuperaAlberoOrdinato(nodoService.findAllNodesDTO(),
+				idNodoPadre);
+	}
 	
   
 
