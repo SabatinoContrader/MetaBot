@@ -2,6 +2,8 @@ package com.contrader.react.web;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,6 +26,8 @@ public class NodoController {
 	private final NodoService nodoService;
 	private final ChatbotService chatbotService;
 	private final String mainPath = "src/main/resources/static/files/";
+
+	private final Logger logger = LoggerFactory.getLogger(NodoController.class);
 
 	@Autowired
 	public NodoController(NodoService nodoService, ChatbotService chatbotService) {
@@ -67,9 +71,13 @@ public class NodoController {
 
 	@RequestMapping(value = "/aumentaContatoreNodo", method = RequestMethod.GET)
 	public void contatore(@RequestParam("idNodo") Integer idNodo) {
+		logger.info("Siamo entrati dentro aumentaContatore");
 		final NodoDTO nodo = nodoService.findByIdNodoDTO(idNodo);
+		logger.info("nodo: + " + nodo);
 		nodo.setContatore(nodo.getContatore() + 1);
+		logger.info("nodo dopo: + " + nodo);
 		nodoService.save(nodo);
+		logger.info("stiamo per uscire da aumentaContatore");
 	}
 
 	@RequestMapping(value = "/visualizzaChat", method = RequestMethod.GET)
