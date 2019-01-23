@@ -65,7 +65,7 @@ public class NodoController {
 		return percentuale * 100;
 	}
 
-	@RequestMapping(value = "/contatore", method = RequestMethod.GET)
+	@RequestMapping(value = "/aumentaContatoreNodo", method = RequestMethod.GET)
 	public void contatore(@RequestParam("idNodo") Integer idNodo) {
 		final NodoDTO nodo = nodoService.findByIdNodoDTO(idNodo);
 		nodo.setContatore(nodo.getContatore() + 1);
