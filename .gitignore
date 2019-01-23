@@ -11,11 +11,9 @@
 .sts4-cache
 
 ### React ###
-/app/node_modules/
-.metadata/
-.package-lock.json
-/app/package.json
-/app/package-lock.json
+/app/node_modules/.bin/
+/app/node_modules/.cache/
+
 
 ### IntelliJ IDEA ###
 .idea

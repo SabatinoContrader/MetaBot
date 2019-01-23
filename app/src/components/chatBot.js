@@ -31,7 +31,7 @@ export default class Chatbot extends React.Component {
       .then(response => response.json())
       .then(result => {
         history.push({
-          pathname: '/nodo',
+          pathname: '/visualizzaChat',
           state: { listaNodo: result }
           })
       })

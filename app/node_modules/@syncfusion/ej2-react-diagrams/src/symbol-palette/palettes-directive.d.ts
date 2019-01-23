@@ -1,0 +1,20 @@
+import { ComplexBase } from '@syncfusion/ej2-react-base';
+import { PaletteModel } from '@syncfusion/ej2-diagrams';
+/**
+ * `Palette` directive represent a axis palette of the react SymbolPalette.
+ * It must be contained in a SymbolPalette component(`SymbolPaletteComponent`).
+ * ```tsx
+ * <SymbolPaletteComponent>
+ * <PalettesDirective>
+ * <PaletteDirective></PaletteDirective>
+ * </PalettesDirective>
+ * </SymbolPaletteComponent>
+ * ```
+ */
+export declare class PaletteDirective extends ComplexBase<PaletteModel, PaletteModel> {
+    static moduleName: string;
+}
+export declare class PalettesDirective extends ComplexBase<{}, {}> {
+    static propertyName: string;
+    static moduleName: string;
+}
