@@ -14,7 +14,7 @@ export default class ModalChatBot extends Component {
               id="nomeChatbot"
               placeholder="Inserisci il nome dell tuo user"
               name="nomeChatbot"
-              onChange={event => this.nomeChatbotNuovoChange(event)}
+              onChange={event => this.props.nomeChatbotNuovoChange(event)}
             />
           </div>
           <div class="form-group">
@@ -25,7 +25,7 @@ export default class ModalChatBot extends Component {
                   type="radio"
                   name="user"
                   value={elem.idUser}
-                  onChange={event => this.userChatbotNuovoChange(event)}
+                  onChange={event => this.props.userChatbotNuovoChange(event)}
                 />
                 {elem.username}
               </React.Fragment>
@@ -33,14 +33,15 @@ export default class ModalChatBot extends Component {
           </div>
           <div class="form-group">
             <label for="nodoPadre">Nodo Padre:</label>
-            <select class="form-control" name="nodoPadreSelezionato">
+            <select class="form-control" name="nodoPadreSelezionato" onChange={event => this.props.nodoPadreChatbotNuovoChange(event)}>
+            <option type="radio" name="nodoPadre" value="0">SELECIONE</option>
+                    
               {this.props.nodoPadreList.map((elem, i) => (
                 <React.Fragment>
                   <option
                     type="radio"
                     name="nodoPadre"
-                    value={elem.idNodo}
-                    onChange={event => this.nodoPadreChatbotNuovoChange(event)}
+                    value={elem.idNodo}                    
                   >
                     {elem.text}
                   </option>
@@ -52,7 +53,7 @@ export default class ModalChatBot extends Component {
             type="submit"
             class="btn btn-default"
             onClick={() => {
-              //this.insertChatbot();
+              this.props.insertChatbot();
               this.props.handleClose();
             }}
           >

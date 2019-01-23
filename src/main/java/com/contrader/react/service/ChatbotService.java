@@ -59,6 +59,10 @@ public class ChatbotService {
 		return ConverterChatbot.toListDTO((List<Chatbot>) chatbotRepository.findByDeleteATIsNull());
 	}
 	
+	public ChatbotDTO insert(ChatbotDTO userDTO) {
+		return ConverterChatbot.toDTO(chatbotRepository.save(ConverterChatbot.toEntity(userDTO)));
+	}
+	
 	public List<ChatbotDTO> findAllChatbotsDTOByIdUser(UserDTO userDTO) {
 		return ConverterChatbot.toListDTO(chatbotRepository.findAllByUser(ConverterUser.toEntity(userDTO)));
 	}

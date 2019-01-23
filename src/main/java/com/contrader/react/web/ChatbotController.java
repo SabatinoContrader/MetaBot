@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -60,7 +61,10 @@ public class ChatbotController {
 		
 	}
 	
-	
+	@RequestMapping(value = "/insert", method = RequestMethod.POST)
+	public ChatbotDTO insert(@RequestBody ChatbotDTO chatbotDTO) {
+		return chatbotService.insert(chatbotDTO);
+	}
 //		return request.setAttribute(	"chatbotDTODaGestire", chatbotDTODaGestire);
 	
 //	@RequestMapping(value = "/gestisci", method = RequestMethod.GET)

@@ -3,8 +3,10 @@ import Navbar from "./navbar";
 import history from "./history";
 import "./../css/chatBot.css";
 
-import ChatbotDTO from "./../models/chatbot";
 import ModalChatBot from "./modal/chatbot";
+import { ChatbotDTO } from "./../models/chatbot";
+import { UserDTO } from './../models/user';
+import { NodoDTO } from './../models/nodo';
 
 const API = "http://localhost:8080/Chatbot";
 const APINODO = "http://localhost:8080/Nodo";
@@ -28,14 +30,11 @@ export default class Chatbot extends React.Component {
       userList: [],
       nodoPadreList: [],
       show: false,
-      chatBotNuovo: new ChatbotDTO(0, "", null,null),
+      chatBotNuovo: new ChatbotDTO(0, "", new UserDTO(0 , "", "", "", ""),new NodoDTO(0, "", null,"","")),
     };
     this.getAllUser = this.getAllUser.bind(this);
     this.getAllChat = this.getAllChat.bind(this);
     this.getAllNodo = this.getAllNodo.bind(this);
-    this.nomeChatbotNuovoChange = this.nomeChatbotNuovoChange.bind(this);
-    this.userChatbotNuovoChange = this.userChatbotNuovoChange.bind(this);
-    this.nodoPadreChatbotNuovoChange = this.nodoPadreChatbotNuovoChange.bind(this);
   }
 
   showModal = () => {
@@ -108,6 +107,23 @@ export default class Chatbot extends React.Component {
       });
   };
 
+  insertChatbot() {
+    const chatbotDTOb = this.state.chatBotNuovo;
+
+    fetch(API + "/insert", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(chatbotDTOb)
+      })
+        .then(response => response.json())
+        .then(result => {
+           this.getAllChat();
+        })
+  }
+
   render() {
     return (
       <React.Fragment>
@@ -150,8 +166,12 @@ export default class Chatbot extends React.Component {
           <Modal show={this.state.show}>
             <ModalChatBot
                handleClose={this.hideModal}
-              userList={this.state.userList}
-              nodoPadreList={this.state.nodoPadreList}
+               userList={this.state.userList}
+               nodoPadreList={this.state.nodoPadreList}
+               nomeChatbotNuovoChange={this.nomeChatbotNuovoChange.bind(this)}
+               userChatbotNuovoChange={this.userChatbotNuovoChange.bind(this)}
+               nodoPadreChatbotNuovoChange={this.nodoPadreChatbotNuovoChange.bind(this)}
+              insertChatbot={this.insertChatbot.bind(this)}
             />
           </Modal>
           <button className="btn " type="button" onClick={this.showModal}>
@@ -163,19 +183,19 @@ export default class Chatbot extends React.Component {
   }
   nomeChatbotNuovoChange(evt) {
     let chatBotNuovo = { ...this.state.chatBotNuovo };
-    chatBotNuovo.nomeChatbot = evt;
+    chatBotNuovo.nomeChatbot = evt.target.value;
     this.setState({ chatBotNuovo });
   }
 
   userChatbotNuovoChange(evt) {
     let chatBotNuovo = { ...this.state.chatBotNuovo };
-    chatBotNuovo.user = evt.target.value;
+    chatBotNuovo.user.idUser = evt.target.value;
     this.setState({ chatBotNuovo });
   }
 
   nodoPadreChatbotNuovoChange(evt) {
     let chatBotNuovo = { ...this.state.chatBotNuovo };
-    chatBotNuovo.nodoPadre = evt.target.value;
+    chatBotNuovo.nodoPadre.idNodo = evt.target.value;
     this.setState({ chatBotNuovo });
   }
 }
