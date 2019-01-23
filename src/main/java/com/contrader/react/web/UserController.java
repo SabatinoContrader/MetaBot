@@ -34,7 +34,7 @@ public class UserController {
         this.aziendaService = aziendaService;
     }
     
-    @GetMapping
+    @RequestMapping(value = "/all", method = RequestMethod.GET)
     public List<UserDTO> getAll(){
         return userService.getListaUserDTO();
     }

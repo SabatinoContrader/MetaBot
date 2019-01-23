@@ -1,16 +1,18 @@
-export default class User {
+export class UserDTO {
 
-idUser: number;
-username: string;
-password: string;
-ruolo: string;
-email: string;
+    idUser: number;
+    username: string;
+    password: string;
+    ruolo: string;
+    email: string;
 
-    constructor(idUser:number, username:string, password:string, ruolo:string, email:string){
-        this.idUser=idUser;
-        this.username=username;
-        this.password=password;
-        this.ruolo=ruolo;
-        this.email= email;
+    constructor(idUser: number, username: string, password: string, ruolo: string, email: string) {
+        this.idUser = idUser;
+        this.username = username;
+        this.password = password;
+        this.ruolo = ruolo;
+        this.email = email;
     }
+
 }
+export default UserDTO

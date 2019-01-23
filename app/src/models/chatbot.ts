@@ -1,17 +1,18 @@
-import User from "./user";
+import { UserDTO } from "./user";
+import { NodoDTO } from "./nodo";
 
-export default class Chatbot {
+export class ChatbotDTO {
 
+    idChatbot: number;
+    nomeChatbot: string;
+    user: UserDTO;
+    nodoPadre: NodoDTO;
 
-idChatbot: number;
-nomeChatbot: string;
-user:  string;
-nodoPadre:  string;
-
-    constructor(idChatbot: number, nomeChatbot: string, user: string, nodoPadre: string){
-        this.idChatbot=idChatbot;
-        this.nomeChatbot=nomeChatbot;
-        this.user=user;
-        this.nodoPadre=nodoPadre;
+    constructor(idChatbot: number, nomeChatbot: string, user: UserDTO, nodoPadre: NodoDTO) {
+        this.idChatbot = idChatbot;
+        this.nomeChatbot = nomeChatbot;
+        this.user = user;
+        this.nodoPadre = nodoPadre;
     }
 }
+export default ChatbotDTO
