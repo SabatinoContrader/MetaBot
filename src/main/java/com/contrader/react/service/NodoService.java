@@ -11,8 +11,6 @@ import com.contrader.react.dto.NodoDTO;
 import com.contrader.react.model.Nodo;
 import com.contrader.react.repository.NodoRepository;
 
-
-
 @Service
 public class NodoService {
 
@@ -64,7 +62,6 @@ public class NodoService {
 	public NodoDTO save(NodoDTO nodo) {
 		return ConverterNodo.toDTO(nodoRepository.save(ConverterNodo.toEntity(nodo)));
 
-
 	}
 
 	public Integer findUserByIdNodoPadre(Integer idNodoPadre) {
@@ -74,19 +71,16 @@ public class NodoService {
 			return 1;
 		}
 	}
-	
-	public List<NodoDTO>findAllByNodoPadre(NodoDTO nodopadre){
-		final List<Nodo> list = nodoRepository.findAllByNodoPadre(ConverterNodo.toEntity(nodopadre));
-		final List<NodoDTO> listDTO = new ArrayList<>();
-		for (final Nodo nodo : list ) {
-			listDTO.add(ConverterNodo.toDTO(nodo));
-		}
-		return listDTO;
+
+	public List<NodoDTO> findAllByNodoPadre(NodoDTO nodopadre) {
+		return ConverterNodo.toListNodoDTO(nodoRepository.findAllByNodoPadre(ConverterNodo.toEntity(nodopadre)));
 	}
+
 	public void updateContatore(Integer idNodoScelto) {
-		Nodo nodo = nodoRepository.findById(idNodoScelto).get();
-		Integer cont = nodo.getContatore() + 1;
+		final Nodo nodo = nodoRepository.findById(idNodoScelto).get();
+		final Integer cont = nodo.getContatore() + 1;
 		nodo.setContatore(cont);
 		nodoRepository.save(nodo);
-}
+	}
+
 }

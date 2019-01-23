@@ -6,8 +6,6 @@ import java.util.List;
 import com.contrader.react.dto.NodoDTO;
 import com.contrader.react.model.Nodo;
 
-
-
 public class ConverterNodo {
 	public static NodoDTO toDTO(Nodo nodo) {
 		NodoDTO nodoDTO = null;
@@ -38,30 +36,21 @@ public class ConverterNodo {
 	}
 
 	public static List<NodoDTO> toListNodoDTO(List<Nodo> list) {
-
 		final List<NodoDTO> nodoDTOs = new ArrayList<>();
-
 		for (final Nodo nodo : list) {
-
 			final NodoDTO nuovoNodoDaConvertire = ConverterNodo.toDTO(nodo);
 			nodoDTOs.add(nuovoNodoDaConvertire);
-
 		}
-
 		return nodoDTOs;
 	}
 
 	public static List<Nodo> toListNodoEntity(List<NodoDTO> listDTO) {
 
 		final List<Nodo> nodos = new ArrayList<>();
-
 		for (final NodoDTO nodoDTO : listDTO) {
-
 			final Nodo nuovoNodoDaConvertire = ConverterNodo.toEntity(nodoDTO);
 			nodos.add(nuovoNodoDaConvertire);
-
 		}
-
 		return nodos;
 	}
 }
