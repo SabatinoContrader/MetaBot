@@ -2,7 +2,6 @@ import React from 'react';
 import User from './../models/user';
 import history from './history';
 import { Link } from 'react-router-dom';
-import Registrazione from './registrazione';
 const API = 'http://localhost:8080/users/login';
 
 export default class Login extends React.Component {

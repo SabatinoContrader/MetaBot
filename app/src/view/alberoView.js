@@ -23,13 +23,13 @@ export class HierarchicalModel extends React.PureComponent {
 
   render() {
     return (
-      <div className="col-lg-8 control-section">
+      <div className="col-lg-12 control-section">
         <div className="content-wrapper" style={{ width: "100%" }}>
           <DiagramComponent
             id="diagram"
             ref={diagram => diagram}
             width={"100%"}
-            height={"499px"}
+            height={"1000px"}
             snapSettings={{ constraints: SnapConstraints.None }} //configures data source settings
             constraints={DiagramConstraints.Bridging  }
             //scrollSettings={{  canAutoScroll: true}}
@@ -48,8 +48,8 @@ export class HierarchicalModel extends React.PureComponent {
             tool={DiagramTools.ZoomPan} //Configures automatic layout
             layout={{
               type: "HierarchicalTree",
-              verticalSpacing: 30,
-              horizontalSpacing: 40,
+              verticalSpacing: 50,
+              horizontalSpacing: 50,
               //enableAnimation: true
             }} //Defines the default node and connector properties
             getNodeDefaults={(obj, diagram) => {
