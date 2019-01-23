@@ -13,7 +13,7 @@
 ### React ###
 /app/node_modules/.bin/
 /app/node_modules/.cache/
-
+.metadata/
 
 ### IntelliJ IDEA ###
 .idea

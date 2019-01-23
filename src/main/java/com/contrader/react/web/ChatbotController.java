@@ -44,13 +44,24 @@ public class ChatbotController {
 		 return chatbotService.findAll();
 	}
 	
+	@RequestMapping(value = "/all", method = RequestMethod.GET)
+	public List<ChatbotDTO> all() {
+		 return chatbotService.getAll();
+	}
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
 	public void delete(@RequestParam("idChatbot") Integer idChatbot) {
 		chatbotService.deleteChatbotByIdChatbot(idChatbot);
 		
 	}
 	
-//		return request.setAttribute("chatbotDTODaGestire", chatbotDTODaGestire);
+	@RequestMapping(value = "/deleteByID", method = RequestMethod.GET)
+	public boolean deleteByID(@RequestParam("idChatbot") Integer idChatbot) {
+		return chatbotService.deleteById(idChatbot);
+		
+	}
+	
+	
+//		return request.setAttribute(	"chatbotDTODaGestire", chatbotDTODaGestire);
 	
 //	@RequestMapping(value = "/gestisci", method = RequestMethod.GET)
 //	public String gestisci(HttpServletRequest request) {

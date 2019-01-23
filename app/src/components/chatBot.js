@@ -12,16 +12,21 @@ export default class Chatbot extends React.Component {
     this.state = {
       lista: [],
     };
+    this.getAllChat = this.getAllChat.bind(this);
   }
 
   componentDidMount() {
-    fetch(API + "/allChatbots", {
-      method: 'GET',
+    this.getAllChat();
+  }
+
+  getAllChat() {
+    fetch(API + "/all", {
+      method: "GET"
     })
       .then(response => response.json())
       .then(result => {
-        this.setState({ lista: result })
-      })
+        this.setState({ lista: result });
+      });
   }
 
   visualizzaChat = (idNodoPadre) => {
@@ -37,6 +42,17 @@ export default class Chatbot extends React.Component {
       })
   }
 
+  deleteChat = (i) => {
+    fetch(API + "/deleteByID/?idChatbot=" + i, {
+      method: "GET"
+    })
+      .then(response => response.json())
+      .then(result => {
+        if (result){alert("Cancelamento avvenuto con successo");
+        this.getAllChat()
+        }else alert("Errore");
+      });
+  };
 
   render() {
     return (
@@ -49,7 +65,7 @@ export default class Chatbot extends React.Component {
                                 <th scope="col">ID Chat</th>
                                 <th scope="col">Nome</th>
                                 <th scope="col"></th>
-
+                                <th scope="col"></th>
                             </tr>
                         </thead>
                         {this.state.lista.map((elem, i) =>
@@ -61,9 +77,12 @@ export default class Chatbot extends React.Component {
                                     <td>
                                         {elem.nomeChatbot}
                                     </td>
-                                    <button className="btn " onClick={() => this.visualizzaChat(elem.nodoPadre.idNodo)}>
+                                    <td><button className="btn " onClick={() => this.deleteChat(elem.idChatbot)}>
+                                     Elimina
+                                    </button></td>
+                                    <td><button className="btn " onClick={() => this.visualizzaChat(elem.nodoPadre.idNodo)}>
                                      Visualizza
-                                    </button>
+                                    </button></td>
                                 </tr>
                             </tbody>
                         )
