@@ -12,12 +12,15 @@ const API = "http://localhost:8080/Chatbot";
 const APINODO = "http://localhost:8080/Nodo";
 const APIUSER = "http://localhost:8080/users/";
 
-const Modal = ({show, children }) => {
+const Modal = ({show, children,handleClose }) => {
   const showHideClassName = show ? "modal display-block" : "modal display-none";
 
   return (
     <div className={showHideClassName}>
-      <section className="modal-main">{children}</section>
+      <section className="modal-main">
+        <button className="btn " onClick= {handleClose}>Chiudi</button>
+        {children}      
+      </section>
     </div>
   );
 };
@@ -26,23 +29,25 @@ export default class Chatbot extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      mode :"",
       lista: [],
       userList: [],
       nodoPadreList: [],
       show: false,
       chatBotNuovo: new ChatbotDTO(0, "", new UserDTO(0 , "", "", "", ""),new NodoDTO(0, "", null,"","")),
+      chatBotModif: new ChatbotDTO(0, "", new UserDTO(0 , "", "", "", ""),new NodoDTO(0, "", null,"","")),
     };
     this.getAllUser = this.getAllUser.bind(this);
     this.getAllChat = this.getAllChat.bind(this);
     this.getAllNodo = this.getAllNodo.bind(this);
   }
 
-  showModal = () => {
-    this.setState({ show: true });
+  showModal = (mode) => {
+    this.setState({ show: true , mode});
   };
 
   hideModal = () => {
-    this.setState({ show: false });
+    this.setState({ show: false});
   };
 
   componentDidMount() {
@@ -95,8 +100,7 @@ export default class Chatbot extends React.Component {
   };
 
   simulaChat = idNodoPadre => {
-    
-        history.push({  pathname: "/simulazioneChat",    state: { nodoRoot: idNodoPadre }  } )  
+    history.push({  pathname: "/simulazioneChat",    state: { nodoRoot: idNodoPadre }  } )  
   };
 
   deleteChat = i => {
@@ -112,10 +116,38 @@ export default class Chatbot extends React.Component {
       });
   };
 
+  modificaChat = i => {
+    fetch(API + "/get/?idChatbot=" + i, {
+      method: "GET"
+    })
+      .then(response => response.json())
+      .then(result => {
+        this.setState({ chatBotModif: result });
+        this.showModal("update");
+      });
+  };
+
   insertChatbot() {
     const chatbotDTOb = this.state.chatBotNuovo;
 
     fetch(API + "/insert", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(chatbotDTOb)
+      })
+        .then(response => response.json())
+        .then(result => {
+           this.getAllChat();
+        })
+  }
+
+  updateChatbot() {
+    const chatbotDTOb = this.state.chatBotModif;
+
+    fetch(API + "/update", {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -147,28 +179,16 @@ export default class Chatbot extends React.Component {
                 <tr>
                   <td>{elem.nomeChatbot}</td>
                   <td>
-                    <button
-                      className="btn "
-                      onClick={() => this.deleteChat(elem.idChatbot)}
-                    >
-                      Elimina
-                    </button>
+                    <button className="btn "onClick={() => this.deleteChat(elem.idChatbot)}> Elimina</button>
                   </td>
                   <td>
-                    <button
-                      className="btn "
-                      onClick={() => this.visualizzaChat(elem.nodoPadre.idNodo)}
-                    >
-                      Visualizza
-                    </button>
+                    <button className="btn "onClick={() => this.modificaChat(elem.idChatbot)}> Modifica</button>
                   </td>
                   <td>
-                    <button
-                      className="btn "
-                      onClick={() => this.simulaChat(elem.nodoPadre.idNodo)}
-                    >
-                      Simula chat
-                    </button>
+                    <button className="btn " onClick={() => this.visualizzaChat(elem.nodoPadre.idNodo)}> Visualizza</button>
+                  </td>
+                  <td>
+                    <button className="btn "onClick={() => this.simulaChat(elem.nodoPadre.idNodo)}> Simula chat </button>
                   </td>
                 </tr>
               </tbody>
@@ -176,8 +196,9 @@ export default class Chatbot extends React.Component {
           </table>
         </div>
         <div className="container">
-          <Modal show={this.state.show}>
+          <Modal show={this.state.show} handleClose ={this.hideModal}> 
             <ModalChatBot
+               mode={this.state.mode}
                handleClose={this.hideModal}
                userList={this.state.userList}
                nodoPadreList={this.state.nodoPadreList}
@@ -185,15 +206,26 @@ export default class Chatbot extends React.Component {
                userChatbotNuovoChange={this.userChatbotNuovoChange.bind(this)}
                nodoPadreChatbotNuovoChange={this.nodoPadreChatbotNuovoChange.bind(this)}
               insertChatbot={this.insertChatbot.bind(this)}
+
+              nomeChatbotModifChange={this.nomeChatbotModifChange.bind(this)}
+              updateChatbot={this.updateChatbot.bind(this)}
+              chatBotModif={this.state.chatBotModif}
             />
           </Modal>
-          <button className="btn " type="button" onClick={this.showModal}>
+          <button className="btn " type="button" onClick={ () => this.showModal("insert")}>
             Crea
           </button>
         </div>
       </React.Fragment>
     );
   }
+
+  nomeChatbotModifChange(evt) {
+    let chatBotModif = { ...this.state.chatBotModif };
+    chatBotModif.nomeChatbot = evt.target.value;
+    this.setState({ chatBotModif });
+  }
+
   nomeChatbotNuovoChange(evt) {
     let chatBotNuovo = { ...this.state.chatBotNuovo };
     chatBotNuovo.nomeChatbot = evt.target.value;

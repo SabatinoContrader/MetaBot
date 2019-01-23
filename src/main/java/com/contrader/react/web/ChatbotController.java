@@ -61,9 +61,19 @@ public class ChatbotController {
 		
 	}
 	
+	@RequestMapping(value = "/get", method = RequestMethod.GET)
+	public ChatbotDTO get(@RequestParam("idChatbot") Integer idChatbot) {
+		return chatbotService.findChatbotDTOByIdChatbot(idChatbot);
+	}
+	
 	@RequestMapping(value = "/insert", method = RequestMethod.POST)
 	public ChatbotDTO insert(@RequestBody ChatbotDTO chatbotDTO) {
 		return chatbotService.insert(chatbotDTO);
+	}
+	
+	@RequestMapping(value = "/update", method = RequestMethod.POST)
+	public ChatbotDTO update(@RequestBody ChatbotDTO chatbotDTO) {
+		return chatbotService.update(chatbotDTO);
 	}
 //		return request.setAttribute(	"chatbotDTODaGestire", chatbotDTODaGestire);
 	
