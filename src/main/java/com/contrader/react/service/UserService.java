@@ -17,43 +17,37 @@ public class UserService {
     private final UserRepository userRepository;
     
     @Autowired
-    public UserService(UserRepository userRepository) {
+    public UserService (UserRepository userRepository) {
         this.userRepository = userRepository;
     }
     
-    public List<UserDTO> getListaUserDTO() {
+    public List<UserDTO> getListaUserDTO () {
         return ConverterUser.toListDTO((List<User>) userRepository.findAll());
     }
     
-    public UserDTO getUserDTOById(Integer id) {
+    public UserDTO getUserDTOById (Integer id) {
         return ConverterUser.toDTO(userRepository.findById(id).get());
     }
     
-    public UserDTO getByUsernameAndPassword(String username, String password) {
-        
-        final User user = userRepository.findUserByUsernameAndPassword(username, password);
-        
-        return ConverterUser.toDTO(user);
+    public UserDTO getByUsernameAndPassword (String username, String password) {
+        return ConverterUser.toDTO(userRepository.findUserByUsernameAndPassword(username, password));
     }
     
-   
-    public List<UserDTO> findUserDTOByUsername(String username) {
-        
-        final List<User> list = userRepository.findAllByUsername(username);
-        final List<UserDTO> userDTOs = new ArrayList<>();
-        list.forEach(i -> userDTOs.add(ConverterUser.toDTO(i)));
-        return userDTOs;
-        
-        
+    
+    public List<UserDTO> findUserDTOByUsername (String username) {
+        return ConverterUser.toListDTO(userRepository.findAllByUsername(username));
     }
+    
     //--------------------
-    public UserDTO getOne(Integer id){
+    public UserDTO getOne (Integer id) {
         return ConverterUser.toDTO(userRepository.findById(id).get());
     }
-    public boolean addUser(UserDTO userDTO){
+    
+    public boolean addUser (UserDTO userDTO) {
         return userRepository.save(ConverterUser.toEntity(userDTO)) != null;
     }
-    public boolean modifyUser(Integer id,UserDTO userDTO){
+    
+    public boolean modifyUser (Integer id, UserDTO userDTO) {
         UserDTO oldDTO = ConverterUser.toDTO(userRepository.findById(id).get());
         oldDTO.setUsername(userDTO.getUsername());
         oldDTO.setPassword(userDTO.getPassword());
@@ -61,10 +55,12 @@ public class UserService {
         oldDTO.setRuolo(userDTO.getRuolo());
         return userRepository.save(ConverterUser.toEntity(oldDTO)) != null;
     }
-    public void deleteUser (Integer id){
+    
+    public void deleteUser (Integer id) {
         userRepository.deleteById(id);
     }
-    public void deleteUser (UserDTO userDTO){
+    
+    public void deleteUser (UserDTO userDTO) {
         userRepository.delete(ConverterUser.toEntity(userDTO));
     }
 }
