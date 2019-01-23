@@ -94,6 +94,11 @@ export default class Chatbot extends React.Component {
       });
   };
 
+  simulaChat = idNodoPadre => {
+    
+        history.push({  pathname: "/simulazioneChat",    state: { nodoRoot: idNodoPadre }  } )  
+  };
+
   deleteChat = i => {
     fetch(API + "/deleteByID/?idChatbot=" + i, {
       method: "GET"
@@ -155,6 +160,14 @@ export default class Chatbot extends React.Component {
                       onClick={() => this.visualizzaChat(elem.nodoPadre.idNodo)}
                     >
                       Visualizza
+                    </button>
+                  </td>
+                  <td>
+                    <button
+                      className="btn "
+                      onClick={() => this.simulaChat(elem.nodoPadre.idNodo)}
+                    >
+                      Simula chat
                     </button>
                   </td>
                 </tr>

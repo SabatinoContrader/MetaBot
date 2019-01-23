@@ -81,6 +81,7 @@ public class NodoController {
 
 	@RequestMapping(value = "/recuperaSottoAlbero", method = RequestMethod.GET)
 	public List<NodoDTO> recuperaSottoAlbero(@RequestParam("id") Integer id) {
+		logger.info("siamo arrivati al backend");
 		final NodoDTO nodo = nodoService.findByIdNodoDTO(id);
 		return nodoService.findAllByNodoPadre(nodo);
 	}

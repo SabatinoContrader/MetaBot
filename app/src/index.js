@@ -5,6 +5,7 @@ import Login from "./components/login";
 import Registrazione from "./components/registrazione";
 import Home from "./components/home";
 import history from './components/history';
+import SimulazioneChat from "./components/simulazioneChat"
 
 
 import { Router, Route } from 'react-router-dom';
@@ -21,6 +22,7 @@ ReactDOM.render(
         <Route path="/nodo" component={Nodo} />
         <Route path="/registrazione" component={Registrazione} />
         <Route path="/visualizzaChat" component={VisualizzaChat} />
+        <Route path="/simulazioneChat" component={SimulazioneChat} />
       </div>
     </Router>
   , document.getElementById('root'));
