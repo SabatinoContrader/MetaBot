@@ -71,13 +71,7 @@ public class NodoController {
 
 	@RequestMapping(value = "/aumentaContatoreNodo", method = RequestMethod.GET)
 	public void contatore(@RequestParam("idNodo") Integer idNodo) {
-		logger.info("Siamo entrati dentro aumentaContatore");
-		final NodoDTO nodo = nodoService.findByIdNodoDTO(idNodo);
-		logger.info("nodo: + " + nodo);
-		nodo.setContatore(nodo.getContatore() + 1);
-		logger.info("nodo dopo: + " + nodo);
-		nodoService.save(nodo);
-		logger.info("stiamo per uscire da aumentaContatore");
+		nodoService.updateContatore(idNodo);
 	}
 
 	@RequestMapping(value = "/visualizzaChat", method = RequestMethod.GET)
