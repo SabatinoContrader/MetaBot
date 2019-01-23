@@ -50,6 +50,16 @@ public class NodoController {
 	public NodoDTO insert(@RequestBody NodoDTO nodoDTO) {
 		return nodoService.save(nodoDTO);
 	}
+	
+	@RequestMapping(value = "/insertCreaNodo", method = RequestMethod.POST)
+	public NodoDTO insertCreaNodo(@RequestParam("testo") String testo,
+			@RequestParam("tiponodo") String tiponodo) {
+		final NodoDTO nuovoNodo = new NodoDTO(0, testo, null, tiponodo , null, 0);
+		
+		return nodoService.save(nuovoNodo);
+		
+		
+	}
 
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public NodoDTO update(@RequestBody NodoDTO nodoDTO) {
