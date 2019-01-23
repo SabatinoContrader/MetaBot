@@ -1,6 +1,8 @@
 import React from 'react';
 import Navbar from './navbar';
 
+const API = 'http://localhost:8080/Nodo';
+
 export default class Nodo extends React.Component {
 
   constructor(props) {
@@ -11,7 +13,13 @@ export default class Nodo extends React.Component {
   }
 
   componentDidMount() {
-    this.setState({ lista: this.props.location.state.listaNodo })
+    fetch(API + "/all", {
+      method: 'GET',
+    })
+      .then(response => response.json())
+      .then(result => {
+        this.setState({ lista: result })
+      })
   }
 
   render() {
