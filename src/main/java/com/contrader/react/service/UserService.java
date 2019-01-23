@@ -36,18 +36,7 @@ public class UserService {
         return ConverterUser.toDTO(user);
     }
     
-    public boolean insertUser(UserDTO userDTO) {
-        return userRepository.save(ConverterUser.toEntity(userDTO)) != null;
-    }
-    
-    public boolean updateUser(UserDTO userDTO) {
-        return userRepository.save(ConverterUser.toEntity(userDTO)) != null;
-    }
-    
-    public void deleteUserById(Integer id) {
-        userRepository.deleteById(id);
-    }
-    
+   
     public List<UserDTO> findUserDTOByUsername(String username) {
         
         final List<User> list = userRepository.findAllByUsername(username);

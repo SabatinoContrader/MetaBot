@@ -1,7 +1,8 @@
 import React from 'react';
 import User from './../models/user';
 import history from './history';
-
+import { Link } from 'react-router-dom';
+import Registrazione from './registrazione';
 const API = 'http://localhost:8080/users/login';
 
 export default class Login extends React.Component {
@@ -23,17 +24,22 @@ export default class Login extends React.Component {
                 <h2 className="modal-title">Login</h2>
               </div>
               <div className="modal-body">
-              <label for="username" class="col-form-label">Username:</label>
+              <label htmlFor="username" className="col-form-label">Username:</label>
               <input className="form-control" id="username" name="username" type="text" />
-              <label for="password" class="col-form-label">Password:</label>
+              <label htmlFor="password" className="col-form-label">Password:</label>
               <input className="form-control" id="password" name="password" type="text" />
               <br></br><br></br>
               <div className="modal-footer">
               <button  className="btn btn-primary">Login</button>
+                <div className="nav-item">
+                  <Link to={'/registrazione'}><button className="btn btn-primary">Registrati</button></Link>
+                </div>
               </div>
               </div>
             </form>
+
           </div>
+
         </div>
       </React.Fragment>
     );

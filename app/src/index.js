@@ -2,6 +2,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Login from "./components/login";
+import Registrazione from "./components/registrazione";
 import Home from "./components/home";
 import history from './components/history';
 
@@ -17,6 +18,7 @@ ReactDOM.render(
         <Route path="/home" component={Home} />
         <Route path="/chatBot" component={Chatbot} />
         <Route path="/nodo" component={Nodo} />
+          <Route path="/registrazione" component={Registrazione} />
       </div>
     </Router>
   , document.getElementById('root'));

@@ -3,6 +3,8 @@ package com.contrader.react.web;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import com.contrader.react.dto.AziendaDTO;
+import com.contrader.react.service.AziendaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
@@ -15,16 +17,18 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
-@RequestMapping(value = {"/users","/administration/users"})
+@RequestMapping(value = {"/users"})
 
 public class UserController {
     
     private final UserService userService;
+    private final AziendaService aziendaService;
     private HttpSession session;
     
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService, AziendaService aziendaService) {
         this.userService = userService;
+        this.aziendaService = aziendaService;
     }
     
     @GetMapping
@@ -103,7 +107,18 @@ public class UserController {
         return "homeUser";
     }
     */
-    
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    public UserDTO registerControl(@RequestParam("username")String username,@RequestParam("password")String password,@RequestParam("email")String email, @RequestParam("azienda")Integer idAzienda){
+        AziendaDTO aziendaDTO = aziendaService.getById(idAzienda);
+        UserDTO userDTO = new UserDTO();
+        userDTO.setUsername(username);
+        userDTO.setPassword(password);
+        userDTO.setEmail(email);
+        userDTO.setRuolo("USER");
+        userDTO.setAziendaDTO(aziendaDTO);
+        userService.addUser(userDTO);
+        return  userDTO;
+    }
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public UserDTO loginControl(@RequestParam("username") String username, @RequestParam("password") String password) {
         

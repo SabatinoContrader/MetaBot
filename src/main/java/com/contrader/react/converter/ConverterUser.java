@@ -17,6 +17,7 @@ public class ConverterUser {
             userDTO.setPassword(user.getPassword());
             userDTO.setEmail(user.getEmail());
             userDTO.setRuolo(user.getRuolo());
+            userDTO.setAziendaDTO(ConverterAzienda.toDTO(user.getAzienda()));
         }
         return userDTO;
     }
@@ -30,6 +31,7 @@ public class ConverterUser {
             user.setPassword(userDTO.getPassword());
             user.setEmail(userDTO.getEmail());
             user.setRuolo(userDTO.getRuolo());
+            user.setAzienda(ConverterAzienda.toEntity(userDTO.getAziendaDTO()));
         }
         return user;
     }
