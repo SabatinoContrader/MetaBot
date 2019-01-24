@@ -1,6 +1,8 @@
 import React from 'react'
 import Navbar from './navbar';
+import UploadFile from './upload';
 //import Nodo from './../models/nodo';
+
 
 const APINODO = "http://localhost:8080/Nodo";
 export default class SimulazioneChat extends React.Component {
@@ -11,16 +13,18 @@ export default class SimulazioneChat extends React.Component {
             nodi: [],
             nodoCorrente: 0,
             nodoRoot: 0
+
         }
         this.getSottoAlbero = this.getSottoAlbero.bind(this)
         this.aumentaContatoreNodo = this.aumentaContatoreNodo.bind(this)
+
     }
     setNodoCorrente = async (id) => {
 
         await this.setState({
             nodoCorrente: id,
         })
-        
+
         this.getSottoAlbero()
 
         this.aumentaContatoreNodo()
@@ -41,6 +45,7 @@ export default class SimulazioneChat extends React.Component {
                 this.setState({ nodi: utente })
             })
     }
+   
     componentDidMount() {
 
         this.setState({
@@ -53,13 +58,14 @@ export default class SimulazioneChat extends React.Component {
             <React.Fragment>
                 <Navbar />
                 <div className="container">
-                    <button className="btn btn-primary" onClick={() => this.setNodoCorrente(this.state.nodoRoot) }>Simula</button>
+                    <button className="btn btn-primary" onClick={() => this.setNodoCorrente(this.state.nodoRoot)}>Simula</button>
                     <table className="table table-light table-borderedtable-hover">
                         <thead>
                             <tr>
-                                <th scope="col">ID Nodo</th>
+
                                 <th scope="col">Testo</th>
-                                <th scope="col">Nodo Padre</th>
+
+                                <th scope="col"></th>
                                 <th scope="col"></th>
                             </tr>
                         </thead>
@@ -67,18 +73,19 @@ export default class SimulazioneChat extends React.Component {
                         {this.state.nodi.map((elem, i) =>
                             <tbody key={i}>
                                 <tr>
-                                    <td >
-                                        {elem.idNodo}
-                                    </td>
+
                                     <td>
                                         {elem.text}
                                     </td>
-                                    <td>
-                                        {elem.nodoPadre == null ? "" : elem.nodoPadre.idNodo}
-                                    </td>
+
                                     <td>
                                         <button className="btn btn-primary" onClick={() => this.setNodoCorrente(elem.idNodo)}>Continua</button>
                                     </td>
+
+                                    <td>
+                                       <UploadFile idNodo={elem.idNodo } ></UploadFile>
+                                    </td>
+
                                 </tr>
                             </tbody>
                         )
