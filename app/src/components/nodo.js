@@ -52,6 +52,21 @@ export default class Nodo extends React.Component {
 }
 
 
+modificaNodo = (event) => {
+  event.preventDefault();
+  const formData = new FormData(event.target);
+  fetch(API + "/updateNodo" , {
+    method : 'POST',
+    body : formData
+
+  })
+  .then(response => this.getAllNodo())
+  
+}
+
+
+
+
   render() {
     return (
       <React.Fragment>
@@ -64,6 +79,8 @@ export default class Nodo extends React.Component {
                 <th scope="col">Testo</th> 
                 <th scope="col">Nodo Padre</th>
                 <th scope="col">utility</th>
+                <th scope="col">utility</th>
+
               </tr>
             </thead>
             {this.state.lista.map((elem, i) =>
@@ -81,7 +98,12 @@ export default class Nodo extends React.Component {
                   <td><button className="btn " onClick={() => this.deleteNodo(elem.idNodo)}>
                                      Elimina
                                     </button></td>
-                                    
+                  <td><form onSubmit={this.modificaNodo} className="form-horizontal">
+                  <input name = "testo" type = "text" value={elem.text} className = "form-control" id = "testo"/>
+                  <input name = "idNodo" type = "hidden" value={elem.idNodo} className = "form-control" id = "idNodo"/>
+                  <button type = "submit" className = "btn btn-primary">Modifica</button>
+                    </form>
+                  </td>
                 </tr>
               </tbody>
             )
@@ -96,7 +118,9 @@ export default class Nodo extends React.Component {
                         <div className="form-group">
                            
                             <input name = "testo" type = "text" className = "form-control" id = "testo"/>
-                            <input name = "tiponodo" type = "text" className = "form-control" id = "tiponodo"/>
+                            <input name = "tiponodo" type = "radio" className = "form-control" value = "DOMANDA"/>DOMANDA
+                            <input name = "tiponodo" type = "radio" className = "form-control" value = "OPZIONE"/>OPZIONE
+                            <input name = "tiponodo" type = "radio" className = "form-control" value = "RISPOSTA"/>RISPOSTA
                         </div>
                         <button type = "submit" className = "btn btn-primary">Crea Nodo</button>
                     </form>

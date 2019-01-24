@@ -40,7 +40,12 @@ public class NodoController {
 		System.out.println(nodoService.findAllNodesDTO());
 		return nodoService.findAllNodesDTO();
 	}
-
+	
+	@RequestMapping(value = "/getNodo", method = RequestMethod.GET)
+	public NodoDTO getNodo(@RequestParam("idNodo") Integer idNodo) {
+		return nodoService.findByIdNodoDTO(idNodo);
+	}
+	
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
 	public void delete(@RequestParam("idNodo") Integer idNodo) {
 		nodoService.deleteById(idNodo);
@@ -65,6 +70,15 @@ public class NodoController {
 	public NodoDTO update(@RequestBody NodoDTO nodoDTO) {
 		return nodoService.save(nodoDTO);
 	}
+	
+	@RequestMapping(value = "/updateNodo", method = RequestMethod.POST)
+	public NodoDTO update  (@RequestParam("idNodo") Integer idNodo,@RequestParam("testo") String testo) {
+		
+		final NodoDTO nuovoNodo = nodoService.findByIdNodoDTO(idNodo);
+		nuovoNodo.setText(testo);
+		return nodoService.save(nuovoNodo);
+	}
+	
 
 	@RequestMapping(value = "/percentuale", method = RequestMethod.GET)
 	public Float calcolo(@RequestParam("idChat") Integer idChat, @RequestParam("idNodo") Integer idNodo) {
