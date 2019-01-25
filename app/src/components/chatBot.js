@@ -3,10 +3,14 @@ import Navbar from "./navbar";
 import history from "./history";
 import "./../css/chatBot.css";
 
+import {ContextMenuTrigger, ContextMenu, MenuItem} from "react-contextmenu"
+
 import ModalChatBot from "./modal/chatbot";
 import { ChatbotDTO } from "./../models/chatbot";
 import { UserDTO } from './../models/user';
 import { NodoDTO } from './../models/nodo';
+
+const MENU_TYPE = 'SIMPLE';
 
 const API = "http://localhost:8080/Chatbot";
 const APINODO = "http://localhost:8080/Nodo";
@@ -24,6 +28,10 @@ const Modal = ({show, children,handleClose }) => {
     </div>
   );
 };
+
+function collect(props) {
+    return { idChatbot: props.idChatbot, idNodoPadre: props.idNodoPadre };
+}
 
 export default class Chatbot extends React.Component {
   constructor(props) {
@@ -86,8 +94,8 @@ export default class Chatbot extends React.Component {
       });
   }
 
-  visualizzaChat = idNodoPadre => {
-    fetch(APINODO + "/visualizzaChat/?idNodoPadre=" + idNodoPadre, {
+  visualizzaChat = (e, data) => {
+    fetch(APINODO + "/visualizzaChat/?idNodoPadre=" + data.idNodoPadre, {
       method: "GET"
     })
       .then(response => response.json())
@@ -99,12 +107,12 @@ export default class Chatbot extends React.Component {
       });
   };
 
-  simulaChat = idNodoPadre => {
-    history.push({  pathname: "/simulazioneChat",    state: { nodoRoot: idNodoPadre }  } )  
+  simulaChat = (e, data) => {
+    history.push({  pathname: "/simulazioneChat",    state: { nodoRoot: data.idNodoPadre }  } )  
   };
 
-  deleteChat = i => {
-    fetch(API + "/deleteByID/?idChatbot=" + i, {
+  deleteChat = (e, data) => {
+    fetch(API + "/deleteByID/?idChatbot=" + data.idChatbot, {
       method: "GET"
     })
       .then(response => response.json())
@@ -116,8 +124,8 @@ export default class Chatbot extends React.Component {
       });
   };
 
-  modificaChat = i => {
-    fetch(API + "/get/?idChatbot=" + i, {
+  modificaChat = (e, data)=> {
+    fetch(API + "/get/?idChatbot=" + data.idChatbot, {
       method: "GET"
     })
       .then(response => response.json())
@@ -173,8 +181,8 @@ export default class Chatbot extends React.Component {
     
   }
 
-  esportareChat = i => {
-    fetch(API + "/esportareXML/?idChatbot=" + i, {
+  esportareChat = (e, data) => {
+    fetch(API + "/esportareXML/?idChatbot=" + data.idChatbot, {
       method: "GET"
     })
       .then(response => response.json())
@@ -194,36 +202,29 @@ export default class Chatbot extends React.Component {
             <thead>
               <tr>
                 <th scope="col">Nome</th>
-                <th scope="col" />
-                <th scope="col" />
-                <th scope="col" />
-                <th scope="col" />
-                <th scope="col" />
               </tr>
             </thead>
-            {this.state.lista.map((elem, i) => (
+          
               <tbody>
-                <tr>
-                  <td>{elem.nomeChatbot}</td>
-                  <td>
-                    <button className="btn "onClick={() => this.deleteChat(elem.idChatbot)}> Elimina</button>
-                  </td>
-                  <td>
-                    <button className="btn "onClick={() => this.modificaChat(elem.idChatbot)}> Modifica</button>
-                  </td>
-                  <td>
-                    <button className="btn " onClick={() => this.visualizzaChat(elem.nodoPadre.idNodo)}> Visualizza</button>
-                  </td>
-                  <td>
-                    <button className="btn "onClick={() => this.simulaChat(elem.nodoPadre.idNodo)}> Simula chat </button>
-                  </td>
-                   <td>
-                    <button className="btn "onClick={() => this.esportareChat(elem.idChatbot)}> Esportare XML</button>
-                  </td>
-                </tr>
+                {this.state.lista.map((elem, i) => (
+                  <ContextMenuTrigger
+                    renderTag='tr' idChatbot={elem.idChatbot}
+                    id={MENU_TYPE} holdToDisplay={1000} key={i}
+                    idNodoPadre={elem.nodoPadre.idNodo}
+                    collect={collect}>
+                    <td>{elem.nomeChatbot}</td>
+                  </ContextMenuTrigger> 
+                ))}
               </tbody>
-            ))}
+            
           </table>
+          <ContextMenu id={MENU_TYPE}>
+            <MenuItem onClick={this.deleteChat}>Elimina</MenuItem>
+            <MenuItem onClick={this.modificaChat}> Modifica</MenuItem>
+            <MenuItem onClick={this.visualizzaChat}> Visualizza</MenuItem>
+            <MenuItem onClick={this.esportareChat}> Esportare XML</MenuItem>
+            <MenuItem onClick={this.simulaChat}> Simula chat </MenuItem>
+          </ContextMenu>
         </div>
         <div className="container">
           <Modal show={this.state.show} handleClose ={this.hideModal}> 
