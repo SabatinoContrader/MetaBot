@@ -173,6 +173,18 @@ export default class Chatbot extends React.Component {
     
   }
 
+  esportareChat = i => {
+    fetch(API + "/esportareXML/?idChatbot=" + i, {
+      method: "GET"
+    })
+      .then(response => response.json())
+      .then(result => {
+        if (result) {
+          alert("Esportare avvenuta con successo");
+        } else alert("Errore");
+      });
+  };
+
   render() {
     return (
       <React.Fragment>
@@ -182,6 +194,9 @@ export default class Chatbot extends React.Component {
             <thead>
               <tr>
                 <th scope="col">Nome</th>
+                <th scope="col" />
+                <th scope="col" />
+                <th scope="col" />
                 <th scope="col" />
                 <th scope="col" />
               </tr>
@@ -201,6 +216,9 @@ export default class Chatbot extends React.Component {
                   </td>
                   <td>
                     <button className="btn "onClick={() => this.simulaChat(elem.nodoPadre.idNodo)}> Simula chat </button>
+                  </td>
+                   <td>
+                    <button className="btn "onClick={() => this.esportareChat(elem.idChatbot)}> Esportare XML</button>
                   </td>
                 </tr>
               </tbody>

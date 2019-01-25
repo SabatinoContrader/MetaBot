@@ -176,7 +176,7 @@ public class FunzioniDiUtilita {
 			TransformerFactory transformerFactory = TransformerFactory.newInstance();
 			Transformer transformer = transformerFactory.newTransformer();
 			DOMSource domSource = new DOMSource(document);
-			StreamResult streamResult = new StreamResult(new File("src/main/resources/static/files/albero.xml"));
+			StreamResult streamResult = new StreamResult(new File("src/main/resources/files/albero.xml"));
 			// System.out.println("streamResult: " + streamResult);
 			transformer.transform(domSource, streamResult);
 

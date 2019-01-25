@@ -75,6 +75,20 @@ public class ChatbotController {
 	public ChatbotDTO update(@RequestBody ChatbotDTO chatbotDTO) {
 		return chatbotService.update(chatbotDTO);
 	}
+	
+	@RequestMapping(value = "/esportareXML", method = RequestMethod.GET)
+	public boolean esportareXML(@RequestParam("idChatbot") Integer idChatbot) {
+		// prendo la chat da gestire tramite l'id recuperato dalla session
+		final ChatbotDTO chatbotDTODaGestire = chatbotService
+				.findChatbotDTOByIdChatbot(idChatbot);
+
+		// prendo la lista dei nodi, la ordino e la recupero
+		final List<NodoDTO> listDTOOrdinata = FunzioniDiUtilita.recuperaAlberoOrdinato(nodoService.findAllNodesDTO(),
+				chatbotDTODaGestire.getNodoPadre().getIdNodo());
+
+		return FunzioniDiUtilita.printXML(idChatbot, listDTOOrdinata);
+		//return "home";
+	}
 //		return request.setAttribute(	"chatbotDTODaGestire", chatbotDTODaGestire);
 	
 //	@RequestMapping(value = "/gestisci", method = RequestMethod.GET)
@@ -122,20 +136,6 @@ public class ChatbotController {
 //
 //		return "creaChatbot";
 //	}
-
-	@RequestMapping(value = "/esportareXML", method = RequestMethod.GET)
-	public boolean esportareXML(HttpServletRequest request) {
-		// prendo la chat da gestire tramite l'id recuperato dalla session
-		final ChatbotDTO chatbotDTODaGestire = chatbotService
-				.findChatbotDTOByIdChatbot(Integer.parseInt(request.getParameter("idChatDaEsportare")));
-
-		// prendo la lista dei nodi, la ordino e la recupero
-		final List<NodoDTO> listDTOOrdinata = FunzioniDiUtilita.recuperaAlberoOrdinato(nodoService.findAllNodesDTO(),
-				chatbotDTODaGestire.getNodoPadre().getIdNodo());
-
-		return FunzioniDiUtilita.printXML(Integer.parseInt(request.getParameter("idChatDaEsportare")), listDTOOrdinata);
-		//return "home";
-	}
 
 	@RequestMapping(value = "/importareXML", method = RequestMethod.GET)
 	public ChatbotDTO importareXML(HttpServletRequest request) {
