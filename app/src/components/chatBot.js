@@ -161,6 +161,18 @@ export default class Chatbot extends React.Component {
         })
   }
 
+  cerca = (event) => {
+    event.preventDefault();
+    let search = event.target.search.value;
+    if(search === "")
+      this.getAllChat();
+    else{
+      let listaSearch =  this.state.lista.filter(function(elem) { return elem.nomeChatbot === search; });
+      this.setState({ lista: listaSearch });
+    }
+    
+  }
+
   render() {
     return (
       <React.Fragment>
@@ -212,9 +224,14 @@ export default class Chatbot extends React.Component {
               chatBotModif={this.state.chatBotModif}
             />
           </Modal>
-          <button className="btn " type="button" onClick={ () => this.showModal("insert")}>
-            Crea
-          </button>
+        </div>
+        <div className="container">
+          <form className="form-inline my-2 my-lg-0" onSubmit={ (event) => this.cerca(event)}>
+            <button className="btn my-2 my-sm-0" type="button" onClick={ () => this.showModal("insert")}>Crea</button>
+            <label className="mr-sm-2" for="search">Nome Chat :</label>
+            <input name="search" className="form-control mr-sm-2" type="search"/>
+            <button className="btn btn-outline-success my-2 my-sm-0" type="submit" >Cerca</button>
+          </form>
         </div>
       </React.Fragment>
     );
