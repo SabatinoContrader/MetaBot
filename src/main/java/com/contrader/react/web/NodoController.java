@@ -1,16 +1,38 @@
 package com.contrader.react.web;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.contrader.react.dto.AziendaDTO;
 import com.contrader.react.dto.ChatbotDTO;
@@ -20,14 +42,14 @@ import com.contrader.react.service.ChatbotService;
 import com.contrader.react.service.NodoService;
 import com.contrader.react.utils.FunzioniDiUtilita;
 
-@CrossOrigin(value = "*")
+@CrossOrigin(value = {"*"}, exposedHeaders = {"Content-Disposition"})
 @RestController
 @RequestMapping("/Nodo")
 public class NodoController {
 
 	private final NodoService nodoService;
 	private final ChatbotService chatbotService;
-	private final String mainPath = "src/main/resources/static/files/";
+	private final String mainPath = "src/main/resources/files/";
 
 	private final Logger logger = LoggerFactory.getLogger(NodoController.class);
 
@@ -39,15 +61,14 @@ public class NodoController {
 
 	@RequestMapping(value = "/all", method = RequestMethod.GET)
 	public List<NodoDTO> all() {
-		System.out.println(nodoService.findAllNodesDTO());
 		return nodoService.findAllNodesDTO();
 	}
-	
+
 	@RequestMapping(value = "/getNodo", method = RequestMethod.GET)
 	public NodoDTO getNodo(@RequestParam("idNodo") Integer idNodo) {
 		return nodoService.findByIdNodoDTO(idNodo);
 	}
-	
+
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
 	public void delete(@RequestParam("idNodo") Integer idNodo) {
 		nodoService.deleteById(idNodo);
@@ -57,44 +78,39 @@ public class NodoController {
 	public NodoDTO insert(@RequestBody NodoDTO nodoDTO) {
 		return nodoService.save(nodoDTO);
 	}
-	
+
 	@RequestMapping(value = "/insertCreaNodo", method = RequestMethod.POST)
-	public NodoDTO insertCreaNodo(@RequestParam("testo") String testo,
-			@RequestParam("tiponodo") String tiponodo) {
-		final NodoDTO nuovoNodo = new NodoDTO(0, testo, null, tiponodo , null, 0);
-		
+	public NodoDTO insertCreaNodo(@RequestParam("testo") String testo, @RequestParam("tiponodo") String tiponodo) {
+		final NodoDTO nuovoNodo = new NodoDTO(0, testo, null, tiponodo, null, 0);
+
 		return nodoService.save(nuovoNodo);
-		
-		
+
 	}
-	
+
 	@RequestMapping(value = "/insertCreaNodo2", method = RequestMethod.POST)
-	public NodoDTO insertCreaNodo(@RequestParam("testo") String testo,
-			@RequestParam("tiponodo") String tiponodo, @RequestParam("nodo") Integer idNodoPadre) {
-		
+	public NodoDTO insertCreaNodo(@RequestParam("testo") String testo, @RequestParam("tiponodo") String tiponodo,
+			@RequestParam("nodo") Integer idNodoPadre) {
+
 		NodoDTO nodoDTO = nodoService.findByIdNodoDTO(idNodoPadre);
-		
-		final NodoDTO nuovoNodo = new NodoDTO(0, testo, nodoDTO , tiponodo , null , 0);
-		
+
+		final NodoDTO nuovoNodo = new NodoDTO(0, testo, nodoDTO, tiponodo, null, 0);
+
 		return nodoService.save(nuovoNodo);
-		
-		
+
 	}
-	
 
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public NodoDTO update(@RequestBody NodoDTO nodoDTO) {
 		return nodoService.save(nodoDTO);
 	}
-	
+
 	@RequestMapping(value = "/updateNodo", method = RequestMethod.POST)
-	public NodoDTO update  (@RequestParam("idNodo") Integer idNodo,@RequestParam("testo") String testo) {
-		
+	public NodoDTO update(@RequestParam("idNodo") Integer idNodo, @RequestParam("testo") String testo) {
+
 		final NodoDTO nuovoNodo = nodoService.findByIdNodoDTO(idNodo);
 		nuovoNodo.setText(testo);
 		return nodoService.save(nuovoNodo);
 	}
-	
 
 	@RequestMapping(value = "/percentuale", method = RequestMethod.GET)
 	public Float calcolo(@RequestParam("idChat") Integer idChat, @RequestParam("idNodo") Integer idNodo) {
@@ -125,11 +141,10 @@ public class NodoController {
 		final NodoDTO nodo = nodoService.findByIdNodoDTO(id);
 		return nodoService.findAllByNodoPadre(nodo);
 	}
-	
+
 	@RequestMapping(value = "/aggiungi", method = RequestMethod.POST)
-	public Nodo aggiungi (@RequestParam("idNodoCreato") Integer idNodoCreato ,
+	public Nodo aggiungi(@RequestParam("idNodoCreato") Integer idNodoCreato,
 			@RequestParam("choiceIdNodoPadre") Integer choiceIdNodoPadre) {
-	
 
 		final NodoDTO nodoDTODaAggiungere = nodoService.findByIdNodoDTO(idNodoCreato);
 		final NodoDTO nodoDTOPadre = nodoService.findByIdNodoDTO(choiceIdNodoPadre);
@@ -138,87 +153,44 @@ public class NodoController {
 
 		return nodoService.update(nodoDTODaAggiungere);
 
-		
 	}
-	
-	
-	
-	
-	
-	
 
-	/*
-	 * @RequestMapping(value = "/upload", method = RequestMethod.POST) public String
-	 * upload(@RequestParam(value = "file", required = false) MultipartFile file,
-	 * HttpServletRequest request, HttpServletResponse response) {
-	 * 
-	 * final Integer idNodo =
-	 * Integer.parseInt(request.getParameter("choiceIdNodoFiglio")); final NodoDTO
-	 * nodo = nodoService.findByIdNodoDTO(idNodo);
-	 * 
-	 * if (!file.isEmpty()) { try { f inal BufferedOutputStream stream = new
-	 * BufferedOutputStream( new FileOutputStream(new File(mainPath +
-	 * file.getOriginalFilename())));
-	 * 
-	 * nodo.setPath(mainPath + file.getOriginalFilename());
-	 * 
-	 * nodoService.save(nodo);
-	 * 
-	 * stream.write(file.getBytes()); stream.flush(); stream.close();
-	 * 
-	 * } catch (final IOException e) { e.printStackTrace(); } } return
-	 * "gestisciChatbot"; }
-	 * 
-	 * public void visualizzaChat(HttpServletRequest request) { // prendo la chat da
-	 * gestire tramite l'id recuperato dalla session, poi la salvo // nella request
-	 * final ChatbotDTO chatbotDTODaGestire = chatbotService
-	 * .findChatbotDTOByIdChatbot(Integer.parseInt(request.getParameter(
-	 * "idChatDaGestire"))); request.setAttribute("chatbotDTODaGestire",
-	 * chatbotDTODaGestire);
-	 * 
-	 * // prendo la lista dei nodi, la ordino e la recupero, poi la salvo nella
-	 * request final List<NodoDTO> listDTOOrdinata =
-	 * FunzioniDiUtilita.recuperaAlberoOrdinato(nodoService.findAllNodesDTO(),
-	 * chatbotDTODaGestire.getNodoPadre().getIdNodo());
-	 * request.setAttribute("listDTOOrdinata", listDTOOrdinata);
-	 * 
-	 * final HashMap<NodoDTO, Integer> hashElimina = new HashMap<>(); for (final
-	 * NodoDTO lista : listDTOOrdinata) {
-	 * 
-	 * if (nodoService.findUserByIdNodoPadre(lista.getIdNodo()) == 1) {
-	 * hashElimina.put(lista, 1); } else { hashElimina.put(lista, 0); } }
-	 * request.setAttribute("hashElimina", hashElimina);
-	 * 
-	 * // lista di nodi disponibili per essere aggiunti nella chat, poi salvo nella
-	 * // request final List<Nodo> nodiSenzaPadreDisponibili =
-	 * nodoService.trovaNodiSenzaPadreDisponibili();
-	 * request.setAttribute("nodiSenzaPadreDisponibili", nodiSenzaPadreDisponibili);
-	 * 
-	 * // final List<NodoDTO> allNodeDTO = nodoService.findAllNodesDTO(); //
-	 * request.setAttribute("allNodeDTO", allNodeDTO);
-	 * request.setAttribute("idChatDaGestire",
-	 * request.getParameter("idChatDaGestire"));
-	 * 
-	 * }
-	 * 
-	 * @RequestMapping(value = "/download", method = RequestMethod.GET) public
-	 * String download(@RequestParam(value = "file", required = false) MultipartFile
-	 * file, HttpServletRequest request, HttpServletResponse response) {
-	 * 
-	 * final Integer idNodo =
-	 * Integer.parseInt(request.getParameter("idNodoPerPath"));
-	 * System.out.println("sono quaaa" + idNodo); final NodoDTO nodo =
-	 * nodoService.findByIdNodoDTO(idNodo);
-	 * 
-	 * System.out.println("nodo path " + nodo.getPath()); if
-	 * (!StringUtils.isEmpty(nodo.getPath())) { try { final File fileToDownload =
-	 * new File(nodo.getPath()); final InputStream inputStream = new
-	 * FileInputStream(fileToDownload);
-	 * response.setContentType("application/force-download");
-	 * response.setHeader("Content-Disposition", "attachment; filename=" +
-	 * fileToDownload.getName()); IOUtils.copy(inputStream,
-	 * response.getOutputStream()); response.flushBuffer(); inputStream.close(); }
-	 * catch (final Exception e) { e.printStackTrace(); } } return
-	 * "gestisciChatbot"; }
-	 */
+	@RequestMapping(value = "/upload", method = RequestMethod.POST)
+	public void upload(@RequestParam(value = "file", required = false) MultipartFile file,
+			@RequestParam("idNodo") Integer idNodo) {
+
+		final NodoDTO nodo = nodoService.findByIdNodoDTO(idNodo);
+
+		if (!file.isEmpty()) {
+			try {
+
+				final BufferedOutputStream stream = new BufferedOutputStream(
+						new FileOutputStream(new File(mainPath + file.getOriginalFilename())));
+
+				nodo.setPath(mainPath + file.getOriginalFilename());
+
+				nodoService.save(nodo);
+
+				stream.write(file.getBytes());
+				stream.flush();
+				stream.close();
+			} catch (final IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	@RequestMapping(value = "/download", method = RequestMethod.GET)
+	public ResponseEntity<byte[]> download(@RequestParam("idNodo") Integer idNodo) throws IOException {
+		final NodoDTO nodo = nodoService.findByIdNodoDTO(idNodo);
+		final File fileToDownload = new File(nodo.getPath());
+		Path path = Paths.get(fileToDownload.getPath());
+		byte[] data = Files.readAllBytes(path);
+		
+		   HttpHeaders header = new HttpHeaders();
+		   header.setContentType(MediaType.valueOf(Files.probeContentType(path)));
+		   header.setContentLength(fileToDownload.length());
+		   header.set("Content-Disposition", "attachment; filename=" + fileToDownload.getName());
+		   return new ResponseEntity<>(data, header, HttpStatus.OK);
+	}
 }
