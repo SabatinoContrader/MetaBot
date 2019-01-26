@@ -43,7 +43,7 @@ export class HierarchicalModel extends React.PureComponent {
               doBinding: (nodeModel, data, diagram) => {
                 nodeModel.shape = {
                   type: "Text",
-                  content: data.text + " "+ (data.contatore/this.props.contatoreNodoPadre)+ "  %"
+                  content: data.text + " - "+ (data.contatore/this.props.contatoreNodoPadre)+ " %"
                 };
               }
             }} //Disables all interactions except zoom/pan
