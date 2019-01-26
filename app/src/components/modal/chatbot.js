@@ -9,7 +9,7 @@ export default class ModalChatBot extends Component {
           <div class="form-group">
             <label for="nomeChatbot">Nome Chat:</label>{" "}
             {this.props.mode === "insert" ? (
-            <input type="text" class="form-control" id="nomeChatbot" value=""
+            <input type="text" class="form-control" id="nomeChatbot" 
               placeholder="Inserisci il nome dell tuo user" name="nomeChatbot"
               onChange={event => this.props.nomeChatbotNuovoChange(event)}               
             />) :
