@@ -7,7 +7,7 @@ export default class VisualizzaChat extends Component {
     return (
       <React.Fragment>
         <Navbar />
-        <HierarchicalModel hierarchicalTree={this.props.location.state.listaNodo } />
+        <HierarchicalModel contatoreNodoPadre={this.props.location.state.listaNodo[0].contatore} hierarchicalTree={this.props.location.state.listaNodo} />
       </React.Fragment>
     );
   }

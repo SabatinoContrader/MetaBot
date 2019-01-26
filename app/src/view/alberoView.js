@@ -14,11 +14,13 @@ import { DataManager } from "@syncfusion/ej2-data";
 export class HierarchicalModel extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.state = { hierarchicalTree: [] };
+    this.state = { hierarchicalTree: []};
+
   }
   componentDidMount() {
-    let result = this.props.hierarchicalTree.map(nodo => ({ idNodo: nodo.idNodo, text: nodo.text, nodoPadre: (nodo.nodoPadre==null ? "" : nodo.nodoPadre.idNodo) }));
+    let result = this.props.hierarchicalTree.map(nodo => ({ idNodo: nodo.idNodo, contatore: nodo.contatore, text: nodo.text, nodoPadre: (nodo.nodoPadre==null ? "" : nodo.nodoPadre.idNodo) }));
     this.setState({hierarchicalTree: result});
+    alert(this.props.contatoreNodoPadre)
   }
 
   render() {
@@ -41,7 +43,7 @@ export class HierarchicalModel extends React.PureComponent {
               doBinding: (nodeModel, data, diagram) => {
                 nodeModel.shape = {
                   type: "Text",
-                  content: data.text
+                  content: data.text + " "+ (data.contatore/this.props.contatoreNodoPadre)+ "  %"
                 };
               }
             }} //Disables all interactions except zoom/pan
