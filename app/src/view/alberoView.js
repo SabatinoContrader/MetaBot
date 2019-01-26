@@ -20,8 +20,7 @@ export class HierarchicalModel extends React.PureComponent {
   componentDidMount() {
     let result = this.props.hierarchicalTree.map(nodo => ({ idNodo: nodo.idNodo, contatore: nodo.contatore, text: nodo.text, nodoPadre: (nodo.nodoPadre==null ? "" : nodo.nodoPadre.idNodo) }));
     this.setState({hierarchicalTree: result});
-    alert(this.props.contatoreNodoPadre)
-  }
+    }
 
   render() {
     return (
