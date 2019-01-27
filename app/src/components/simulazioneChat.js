@@ -41,8 +41,8 @@ export default class SimulazioneChat extends React.Component {
             method: 'GET'
         })
             .then(response => response.json())
-            .then(utente => {
-                this.setState({ nodi: utente })
+            .then(result => {
+                this.setState({ nodi: result })
             })
     }
    

@@ -19,12 +19,9 @@ import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
-
-import com.contrader.react.dto.NodoDTO;
-
 import org.w3c.dom.Node;
 
+import com.contrader.react.dto.NodoDTO;
 
 public class FunzioniDiUtilita {
 
@@ -87,7 +84,7 @@ public class FunzioniDiUtilita {
 		// la lista che ritorna è ordinata per profondità
 		return visitati;
 	}
-	
+
 	/**
 	 * Crea un file xml contenente la lista dei nodi appartenenti ad una chat
 	 * 
@@ -101,11 +98,11 @@ public class FunzioniDiUtilita {
 		 * Prendo un set di interi rappresentanti i padri
 		 */
 
-		Set<Integer> padri = new HashSet<>();
-		for (NodoDTO node : list) {
+		final Set<Integer> padri = new HashSet<>();
+		for (final NodoDTO node : list) {
 			if (node.getNodoPadre() != null) {
 				padri.add(node.getNodoPadre().getIdNodo());
-			}else {
+			} else {
 				padri.add(0);
 			}
 		}
@@ -115,14 +112,14 @@ public class FunzioniDiUtilita {
 			/**
 			 * Creiamo il DOM XML
 			 */
-			DocumentBuilderFactory documentFactory = DocumentBuilderFactory.newInstance();
-			DocumentBuilder documentBuilder = documentFactory.newDocumentBuilder();
-			Document document = documentBuilder.newDocument();
+			final DocumentBuilderFactory documentFactory = DocumentBuilderFactory.newInstance();
+			final DocumentBuilder documentBuilder = documentFactory.newDocumentBuilder();
+			final Document document = documentBuilder.newDocument();
 
 			/**
 			 * Elemento radice
 			 */
-			Element root = document.createElement("Chat");
+			final Element root = document.createElement("Chat");
 			document.appendChild(root);
 			Attr attr = document.createAttribute("id");
 			attr.setValue("" + idChat + "");
@@ -133,37 +130,35 @@ public class FunzioniDiUtilita {
 			 * Ciclo la lista dei padri e all'interno la lista della chat e appendo padre e
 			 * figlio in maniera opportuna
 			 */
-			for (Integer padre : padri) {
+			for (final Integer padre : padri) {
 
-				Element padreElement = document.createElement("Padre");
+				final Element padreElement = document.createElement("Padre");
 				root.appendChild(padreElement);
 				attr = document.createAttribute("id");
 				attr.setValue("" + padre + "");
 				padreElement.setAttributeNode(attr);
 
-				for (NodoDTO nodeFiglio : list) {
+				for (final NodoDTO nodeFiglio : list) {
 					if (nodeFiglio.getNodoPadre() != null) {
 						if (nodeFiglio.getNodoPadre().getIdNodo() == padre) {
-	
-							Element figlioElement = document.createElement("Figlio");
-	
-							figlioElement.appendChild(document
-									.createTextNode("" + nodeFiglio.getText() + ""));
+
+							final Element figlioElement = document.createElement("Figlio");
+
+							figlioElement.appendChild(document.createTextNode("" + nodeFiglio.getText() + ""));
 							padreElement.appendChild(figlioElement);
 							attr = document.createAttribute("id");
 							attr.setValue("" + nodeFiglio.getIdNodo() + "");
 							figlioElement.setAttributeNode(attr);
 						}
-					}else {
+					} else {
 						if (0 == padre) {
-						Element figlioElement = document.createElement("Figlio");
-						
-						figlioElement.appendChild(document
-								.createTextNode("" + nodeFiglio.getText() + ""));
-						padreElement.appendChild(figlioElement);
-						attr = document.createAttribute("id");
-						attr.setValue("" + nodeFiglio.getIdNodo() + "");
-						figlioElement.setAttributeNode(attr);
+							final Element figlioElement = document.createElement("Figlio");
+
+							figlioElement.appendChild(document.createTextNode("" + nodeFiglio.getText() + ""));
+							padreElement.appendChild(figlioElement);
+							attr = document.createAttribute("id");
+							attr.setValue("" + nodeFiglio.getIdNodo() + "");
+							figlioElement.setAttributeNode(attr);
 						}
 					}
 				}
@@ -173,17 +168,17 @@ public class FunzioniDiUtilita {
 			/**
 			 * Trasformo il DOM in un xml e lo streammo nel file.xml
 			 */
-			TransformerFactory transformerFactory = TransformerFactory.newInstance();
-			Transformer transformer = transformerFactory.newTransformer();
-			DOMSource domSource = new DOMSource(document);
-			StreamResult streamResult = new StreamResult(new File("src/main/resources/files/albero.xml"));
+			final TransformerFactory transformerFactory = TransformerFactory.newInstance();
+			final Transformer transformer = transformerFactory.newTransformer();
+			final DOMSource domSource = new DOMSource(document);
+			final StreamResult streamResult = new StreamResult(new File("src/main/resources/files/albero.xml"));
 			// System.out.println("streamResult: " + streamResult);
 			transformer.transform(domSource, streamResult);
 
 			return true;
-		} catch (ParserConfigurationException pce) {
+		} catch (final ParserConfigurationException pce) {
 			pce.printStackTrace();
-		} catch (TransformerException tfe) {
+		} catch (final TransformerException tfe) {
 			tfe.printStackTrace();
 
 		}
@@ -191,21 +186,28 @@ public class FunzioniDiUtilita {
 		return false;
 	}
 
-	public static int readXML() {
-		int retorno = 0;
+	/**
+	 * inserito il pathCompleto per recuperare il file opportuno
+	 * 
+	 * @param pathCompleto
+	 * @return
+	 */
+	public static Integer readXML(String pathCompleto) {
+
+		Integer retorno = 0;
 		try {
-			File fXmlFile = new File("src/main/resources/static/files/albero.xml");
-			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-			Document doc = dBuilder.parse(fXmlFile);
+			final File fXmlFile = new File(pathCompleto);
+			final DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+			final DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+			final Document doc = dBuilder.parse(fXmlFile);
 
 			doc.getDocumentElement().normalize();
 
-			Node nNode = doc.getFirstChild();
-			Element eElement = (Element) nNode;
+			final Node nNode = doc.getFirstChild();
+			final Element eElement = (Element) nNode;
 			retorno = Integer.parseInt(eElement.getAttribute("id"));
-		
-		} catch (Exception e) {
+
+		} catch (final Exception e) {
 			e.printStackTrace();
 		}
 		return retorno;

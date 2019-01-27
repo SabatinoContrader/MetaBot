@@ -12,6 +12,7 @@ import { Router, Route } from 'react-router-dom';
 import Chatbot from './components/chatBot';
 import Nodo from './components/nodo';
 import VisualizzaChat from './components/visualizzaChat';
+import ImportaChat from './components/importaChat';
 
 ReactDOM.render(
     <Router history={history}>
@@ -23,6 +24,7 @@ ReactDOM.render(
         <Route path="/registrazione" component={Registrazione} />
         <Route path="/visualizzaChat" component={VisualizzaChat} />
         <Route path="/simulazioneChat" component={SimulazioneChat} />
+        <Route path="/importaChat" component={ImportaChat} />
       </div>
     </Router>
   , document.getElementById('root'));

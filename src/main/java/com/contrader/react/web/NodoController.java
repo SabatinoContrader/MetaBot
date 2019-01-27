@@ -2,30 +2,20 @@ package com.contrader.react.web;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.InputStreamResource;
-import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,7 +24,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.contrader.react.dto.AziendaDTO;
 import com.contrader.react.dto.ChatbotDTO;
 import com.contrader.react.dto.NodoDTO;
 import com.contrader.react.model.Nodo;
@@ -42,7 +31,7 @@ import com.contrader.react.service.ChatbotService;
 import com.contrader.react.service.NodoService;
 import com.contrader.react.utils.FunzioniDiUtilita;
 
-@CrossOrigin(value = {"*"}, exposedHeaders = {"Content-Disposition"})
+@CrossOrigin(value = { "*" }, exposedHeaders = { "Content-Disposition" })
 @RestController
 @RequestMapping("/Nodo")
 public class NodoController {
@@ -91,7 +80,7 @@ public class NodoController {
 	public NodoDTO insertCreaNodo(@RequestParam("testo") String testo, @RequestParam("tiponodo") String tiponodo,
 			@RequestParam("nodo") Integer idNodoPadre) {
 
-		NodoDTO nodoDTO = nodoService.findByIdNodoDTO(idNodoPadre);
+		final NodoDTO nodoDTO = nodoService.findByIdNodoDTO(idNodoPadre);
 
 		final NodoDTO nuovoNodo = new NodoDTO(0, testo, nodoDTO, tiponodo, null, 0);
 
@@ -137,7 +126,7 @@ public class NodoController {
 
 	@RequestMapping(value = "/recuperaSottoAlbero", method = RequestMethod.GET)
 	public List<NodoDTO> recuperaSottoAlbero(@RequestParam("id") Integer id) {
-		logger.info("siamo arrivati al backend");
+
 		final NodoDTO nodo = nodoService.findByIdNodoDTO(id);
 		return nodoService.findAllByNodoPadre(nodo);
 	}
@@ -184,13 +173,30 @@ public class NodoController {
 	public ResponseEntity<byte[]> download(@RequestParam("idNodo") Integer idNodo) throws IOException {
 		final NodoDTO nodo = nodoService.findByIdNodoDTO(idNodo);
 		final File fileToDownload = new File(nodo.getPath());
-		Path path = Paths.get(fileToDownload.getPath());
-		byte[] data = Files.readAllBytes(path);
-		
-		   HttpHeaders header = new HttpHeaders();
-		   header.setContentType(MediaType.valueOf(Files.probeContentType(path)));
-		   header.setContentLength(fileToDownload.length());
-		   header.set("Content-Disposition", "attachment; filename=" + fileToDownload.getName());
-		   return new ResponseEntity<>(data, header, HttpStatus.OK);
+		final Path path = Paths.get(fileToDownload.getPath());
+		final byte[] data = Files.readAllBytes(path);
+
+		final HttpHeaders header = new HttpHeaders();
+		header.setContentType(MediaType.valueOf(Files.probeContentType(path)));
+		header.setContentLength(fileToDownload.length());
+		header.set("Content-Disposition", "attachment; filename=" + fileToDownload.getName());
+		return new ResponseEntity<>(data, header, HttpStatus.OK);
+	}
+
+	/**
+	 * Ci occupiamo di resettare la statistica di ogni nodo per quella chat che ha
+	 * come nodo root 'idNodoRoot'
+	 * 
+	 * @param id
+	 */
+	@RequestMapping(value = "/azzeraStatisticaNodiChatcorrente", method = RequestMethod.GET)
+	public List<NodoDTO> azzeraStatisticaNodiChatcorrente(@RequestParam("idNodoRoot") Integer idNodoRoot) {
+		final List<NodoDTO> list = FunzioniDiUtilita.recuperaAlberoOrdinato(nodoService.findAllNodesDTO(), idNodoRoot);
+
+		list.forEach(i -> {
+			i.setContatore(0);
+			nodoService.azzeraContatoreNodo(i.getIdNodo());
+		});
+		return list;
 	}
 }

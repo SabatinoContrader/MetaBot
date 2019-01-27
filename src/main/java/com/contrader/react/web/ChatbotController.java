@@ -1,12 +1,8 @@
 package com.contrader.react.web;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
-
-import org.springframework.data.repository.CrudRepository;
-
-
-
-
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -25,11 +21,15 @@ import com.contrader.react.service.ChatbotService;
 import com.contrader.react.service.NodoService;
 import com.contrader.react.utils.FunzioniDiUtilita;
 
-
 @RestController
 @CrossOrigin(value = "*", allowedHeaders = "*")
 @RequestMapping("/Chatbot")
 public class ChatbotController {
+
+	/**
+	 * Costante percorso directory per chatImportate
+	 */
+	private static final String MAIN_PATH_CHATIMPORTATE = "src/main/resources/files/chatImportate/";
 
 	private final ChatbotService chatbotService;
 	private final NodoService nodoService;
@@ -39,58 +39,57 @@ public class ChatbotController {
 		this.chatbotService = chatbotService;
 		this.nodoService = nodoService;
 	}
-	
+
 	@RequestMapping(value = "/allChatbots", method = RequestMethod.GET)
 	public List<ChatbotDTO> gestisci() {
-		 return chatbotService.findAll();
+		return chatbotService.findAll();
 	}
-	
+
 	@RequestMapping(value = "/all", method = RequestMethod.GET)
 	public List<ChatbotDTO> all() {
-		 return chatbotService.getAll();
+		return chatbotService.getAll();
 	}
+
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
 	public void delete(@RequestParam("idChatbot") Integer idChatbot) {
 		chatbotService.deleteChatbotByIdChatbot(idChatbot);
-		
+
 	}
-	
+
 	@RequestMapping(value = "/deleteByID", method = RequestMethod.GET)
 	public boolean deleteByID(@RequestParam("idChatbot") Integer idChatbot) {
 		return chatbotService.deleteById(idChatbot);
-		
+
 	}
-	
+
 	@RequestMapping(value = "/get", method = RequestMethod.GET)
 	public ChatbotDTO get(@RequestParam("idChatbot") Integer idChatbot) {
 		return chatbotService.findChatbotDTOByIdChatbot(idChatbot);
 	}
-	
+
 	@RequestMapping(value = "/insert", method = RequestMethod.POST)
 	public ChatbotDTO insert(@RequestBody ChatbotDTO chatbotDTO) {
 		return chatbotService.insert(chatbotDTO);
 	}
-	
+
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public ChatbotDTO update(@RequestBody ChatbotDTO chatbotDTO) {
 		return chatbotService.update(chatbotDTO);
 	}
-	
+
 	@RequestMapping(value = "/esportareXML", method = RequestMethod.GET)
 	public boolean esportareXML(@RequestParam("idChatbot") Integer idChatbot) {
 		// prendo la chat da gestire tramite l'id recuperato dalla session
-		final ChatbotDTO chatbotDTODaGestire = chatbotService
-				.findChatbotDTOByIdChatbot(idChatbot);
+		final ChatbotDTO chatbotDTODaGestire = chatbotService.findChatbotDTOByIdChatbot(idChatbot);
 
 		// prendo la lista dei nodi, la ordino e la recupero
 		final List<NodoDTO> listDTOOrdinata = FunzioniDiUtilita.recuperaAlberoOrdinato(nodoService.findAllNodesDTO(),
 				chatbotDTODaGestire.getNodoPadre().getIdNodo());
 
 		return FunzioniDiUtilita.printXML(idChatbot, listDTOOrdinata);
-		//return "home";
 	}
 //		return request.setAttribute(	"chatbotDTODaGestire", chatbotDTODaGestire);
-	
+
 //	@RequestMapping(value = "/gestisci", method = RequestMethod.GET)
 //	public String gestisci(HttpServletRequest request) {
 //		// prendo la chat da gestire tramite l'id recuperato dalla session, poi la salvo
@@ -138,25 +137,41 @@ public class ChatbotController {
 //	}
 
 	@RequestMapping(value = "/importareXML", method = RequestMethod.GET)
-	public ChatbotDTO importareXML(HttpServletRequest request) {
-		final ChatbotDTO chatbotDTODaImportare = chatbotService.findChatbotDTOByIdChatbot(FunzioniDiUtilita.readXML());
+	public ChatbotDTO importareXML(@RequestParam("nomeFile") String nomeFile) {
+
+		final ChatbotDTO chatbotDTODaImportare = chatbotService
+				.findChatbotDTOByIdChatbot(FunzioniDiUtilita.readXML(MAIN_PATH_CHATIMPORTATE + nomeFile));
 		final ChatbotDTO chatbotDTO = new ChatbotDTO(0, chatbotDTODaImportare.getNomeChatbot(),
 				chatbotDTODaImportare.getUser(), chatbotDTODaImportare.getNodoPadre());
 		return chatbotService.inserisciChatbotDTO(chatbotDTO);
 
-		//return "home";
 	}
 
 	@RequestMapping(value = "/cercaChatbot", method = RequestMethod.GET)
 	public List<ChatbotDTO> cercaChatbot(HttpServletRequest request) {
-
 		final String content = request.getParameter("search");
-
 		return chatbotService.findChatbotDTOByNomeChatbot(content);
-//		request.setAttribute("allChatbotsDTO", chatbots);
-//
-//		return "homeChatbot";
+	}
 
+	/**
+	 * Recuperiamo i nomi di tutti i file dentro la cartella della chatImportate,
+	 * cosi nel frontend decidiamo quale chat importare e visualizzare
+	 * 
+	 * @return lista di nomi dei file nella cartella chatImportate
+	 */
+	@RequestMapping(value = "/getListaChatImportate", method = RequestMethod.GET)
+	public List<String> getListaChatImportate() {
+
+		final List<String> listaNomi = new ArrayList<>();
+		final File[] files = new File(MAIN_PATH_CHATIMPORTATE).listFiles();
+
+		for (final File file : files) {
+			// controllo di realtà del file
+			if (file.isFile()) {
+				listaNomi.add(file.getName());
+			}
+		}
+		return listaNomi;
 	}
 
 	@RequestMapping(value = "/creaChatbot", method = RequestMethod.GET)

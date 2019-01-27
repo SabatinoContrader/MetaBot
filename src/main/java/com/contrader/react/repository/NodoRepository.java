@@ -30,4 +30,9 @@ public interface NodoRepository extends CrudRepository<Nodo, Integer> {
 	@Query(value = "update nodo n set n.contatore_nodo = n.contatore_nodo+1 where n.id_nodo = :idNodo", nativeQuery = true)
 	public void updateContatore(@Param("idNodo") Integer idNodo);
 
+	@Modifying
+	@Transactional
+	@Query(value = "update nodo n set n.contatore_nodo =0 where n.id_nodo = :idNodo", nativeQuery = true)
+	public void azzeraContatoreNodo(@Param("idNodo") Integer idNodo);
+
 }

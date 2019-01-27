@@ -3,18 +3,18 @@ import React, { Component } from "react";
 export default class ModalChatBot extends Component {
   render() {
     return (
-      <div class="container text-center">
+      <div className="container text-center">
         <React.Fragment>
           <h1>{this.props.mode === "insert" ? "Crea Chat" : "Modifica Chat"}</h1>
-          <div class="form-group">
+          <div className="form-group">
             <label for="nomeChatbot">Nome Chat:</label>{" "}
             {this.props.mode === "insert" ? (
-            <input type="text" class="form-control" id="nomeChatbot" 
+            <input type="text" className="form-control" id="nomeChatbot" 
               placeholder="Inserisci il nome dell tuo user" name="nomeChatbot"
               onChange={event => this.props.nomeChatbotNuovoChange(event)}               
             />) :
             (
-            <input type="text" class="form-control" id="nomeChatbot"
+            <input type="text" className="form-control" id="nomeChatbot"
               placeholder="Inserisci il nome dell tuo user" name="nomeChatbot"
               value={this.props.chatBotModif.nomeChatbot}
               onChange={event => this.props.nomeChatbotModifChange(event)}              
@@ -23,7 +23,7 @@ export default class ModalChatBot extends Component {
           </div>
           {this.props.mode === "insert" ? (
             <React.Fragment>
-          <div class="form-group">
+          <div className="form-group">
             <label for="user">User:</label>
             {this.props.userList.map((elem, i) => (
               <React.Fragment>
@@ -34,9 +34,9 @@ export default class ModalChatBot extends Component {
               </React.Fragment>
             ))}
           </div>
-          <div class="form-group">
+          <div className="form-group">
             <label for="nodoPadre">Nodo Padre:</label>
-            <select class="form-control" name="nodoPadreSelezionato" onChange={event => this.props.nodoPadreChatbotNuovoChange(event)}>
+            <select className="form-control" name="nodoPadreSelezionato" onChange={event => this.props.nodoPadreChatbotNuovoChange(event)}>
             <option type="radio" name="nodoPadre" value="0">Selezionare Nodo Padre</option>
                     
               {this.props.nodoPadreList.map((elem, i) => (
@@ -48,13 +48,13 @@ export default class ModalChatBot extends Component {
               ))}
             </select>
           </div>
-          <button type="submit" class="btn btn-default"
+          <button type="submit" className="btn btn-default"
             onClick={() => {
               this.props.insertChatbot();
               this.props.handleClose();
             }}>Submit</button>
           </React.Fragment>) : (
-                      <button type="submit" class="btn btn-default"
+                      <button type="submit" className="btn btn-default"
             onClick={() => {
               this.props.updateChatbot();
               this.props.handleClose();

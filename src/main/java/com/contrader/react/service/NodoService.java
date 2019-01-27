@@ -72,4 +72,8 @@ public class NodoService {
 		nodoRepository.updateContatore(idNodoScelto);
 	}
 
+	public void azzeraContatoreNodo(Integer idNodoScelto) {
+		nodoRepository.azzeraContatoreNodo(idNodoScelto);
+	}
+
 }
