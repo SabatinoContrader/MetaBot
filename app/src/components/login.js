@@ -56,7 +56,8 @@ export default class Login extends React.Component {
       body: formData,
     }).then(response => response.json())
       .then(result => {localStorage.setItem( 'currentUser' ,JSON.stringify(result) )
-      });
-     history.push("/home");
+      history.push("/home");})
+      .catch(error => { alert("Login sbagliato") });
+     
   }
 }
