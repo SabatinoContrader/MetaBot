@@ -86,7 +86,8 @@ export default class Chatbot extends React.Component {
   }
 
   getAllChat() {
-    fetch(API + "/all", {
+    let userReq = JSON.parse(localStorage.getItem("currentUser"));
+    fetch(API + "/allByUtente?idAzienda=" + userReq.aziendaDTO.idAzienda, {
       method: "GET"
     })
       .then(response => response.json())
