@@ -31,7 +31,7 @@ const Modal = ({ show, children, handleClose }) => {
 };
 
 function collect(props) {
-  return { idChatbot: props.idChatbot, idNodoPadre: props.idNodoPadre };
+  return { idChatbot: props.idChatbot, idNodoPadre: props.idNodoPadre,nomeChatbot:props.nomeChatbot };
 }
 
 export default class Chatbot extends React.Component {
@@ -183,7 +183,7 @@ export default class Chatbot extends React.Component {
   }
 
   esportareChat = (e, data) => {
-    fetch(API + "/esportareXML/?idChatbot=" + data.idChatbot, {
+    fetch(API + "/esportareXML/?idChatbot=" + data.idChatbot+"&nomeFile="+data.nomeChatbot+".xml", {
       method: "GET"
     })
       .then(response => response.json())
@@ -214,6 +214,7 @@ export default class Chatbot extends React.Component {
                       renderTag='tr' idChatbot={elem.idChatbot}
                       id={MENU_TYPE} holdToDisplay={1000} key={i}
                       idNodoPadre={elem.nodoPadre.idNodo}
+                      nomeChatbot= {elem.nomeChatbot}
                       collect={collect}>
                       <td>{elem.nomeChatbot}</td>
                     </ContextMenuTrigger>

@@ -92,7 +92,7 @@ public class FunzioniDiUtilita {
 	 * @return
 	 */
 
-	public static boolean printXML(Integer idChat, List<NodoDTO> list) {
+	public static boolean printXML(Integer idChat, List<NodoDTO> list, String pathCompleto) {
 
 		/**
 		 * Prendo un set di interi rappresentanti i padri
@@ -171,7 +171,7 @@ public class FunzioniDiUtilita {
 			final TransformerFactory transformerFactory = TransformerFactory.newInstance();
 			final Transformer transformer = transformerFactory.newTransformer();
 			final DOMSource domSource = new DOMSource(document);
-			final StreamResult streamResult = new StreamResult(new File("src/main/resources/files/albero.xml"));
+			final StreamResult streamResult = new StreamResult(new File(pathCompleto));
 			// System.out.println("streamResult: " + streamResult);
 			transformer.transform(domSource, streamResult);
 

@@ -29,7 +29,7 @@ public class ChatbotController {
 	/**
 	 * Costante percorso directory per chatImportate
 	 */
-	private static final String MAIN_PATH_CHATIMPORTATE = "src/main/resources/files/chatImportate/";
+	private static final String MAIN_PATH_IMPORT_EXPORT = "src/main/resources/files/chatImportate/";
 
 	private final ChatbotService chatbotService;
 	private final NodoService nodoService;
@@ -78,7 +78,9 @@ public class ChatbotController {
 	}
 
 	@RequestMapping(value = "/esportareXML", method = RequestMethod.GET)
-	public boolean esportareXML(@RequestParam("idChatbot") Integer idChatbot) {
+	public boolean esportareXML(@RequestParam("idChatbot") Integer idChatbot,
+			@RequestParam("nomeFile") String nomeFile) {
+		System.out.println("nomeFile " + nomeFile);
 		// prendo la chat da gestire tramite l'id recuperato dalla session
 		final ChatbotDTO chatbotDTODaGestire = chatbotService.findChatbotDTOByIdChatbot(idChatbot);
 
@@ -86,7 +88,7 @@ public class ChatbotController {
 		final List<NodoDTO> listDTOOrdinata = FunzioniDiUtilita.recuperaAlberoOrdinato(nodoService.findAllNodesDTO(),
 				chatbotDTODaGestire.getNodoPadre().getIdNodo());
 
-		return FunzioniDiUtilita.printXML(idChatbot, listDTOOrdinata);
+		return FunzioniDiUtilita.printXML(idChatbot, listDTOOrdinata, MAIN_PATH_IMPORT_EXPORT + nomeFile);
 	}
 //		return request.setAttribute(	"chatbotDTODaGestire", chatbotDTODaGestire);
 
@@ -140,7 +142,7 @@ public class ChatbotController {
 	public ChatbotDTO importareXML(@RequestParam("nomeFile") String nomeFile) {
 
 		final ChatbotDTO chatbotDTODaImportare = chatbotService
-				.findChatbotDTOByIdChatbot(FunzioniDiUtilita.readXML(MAIN_PATH_CHATIMPORTATE + nomeFile));
+				.findChatbotDTOByIdChatbot(FunzioniDiUtilita.readXML(MAIN_PATH_IMPORT_EXPORT + nomeFile));
 		final ChatbotDTO chatbotDTO = new ChatbotDTO(0, chatbotDTODaImportare.getNomeChatbot(),
 				chatbotDTODaImportare.getUser(), chatbotDTODaImportare.getNodoPadre());
 		return chatbotService.inserisciChatbotDTO(chatbotDTO);
@@ -163,7 +165,7 @@ public class ChatbotController {
 	public List<String> getListaChatImportate() {
 
 		final List<String> listaNomi = new ArrayList<>();
-		final File[] files = new File(MAIN_PATH_CHATIMPORTATE).listFiles();
+		final File[] files = new File(MAIN_PATH_IMPORT_EXPORT).listFiles();
 
 		for (final File file : files) {
 			// controllo di realtà del file
