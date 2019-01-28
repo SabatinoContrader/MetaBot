@@ -37,5 +37,6 @@ public class User {
 	private String email;
 	
 	@ManyToOne
+	@JoinColumn (name = "id_azienda")
 	private Azienda azienda;
 }

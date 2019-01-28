@@ -1,4 +1,5 @@
 package com.contrader.react.web;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpSession;
 import com.contrader.react.dto.AziendaDTO;
@@ -19,7 +20,7 @@ import com.contrader.react.dto.UserDTO;
 import com.contrader.react.service.UserService;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "*")
 @RequestMapping(value = {"/users"})
 
 public class UserController {
@@ -50,7 +51,7 @@ public class UserController {
     public boolean update(@PathVariable("id") Integer id, @RequestBody UserDTO updateUserDTO){
         return userService.modifyUser(id,updateUserDTO);
     }
-    @DeleteMapping("/{id}")
+    @RequestMapping(value = "/delete/{id}" , method = RequestMethod.GET)
     public void delete(@PathVariable ("id") Integer id){
         userService.deleteUser(id);
     }
@@ -173,22 +174,37 @@ public class UserController {
 	 */
     
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public UserDTO registerControl(@RequestParam("username")String username,@RequestParam("password")String password,@RequestParam("email")String email, @RequestParam("azienda")Integer idAzienda){
+    public UserDTO registerControl(@RequestParam("username")String username,@RequestParam("password")String password,@RequestParam("email")String email,@RequestParam("ruolo")String ruolo ,@RequestParam("azienda")Integer idAzienda){
         AziendaDTO aziendaDTO = aziendaService.getById(idAzienda);
         UserDTO userDTO = new UserDTO();
         userDTO.setUsername(username);
         userDTO.setPassword(password);
         userDTO.setEmail(email);
-        userDTO.setRuolo("USER");
+        userDTO.setRuolo(ruolo);
         userDTO.setAziendaDTO(aziendaDTO);
         userService.addUser(userDTO);
         return  userDTO;
     }
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public UserDTO loginControl(@RequestParam("username") String username, @RequestParam("username") String password) {
-		final UserDTO userDTO = userService.getByUsernameAndPassword(username, password);
-		return userDTO;
+	public UserDTO loginControl(@RequestParam("username") String username, @RequestParam("password") String password) {
+        UserDTO userDTO = userService.getByUsernameAndPassword(username, password);
+        return userDTO;
 	}
-
+    @RequestMapping(value = "/utentigestibili" , method = RequestMethod.POST)
+    public List<UserDTO> utentiGestibili(@RequestBody UserDTO requestingUser){
+        List<UserDTO> list = new ArrayList<>();
+        
+        if(requestingUser.getRuolo().equals("ADMIN") && requestingUser.getAziendaDTO().getNomeAzienda().toUpperCase().equals("CONTRADER")){
+            list = userService.findAllByRuoloIsNotLike("USER");
+        }
+        if(requestingUser.getRuolo().equals("CHATMASTER")){
+            list = userService.findAllByAziendaAndRuolo(requestingUser.getAziendaDTO(),requestingUser.getRuolo());
+        }
+        if(requestingUser.getRuolo().toUpperCase().equals("ADMIN") && !requestingUser.getAziendaDTO().getNomeAzienda().toUpperCase().equals("CONTRADER")) {
+            String[] ruoli = {"ADMIN","CHATMASTER"};
+            list = userService.findAllByAziendaAndRuoloIn(requestingUser.getAziendaDTO(),ruoli);
+        }
+        return list;
+    }
 }

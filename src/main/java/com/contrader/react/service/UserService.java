@@ -3,6 +3,8 @@ package com.contrader.react.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.contrader.react.converter.ConverterAzienda;
+import com.contrader.react.dto.AziendaDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -63,4 +65,20 @@ public class UserService {
     public void deleteUser (UserDTO userDTO) {
         userRepository.delete(ConverterUser.toEntity(userDTO));
     }
+
+    public List<UserDTO> findAllByAziendaAndRuoloIsNotLike (AziendaDTO aziendaDTO, String ruolo){
+        return ConverterUser.toListDTO(userRepository.findAllByAziendaAndRuoloIsNotLike(ConverterAzienda.toEntity(aziendaDTO), ruolo));
+    }
+    
+    public List<UserDTO> findAllByRuoloIsNotLike (String ruolo) {
+        return ConverterUser.toListDTO(userRepository.findAllByRuoloIsNotLike(ruolo));
+    }
+    
+    public List<UserDTO> findAllByAziendaAndRuolo (AziendaDTO aziendaDTO, String ruolo){
+        return ConverterUser.toListDTO(userRepository.findAllByAziendaAndRuolo(ConverterAzienda.toEntity(aziendaDTO),ruolo));
+    }
+    public List<UserDTO> findAllByAziendaAndRuoloIn(AziendaDTO aziendaDTO, String[] ruoli){
+        return ConverterUser.toListDTO(userRepository.findAllByAziendaAndRuoloIn(ConverterAzienda.toEntity(aziendaDTO),ruoli));
+    }
+
 }

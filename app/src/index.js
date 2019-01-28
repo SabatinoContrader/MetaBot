@@ -13,6 +13,7 @@ import Chatbot from './components/chatBot';
 import Nodo from './components/nodo';
 import VisualizzaChat from './components/visualizzaChat';
 import ImportaChat from './components/importaChat';
+import User from './components/user';
 
 ReactDOM.render(
     <Router history={history}>
@@ -21,6 +22,7 @@ ReactDOM.render(
         <Route path="/home" component={Home} />
         <Route path="/chatBot" component={Chatbot} />
         <Route path="/nodo" component={Nodo} />
+        <Route path="/user" component={User}/>
         <Route path="/registrazione" component={Registrazione} />
         <Route path="/visualizzaChat" component={VisualizzaChat} />
         <Route path="/simulazioneChat" component={SimulazioneChat} />

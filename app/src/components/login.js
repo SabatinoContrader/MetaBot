@@ -1,7 +1,7 @@
 import React from 'react';
-import User from './../models/user';
 import history from './history';
 import { Link } from 'react-router-dom';
+
 const API = 'http://localhost:8080/users/login';
 
 export default class Login extends React.Component {
@@ -10,7 +10,9 @@ export default class Login extends React.Component {
     super(props);
 
     this.login = this.login.bind(this);
-    this.state = { u: new User(0, "", "", "", "") };
+  }
+  componentDidMount() {
+    localStorage.setItem( "currentUser", null);
   }
 
   render() {
@@ -52,13 +54,9 @@ export default class Login extends React.Component {
     fetch(API, {
       method: 'POST',
       body: formData,
-    })
-      .then(response => response.json())
-      .then(result => {
-        this.setState({ u: result })
-
-      })
-
-    history.push("home");
+    }).then(response => response.json())
+      .then(result => {localStorage.setItem( 'currentUser' ,JSON.stringify(result) )
+      });
+     history.push("/home");
   }
 }

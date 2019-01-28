@@ -12,9 +12,10 @@ export default class Navbar extends Component {
               <li className="nav-item" ><Link className="nav-link" to="/home">Home</Link></li>
               <li className="nav-item"><Link className="nav-link" to="/chatBot">Chatbot</Link></li>
               <li className="nav-item"><Link className="nav-link" to="/nodo">Nodo</Link></li>
+              <li className="nav-item"><Link className="nav-link" to="/user">Utenti</Link></li>
             </ul>
             <ul className="navbar-nav">
-              <li className="nav-item"><Link className="nav-link" to="/">Logout</Link></li>
+              <li className="nav-item"><Link onClick={() => localStorage.clear()} className="nav-link" to="/">Logout</Link></li>
             </ul>
           </div>
         </nav>
