@@ -7,12 +7,12 @@ export default class Home extends React.Component{
 	// }
 
 	render(){
-
+let userReq = JSON.parse(localStorage.getItem("currentUser"));
     return(
 <React.Fragment>
 <Navbar/>
       <div>
-         <h2>Benvenuto!</h2>
+         <h2>Benvenuto! {userReq.username}</h2>
          <p>Qui puoi creare la tua ChatBot Personale.</p>
       </div>
 </React.Fragment>

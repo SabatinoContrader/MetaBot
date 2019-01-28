@@ -1,0 +1,78 @@
+package main.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+import main.ConnectionSingleton;
+import main.controller.GestoreEccezioni;
+import main.model.Sintomo;
+
+public class SintomoDAO {
+
+	private final String QUERY_ALL = "select * from sympthom_type";
+	private final String QUERY_ALL2 = "select * from symptohm_position";
+	private final String QUERY_INSERT = "insert into sympthom_relation (idSympthom_type, postion_id) values (?,?)";
+
+	
+	public SintomoDAO() {
+
+    }
+	
+    public List <Sintomo> getAllSintomo () {
+        List<Sintomo> sintomo = new ArrayList<>();
+        Connection connection = ConnectionSingleton.getInstance();
+        try {
+           Statement statement = connection.createStatement();
+           ResultSet resultSet = statement.executeQuery(QUERY_ALL);
+           while (resultSet.next()) {
+               String nomeSintomo = resultSet.getString("idSympthom_type");
+               String posizioneSintomo = resultSet.getString("position_id");
+               sintomo.add(new Sintomo(nomeSintomo,posizioneSintomo));
+           }
+        } 
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return sintomo;
+    }
+    
+    
+    public List <Sintomo> getAllSintomo_Posizione () {
+        List<Sintomo> sintomo = new ArrayList<>();
+        Connection connection = ConnectionSingleton.getInstance();
+        try {
+           Statement statement = connection.createStatement();
+           ResultSet resultSet = statement.executeQuery(QUERY_ALL2);
+           while (resultSet.next()) {
+               String nomeSintomo = resultSet.getString("nomeSintomo");
+               String posizioneSintomo = resultSet.getString("posizioneSintomo");
+               sintomo.add(new Sintomo(nomeSintomo, posizioneSintomo));
+           }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return sintomo;
+    }
+	
+    public boolean insertSintomo(Sintomo sintomo) {
+        Connection connection = ConnectionSingleton.getInstance();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(QUERY_INSERT);
+            preparedStatement.setString(1, sintomo.getNomeSintomo());
+            preparedStatement.setString(2, sintomo.getPosizioneSintomo());
+            return preparedStatement.execute();
+        }
+        catch (SQLException e) {
+            GestoreEccezioni.getInstance().gestisciEccezione(e);
+            return false;
+        }
+
+    }
+	
+}
