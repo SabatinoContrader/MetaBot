@@ -85,12 +85,12 @@ export default class Nodo extends React.Component {
             <thead>
               <tr>
                 <th scope="col" />
-                <th scope="col">ID Nodo</th>
+                <th scope="col">ID </th>
                 <th scope="col">Testo</th>
-                <th scope="col">Nodo Padre</th>
-                <th scope="col">Tipo Nodo</th>
-                <th scope="col">utility</th>
-                <th scope="col">utility</th>
+                <th scope="col">Nodo padre</th>
+                <th scope="col">Label</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
               </tr>
             </thead>
             {this.state.lista.map((elem, i) => (
