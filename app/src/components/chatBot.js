@@ -2,6 +2,7 @@ import React from "react";
 import Navbar from "./navbar";
 import history from "./history";
 import "./../css/chatBot.css";
+import "./react-contextmenu.css";
 
 import { ContextMenuTrigger, ContextMenu, MenuItem } from "react-contextmenu"
 
@@ -210,7 +211,7 @@ export default class Chatbot extends React.Component {
                 </tbody>
 
               </table>
-              <ContextMenu id={MENU_TYPE}>
+              <ContextMenu id={MENU_TYPE} style={{ border: '1px solid white' }}>
                 <MenuItem onClick={this.deleteChat}>Elimina</MenuItem>
                 <MenuItem onClick={this.modificaChat}> Modifica</MenuItem>
                 <MenuItem onClick={this.visualizzaChat}> Visualizza</MenuItem>
