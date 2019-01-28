@@ -68,13 +68,15 @@ export default class User extends React.Component {
             .then(response => response.json())
             .then(result => {
                 if (result) {
+                    alert("Errore");
+                } else {
                     alert("Utente eliminato");
-                    //this.getUtentiGestibili();
-                } else alert("Errore");
+                    this.getUtentiGestibili();
+                } 
             });
     }
 
-    submitAggiungiUtente(event){
+    submitAggiungiUtente = event =>{
         event.preventDefault();
         const formData = new FormData(event.target);
 
@@ -85,8 +87,8 @@ export default class User extends React.Component {
             .then(response => response.json())
             .then( result => {
                 if(result) {
-                    this.getUtentiGestibili();
                     alert("Utente creato");
+                     this.getUtentiGestibili();
                 }else alert("Errore durante la creazione");
             });
     }

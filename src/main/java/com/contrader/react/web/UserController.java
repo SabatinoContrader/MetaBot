@@ -52,8 +52,8 @@ public class UserController {
         return userService.modifyUser(id,updateUserDTO);
     }
     @RequestMapping(value = "/delete/{id}" , method = RequestMethod.GET)
-    public void delete(@PathVariable ("id") Integer id){
-        userService.deleteUser(id);
+    public boolean delete(@PathVariable ("id") Integer id){
+        return userService.deleteUser(id);
     }
     /*
     private void visualUser(HttpServletRequest request){

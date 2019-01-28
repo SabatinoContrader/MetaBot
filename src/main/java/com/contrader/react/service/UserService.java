@@ -58,8 +58,9 @@ public class UserService {
         return userRepository.save(ConverterUser.toEntity(oldDTO)) != null;
     }
     
-    public void deleteUser (Integer id) {
+    public boolean deleteUser (Integer id) {
         userRepository.deleteById(id);
+        return userRepository.existsById(id);
     }
     
     public void deleteUser (UserDTO userDTO) {
