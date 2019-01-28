@@ -15,7 +15,6 @@ const MENU_TYPE = 'SIMPLE';
 
 const API = "http://localhost:8080/Chatbot";
 const APINODO = "http://localhost:8080/Nodo";
-const APIUSER = "http://localhost:8080/users/";
 
 const Modal = ({ show, children, handleClose }) => {
   const showHideClassName = show ? "modal display-block" : "modal display-none";
@@ -43,10 +42,9 @@ export default class Chatbot extends React.Component {
       userList: [],
       nodoPadreList: [],
       show: false,
-      chatBotNuovo: new ChatbotDTO(0, "", new UserDTO(0, "", "", "", ""), new NodoDTO(0, "", null, "", "")),
+      chatBotNuovo: new ChatbotDTO(0, "", JSON.parse(localStorage.getItem("currentUser")), new NodoDTO(0, "", null, "", "")),
       chatBotModif: new ChatbotDTO(0, "", new UserDTO(0, "", "", "", ""), new NodoDTO(0, "", null, "", "")),
     };
-    this.getAllUser = this.getAllUser.bind(this);
     this.getAllChat = this.getAllChat.bind(this);
     this.getAllNodo = this.getAllNodo.bind(this);
   }
@@ -60,28 +58,17 @@ export default class Chatbot extends React.Component {
   };
 
   componentDidMount() {
-    this.getAllUser();
     this.getAllChat();
     this.getAllNodo();
   }
 
   getAllNodo() {
-    fetch(APINODO + "/all", {
+    fetch(APINODO + "/findByNodoPadreIsNull", {
       method: "GET"
     })
       .then(response => response.json())
       .then(result => {
         this.setState({ nodoPadreList: result });
-      });
-  }
-
-  getAllUser() {
-    fetch(APIUSER + "/all", {
-      method: "GET"
-    })
-      .then(response => response.json())
-      .then(result => {
-        this.setState({ userList: result });
       });
   }
 
@@ -236,10 +223,8 @@ export default class Chatbot extends React.Component {
                 <ModalChatBot
                   mode={this.state.mode}
                   handleClose={this.hideModal}
-                  userList={this.state.userList}
                   nodoPadreList={this.state.nodoPadreList}
                   nomeChatbotNuovoChange={this.nomeChatbotNuovoChange.bind(this)}
-                  userChatbotNuovoChange={this.userChatbotNuovoChange.bind(this)}
                   nodoPadreChatbotNuovoChange={this.nodoPadreChatbotNuovoChange.bind(this)}
                   insertChatbot={this.insertChatbot.bind(this)}
 
@@ -278,12 +263,6 @@ export default class Chatbot extends React.Component {
   nomeChatbotNuovoChange(evt) {
     let chatBotNuovo = { ...this.state.chatBotNuovo };
     chatBotNuovo.nomeChatbot = evt.target.value;
-    this.setState({ chatBotNuovo });
-  }
-
-  userChatbotNuovoChange(evt) {
-    let chatBotNuovo = { ...this.state.chatBotNuovo };
-    chatBotNuovo.user.idUser = evt.target.value;
     this.setState({ chatBotNuovo });
   }
 

@@ -52,6 +52,11 @@ public class NodoController {
 	public List<NodoDTO> all() {
 		return nodoService.findAllNodesDTO();
 	}
+	
+	@RequestMapping(value = "/findByNodoPadreIsNull", method = RequestMethod.GET)
+	public List<NodoDTO> findByNodoPadreIsNull() {
+		return nodoService.findByNodoPadreIsNull();
+	}
 
 	@RequestMapping(value = "/getNodo", method = RequestMethod.GET)
 	public NodoDTO getNodo(@RequestParam("idNodo") Integer idNodo) {

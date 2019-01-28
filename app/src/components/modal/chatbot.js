@@ -24,17 +24,6 @@ export default class ModalChatBot extends Component {
           {this.props.mode === "insert" ? (
             <React.Fragment>
           <div className="form-group">
-            <label for="user">User:</label>
-            {this.props.userList.map((elem, i) => (
-              <React.Fragment>
-                <input type="radio" name="user" value={elem.idUser}
-                  onChange={event => this.props.userChatbotNuovoChange(event)}
-                />
-                {elem.username}
-              </React.Fragment>
-            ))}
-          </div>
-          <div className="form-group">
             <label for="nodoPadre">Nodo Padre:</label>
             <select className="form-control" name="nodoPadreSelezionato" onChange={event => this.props.nodoPadreChatbotNuovoChange(event)}>
             <option type="radio" name="nodoPadre" value="0">Selezionare Nodo Padre</option>
