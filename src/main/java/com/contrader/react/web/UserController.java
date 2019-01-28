@@ -199,7 +199,8 @@ public class UserController {
             list = userService.findAllByRuoloIsNotLike("USER");
         }
         if(requestingUser.getRuolo().equals("CHATMASTER")){
-            list = userService.findAllByAziendaAndRuolo(requestingUser.getAziendaDTO(),requestingUser.getRuolo());
+        	String[] ruoli = {"CHATMASTER","UTENTE"};
+            list = userService.findAllByAziendaAndRuoloIn(requestingUser.getAziendaDTO(),ruoli);
         }
         if(requestingUser.getRuolo().toUpperCase().equals("ADMIN") && !requestingUser.getAziendaDTO().getNomeAzienda().toUpperCase().equals("CONTRADER")) {
             String[] ruoli = {"ADMIN","CHATMASTER"};

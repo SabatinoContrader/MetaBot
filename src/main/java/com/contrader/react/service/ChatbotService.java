@@ -71,6 +71,11 @@ public class ChatbotService {
 		return ConverterChatbot.toListDTO(chatbotRepository.findAllByUser(ConverterUser.toEntity(userDTO)));
 	}
 
+	public List<ChatbotDTO> getAllByUtenteAndAzienda(Integer idAzienda) {
+		return ConverterChatbot.toListDTO(chatbotRepository.getAllByUtenteAndAzienda(idAzienda));
+	}
+
+	
 	public ChatbotDTO inserisciChatbotDTO(ChatbotDTO chatbotDTO) {
 		return ConverterChatbot.toDTO(chatbotRepository.save(ConverterChatbot.toEntity(chatbotDTO)));
 	}

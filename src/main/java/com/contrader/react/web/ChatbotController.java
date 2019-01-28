@@ -49,7 +49,13 @@ public class ChatbotController {
 	public List<ChatbotDTO> all() {
 		return chatbotService.getAll();
 	}
-
+	
+	
+	@RequestMapping(value = "/allByUtente", method = RequestMethod.GET)
+	public List<ChatbotDTO> allByUtente(@RequestParam("idAzienda") Integer idAzienda) {
+		return chatbotService.getAllByUtenteAndAzienda(idAzienda);
+	}
+	
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
 	public void delete(@RequestParam("idChatbot") Integer idChatbot) {
 		chatbotService.deleteChatbotByIdChatbot(idChatbot);

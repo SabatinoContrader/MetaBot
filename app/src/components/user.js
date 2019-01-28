@@ -113,7 +113,15 @@ export default class User extends React.Component {
                             <option value = "CHATMASTER"> CHATMASTER</option>
                     </select>
                 </div>;
-        else ruoloInput = <input hidden name="ruolo" type="text" value="CHATMASTER" id="ruolo_field"/>;
+        else ruoloInput = 
+        ruoloInput =
+                <div className = "form-group row">
+                    <label htmlFor="ruolo_field">Ruolo </label>
+                    <select name="ruolo" className="custom-select" id="ruolo_field">
+                            <option defaultValue value = "CHATMASTER"> CHATMASTER </option>
+                            <option value = "UTENTE"> UTENTE</option>
+                    </select>
+                </div>;
 
         if(userReq.aziendaDTO.nomeAzienda.toUpperCase() === "CONTRADER")
             aziendaInput =

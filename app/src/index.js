@@ -14,6 +14,7 @@ import Nodo from './components/nodo';
 import VisualizzaChat from './components/visualizzaChat';
 import ImportaChat from './components/importaChat';
 import User from './components/user';
+import ChatSimulaUtente from './components/chatsimulautente';
 
 ReactDOM.render(
     <Router history={history}>
@@ -27,6 +28,7 @@ ReactDOM.render(
         <Route path="/visualizzaChat" component={VisualizzaChat} />
         <Route path="/simulazioneChat" component={SimulazioneChat} />
         <Route path="/importaChat" component={ImportaChat} />
+        <Route path="/chatSimulaUtente" component={ChatSimulaUtente} />
       </div>
     </Router>
   , document.getElementById('root'));

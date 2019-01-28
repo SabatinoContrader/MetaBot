@@ -47,11 +47,11 @@ export default class Login extends React.Component {
 
 
   }
-  login(event) {
+  login = async (event) => {
     event.preventDefault();
     const formData = new FormData(event.target);
 
-    fetch(API, {
+    await fetch(API, {
       method: 'POST',
       body: formData,
     }).then(response => response.json())
